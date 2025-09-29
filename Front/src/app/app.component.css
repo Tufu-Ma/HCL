@@ -1,0 +1,7 @@
+.background-wrapper {
+  background-image: url("../assets/testBG.jpg");
+  background-size: cover;      
+  background-position: center; 
+  background-repeat: no-repeat;
+  max-height: 100vh;         
+}
