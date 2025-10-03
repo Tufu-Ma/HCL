@@ -1,6 +1,14 @@
+.background-wrapper {
+  background-image: url("../../../assets/testBG.jpg");
+  background-size: cover;      
+  background-position: center; 
+  background-repeat: no-repeat;
+  max-height: 100vh;
+  padding-top: 100vh;  
+}
 /* ลบกฎนี้ทิ้ง หรือเปลี่ยนชื่อคลาส */
 .container{
-  padding-top: 100vh;
+  padding-top: 10px;
 }
 .page-box{
   background-color: #ffffff;
@@ -36,3 +44,4 @@
   background:#ff00b8; color:#fff; border:none; cursor:pointer;
   box-shadow: 0 0 0 3px rgba(255,0,184,.25);
 }
+

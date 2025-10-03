@@ -15,11 +15,18 @@ export class HomeComponent implements OnInit {
   constructor(private gameApi: GameService) {}
 
   ngOnInit(): void {
-    this.gameApi.listGames().subscribe({
-      next: (res) => { this.games = res; this.loading = false; },
-      error: (err) => { this.error = 'โหลดข้อมูลไม่สำเร็จ'; this.loading = false; console.error(err); }
-    });
-  }
+  this.gameApi.listGames().subscribe({
+    next: (res) => { 
+      this.games = res.filter(g => g.active); // ✅ เก็บเฉพาะ active
+      this.loading = false; 
+    },
+    error: (err) => { 
+      this.error = 'โหลดข้อมูลไม่สำเร็จ'; 
+      this.loading = false; 
+      console.error(err); 
+    }
+  });
+}
 
   trackById = (_: number, g: Game) => g.id;
 }
