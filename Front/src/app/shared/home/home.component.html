@@ -1,20 +1,19 @@
 <app-header-navbar></app-header-navbar>
-
+<div class="background-wrapper"></div>
 <div class="container">
   <div class="row">
     <div class="col-10 offset-1 page-box">
       <h2 class="mb-3">เติมเกม UID</h2>
 
       <div *ngIf="loading">กำลังโหลด...</div>
-<div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
+      <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
 
-<div class="cards" *ngIf="!loading && !error">
-  <a class="card-item" *ngFor="let g of games; trackBy: trackById"
-     [routerLink]="['/game', g.slug || g.id]">
-    <img [src]="g.coverurl || 'assets/placeholder.jpg'" [alt]="g.name">
-    <div class="name">{{ g.name }}</div>
-  </a>
-</div>
+      <div class="cards" *ngIf="!loading && !error">
+        <a class="card-item" *ngFor="let g of games; trackBy: trackById" [routerLink]="['/game', g.slug || g.id]">
+          <img [src]="g.coverurl || 'assets/placeholder.jpg'" [alt]="g.name">
+          <div class="name">{{ g.name }}</div>
+        </a>
+      </div>
 
     </div>
   </div>
