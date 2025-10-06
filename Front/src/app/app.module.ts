@@ -10,6 +10,7 @@ import { FooterNavbarComponent } from './format/footer-navbar/footer-navbar.comp
 import { HomeComponent } from './shared/home/home.component';
 import { AddGameComponent } from './shared/add-game/add-game.component';
 import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail.component';
+import { AboutMeComponent } from './shared/about-me/about-me.component';
 
 
 
@@ -21,6 +22,7 @@ import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail
     HomeComponent,
     AddGameComponent,
     AddGameDetailComponent,
+    AboutMeComponent,
 
   ],
   imports: [
@@ -31,7 +33,8 @@ import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail
     ReactiveFormsModule
     
   ],
+  providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
