@@ -1,4 +1,12 @@
-.topbar { background:#6e6e6ea9; }
+.topbar { 
+  background:#6e6e6ea9; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
 .topbar__inner{
   display:flex;
   align-items:center;
