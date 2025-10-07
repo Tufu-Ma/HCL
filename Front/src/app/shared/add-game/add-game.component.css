@@ -15,3 +15,55 @@
   transform: translateY(-2px);
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.12)!important;
 }
+
+/* เปลี่ยนสีข้อความหัวข้อและคำอธิบายเป็นสีขาว */
+h2.h4, h2.h5 {
+  color: #ffffff !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+}
+
+/* คำอธิบายใต้หัวข้อ */
+.text-muted {
+  color: #000000 !important;
+  opacity: 0.9;
+}
+
+/* สำหรับ small text */
+small.text-muted {
+  color: #ffffff !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  opacity: 0.8;
+}
+
+/* เพิ่มพื้นหลังและ styling สำหรับ component */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-image: url("../../../assets/bg5.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* เพิ่ม overlay เพื่อให้อ่านง่าย */
+:host::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* ให้เนื้อหาอยู่เหนือ overlay */
+.container {
+  position: relative;
+  z-index: 2;
+  padding-top: 100px; /* เว้นที่สำหรับ navbar */
+}

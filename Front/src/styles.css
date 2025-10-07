@@ -4,6 +4,9 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #47a9eb;   /* สีต่อจากภาพ */
+  background-image: url("assets/bg5.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-attachment: fixed;   /* ให้ภาพอยู่กับที่เวลาเลื่อน */
 }

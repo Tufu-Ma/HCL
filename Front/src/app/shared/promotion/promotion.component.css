@@ -5,12 +5,11 @@
   display: block;
   min-height: 100vh;               /* ความสูงขั้นต่ำเต็มหน้าจอ */
   position: relative;              /* เพิ่ม position relative */
-  background-image: url("../../../assets/bg2.png");
+  background-image: url("../../../assets/bg3.png");
   background-size: cover;           /* ขยายภาพให้เต็มพื้นที่ */
   background-position: center;      /* จัดภาพให้อยู่กึ่งกลาง */
   background-repeat: no-repeat;     /* ไม่ให้ภาพซ้ำ */
-  background-attachment: fixed;     /* ให้พื้นหลังติดกับ viewport */
-  /* Force refresh */
+  background-attachment: fixed;     /* กลับเป็น fixed เพื่อให้พื้นหลังไม่เลื่อน */
 }
 
 /* ลบ .background-wrapper ที่ไม่จำเป็น เพราะใช้ :host และ :host::before แล้ว */
@@ -35,7 +34,7 @@
    =========================================== */
 :host::before {
   content: '';
-  position: fixed;                 /* ใช้ fixed เพื่อให้เบลอคลุมทั้งหน้าจอเสมอ */
+  position: fixed;                 /* กลับไปใช้ fixed เพื่อให้เบลอคลุมทั้งหน้าจอเสมอ */
   top: 0;
   left: 0;
   width: 100vw;                    /* ใช้ 100vw เพื่อให้แน่ใจว่าคลุมเต็มความกว้าง */
@@ -63,9 +62,9 @@
 }
 
 /* ===========================================
-   ส่วนแสดงข้อมูลโปรไฟล์/บริษัท
+   ส่วนแสดงข้อมูลโปรโมชั่น
    =========================================== */
-.profile-section {
+.promotion-section {
   text-align: center;              /* จัดข้อความกึ่งกลาง */
   opacity: 0;                      /* เริ่มต้นโปร่งใส */
   animation: fadeInContent 1.2s ease-out 0.3s forwards; /* เอฟเฟกต์ค่อยๆ ปรากฏ */
@@ -84,13 +83,13 @@
   animation: fadeInContent 1s ease-out 0.1s forwards; /* เอฟเฟกต์ปรากฏ */
 }
 
-/* รูปโปรไฟล์/โลโก้ */
-.profile-image {
+/* รูปโลโก้โปรโมชั่น */
+.promotion-image {
   display: flex;                   /* ใช้ flexbox */
   justify-content: center;         /* จัดรูปให้อยู่กึ่งกลาง */
 }
 
-.profile-image img {
+.promotion-image img {
   width: 180px;                    /* ความกว้างรูปใหญ่ขึ้น */
   height: 180px;                   /* ความสูงรูปใหญ่ขึ้น */
   object-fit: cover;               /* ปรับขนาดรูปให้พอดีกรอบ */
@@ -103,38 +102,108 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* เงารอบรูปเพื่อให้เด่น */
 }
 
-/* ชื่อโปรไฟล์ */
-.profile-section h3 {
-  color: #ffffff;                  /* สีขาวให้เห็นชัดบนพื้นหลังเบลอ */
+/* หัวข้อรองโปรโมชั่น */
+.promotion-subtitle {
+  color: #ffeb3b;                  /* สีเหลืองสดใสสำหรับโปรโมชั่น */
   font-weight: bold;               /* ตัวหนา */
   margin: 0 0 25px 0;              /* ปรับ margin ให้เหมาะสม */
-  font-size: 28px;                 /* ขนาดตัวอักษรใหญ่ขึ้น */
+  font-size: 32px;                 /* ขนาดตัวอักษรใหญ่ขึ้น */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* เงาตัวอักษรเข้มขึ้น */
   opacity: 0;                      /* เริ่มต้นโปร่งใส */
   animation: fadeInContent 1s ease-out 0.6s forwards; /* เอฟเฟกต์ปรากฏ */
 }
 
-/* ข้อความแนะนำตัว/บริษัท */
-.bio {
-  font-size: 16px;                 /* ขนาดตัวอักษร */
+/* คำอธิบายโปรโมชั่น */
+.promotion-description {
+  font-size: 18px;                 /* ขนาดตัวอักษรใหญ่ขึ้น */
   line-height: 1.6;                /* ระยะห่างบรรทัด */
   color: #ffffff;                  /* สีขาวเพื่อให้เห็นชัดบนพื้นหลังเบลอ */
-  margin: 0 0 30px 0;              /* ปรับ margin ให้เหมาะสม */
+  margin: 0 0 40px 0;              /* ปรับ margin ให้เหมาะสม */
   padding: 0 20px;                 /* เพิ่ม padding ด้านข้าง */
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* เงาตัวอักษรเพื่อให้อ่านง่าย */
   opacity: 0;                      /* เริ่มต้นโปร่งใส */
   animation: fadeInContent 1s ease-out 0.7s forwards; /* เอฟเฟกต์ปรากฏ */
 }
 
-.contact {
-  font-size: 16px;                 /* ขนาดตัวอักษร */
-  line-height: 1.6;                /* ระยะห่างบรรทัด */
-  color: #ffffff;                  /* สีขาวเพื่อให้เห็นชัดบนพื้นหลังเบลอ */
-  margin: 0 0 30px 0;              /* ปรับ margin ให้เหมาะสม */
-  padding: 0 20px;                 /* เพิ่ม padding ด้านข้าง */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* เงาตัวอักษรเพื่อให้อ่านง่าย */
-  opacity: 0;                      /* เริ่มต้นโปร่งใส */
-  animation: fadeInContent 1s ease-out 0.7s forwards; /* เอฟเฟกต์ปรากฏ */
+/* ส่วนคุณสมบัติพิเศษ */
+.features-section {
+  margin: 30px 0;
+  opacity: 0;
+  animation: fadeInContent 1s ease-out 0.8s forwards;
+}
+
+.features-section h4 {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  color: #ffffff;
+  font-size: 16px;
+  margin: 10px 0;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #ffeb3b;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  transition: background 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ส่วนปุ่มการกระทำ */
+.action-section {
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeInContent 1s ease-out 0.9s forwards;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  color: white;
+  box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 /* ===========================================
@@ -183,29 +252,42 @@
     margin-bottom: 30px;           /* ลดระยะห่าง */
   }
   
-  /* รูปโปรไฟล์ - ขนาดเล็กลงสำหรับมือถือ */
-  .profile-image img {
+  /* รูปโลโก้โปรโมชั่น - ขนาดเล็กลงสำหรับมือถือ */
+  .promotion-image img {
     width: 140px;                  /* ความกว้างเล็กลง */
     height: 140px;                 /* ความสูงเล็กลง */
     margin-bottom: 20px;           /* ลดระยะห่างด้านล่าง */
   }
   
-  /* ชื่อโปรไฟล์ - ขนาดตัวอักษรเล็กลงสำหรับมือถือ */
-  .profile-section h3 {
-    font-size: 24px;               /* ลดขนาดตัวอักษร */
+  /* หัวข้อรองโปรโมชั่น - ขนาดตัวอักษรเล็กลงสำหรับมือถือ */
+  .promotion-subtitle {
+    font-size: 26px;               /* ลดขนาดตัวอักษร */
     margin-bottom: 20px;           /* ลดระยะห่าง */
   }
   
-  /* ข้อความ bio - ปรับสำหรับมือถือ */
-  .bio {
-    font-size: 14px;               /* ลดขนาดตัวอักษร */
+  /* คำอธิบายโปรโมชั่น - ปรับสำหรับมือถือ */
+  .promotion-description {
+    font-size: 16px;               /* ลดขนาดตัวอักษร */
     padding: 0 10px;               /* ลด padding ด้านข้าง */
     margin-bottom: 25px;           /* ลดระยะห่าง */
   }
   
-  /* ข้อมูลติดต่อ - ปรับสำหรับมือถือ */
-  .contact-info p {
-    font-size: 13px;               /* ลดขนาดตัวอักษร */
+  /* คุณสมบัติพิเศษ - ปรับสำหรับมือถือ */
+  .features-section h4 {
+    font-size: 18px;
   }
+  
+  .feature-item {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  /* ปุ่มการกระทำ - ปรับสำหรับมือถือ */
+  .btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    margin: 8px;
+    font-size: 14px;
+  }
+
 }
 
