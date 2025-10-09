@@ -12,7 +12,20 @@
   background-attachment: fixed;     /* กลับเป็น fixed เพื่อให้พื้นหลังไม่เลื่อน */
 }
 
-/* ลบ .background-wrapper ที่ไม่จำเป็น เพราะใช้ :host และ :host::before แล้ว */
+/* ===========================================
+   Overlay เบลอทับพื้นหลัง
+   =========================================== */
+:host::before {
+  content: '';
+  position: fixed;                 /* กลับไปใช้ fixed เพื่อให้เบลอคลุมทั้งหน้าจอเสมอ */
+  top: 0;
+  left: 0;
+  width: 100vw;                    /* ใช้ 100vw เพื่อให้แน่ใจว่าคลุมเต็มความกว้าง */
+  height: 100vh;                   /* ใช้ 100vh เพื่อให้คลุมเต็มความสูงหน้าจอ */
+  background: rgba(0, 0, 0, 0.4);              /* overlay สีดำโปร่งใส */
+  backdrop-filter: blur(8px);                  /* เบลอพื้นหลัง */
+  z-index: 0;                                  /* ลด z-index ให้ต่ำกว่า navbar */
+}
 
 /* ===========================================
    Container หลักของเนื้อหา (วางทับบนภาพพื้นหลัง)
@@ -30,28 +43,13 @@
 }
 
 /* ===========================================
-   Overlay เบลอทับพื้นหลัง
-   =========================================== */
-:host::before {
-  content: '';
-  position: fixed;                 /* กลับไปใช้ fixed เพื่อให้เบลอคลุมทั้งหน้าจอเสมอ */
-  top: 0;
-  left: 0;
-  width: 100vw;                    /* ใช้ 100vw เพื่อให้แน่ใจว่าคลุมเต็มความกว้าง */
-  height: 100vh;                   /* ใช้ 100vh เพื่อให้คลุมเต็มความสูงหน้าจอ */
-  background: rgba(0, 0, 0, 0.4);              /* overlay สีดำโปร่งใส */
-  backdrop-filter: blur(8px);                  /* เบลอพื้นหลัง */
-  z-index: 0;                                  /* ลด z-index ให้ต่ำกว่า navbar */
-}
-
-/* ===========================================
-   กล่องเนื้อหาหลัก (ไม่มี background แล้ว)
+   กล่องเนื้อหาหลัก
    =========================================== */
 .page-box {
-  max-width: 700px;                              /* เพิ่มความกว้างเพื่อรองรับเนื้อหาเพิ่มเติม */
+  max-width: 1200px;                             /* เพิ่มความกว้างเพื่อรองรับการ์ดหลายอัน */
   width: 100%;                                   /* ความกว้าง 100% */
   margin: 0 auto;                                /* จัดกึ่งกลางแนวนอน */
-  padding: 40px 20px;                            /* ลด padding ด้านข้าง */
+  padding: 40px 20px;                            /* padding เหมาะสม */
   text-align: center;                            /* จัดข้อความทั้งหมดให้อยู่กึ่งกลาง */
   /* Animation Properties */
   opacity: 0;                                    /* เริ่มต้นโปร่งใส */
@@ -62,148 +60,178 @@
 }
 
 /* ===========================================
-   ส่วนแสดงข้อมูลโปรโมชั่น
+   หัวข้อหลัก
    =========================================== */
-.promotion-section {
-  text-align: center;              /* จัดข้อความกึ่งกลาง */
-  opacity: 0;                      /* เริ่มต้นโปร่งใส */
-  animation: fadeInContent 1.2s ease-out 0.3s forwards; /* เอฟเฟกต์ค่อยๆ ปรากฏ */
-}
-
-/* ลบ CSS ที่ไม่จำเป็นออก เพราะจะปรับ HTML structure ใหม่ */
-
-/* หัวข้อหลัก */
-.page-box h2 {
-  color: #ffffff;                  /* สีขาวให้เห็นชัดบนพื้นหลังเบลอ */
-  font-weight: bold;               /* ตัวหนา */
-  font-size: 32px;                 /* ขนาดตัวอักษรใหญ่ขึ้น */
-  margin-bottom: 40px;             /* เพิ่มระยะห่างด้านล่าง */
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* เงาตัวอักษรเข้มขึ้น */
+h2 {
+  color: white !important;
+  text-align: center;
+  margin-bottom: 40px !important;
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
   opacity: 0;                      /* เริ่มต้นโปร่งใส */
   animation: fadeInContent 1s ease-out 0.1s forwards; /* เอฟเฟกต์ปรากฏ */
 }
 
-/* รูปโลโก้โปรโมชั่น */
-.promotion-image {
-  display: flex;                   /* ใช้ flexbox */
-  justify-content: center;         /* จัดรูปให้อยู่กึ่งกลาง */
-}
-
-.promotion-image img {
-  width: 180px;                    /* ความกว้างรูปใหญ่ขึ้น */
-  height: 180px;                   /* ความสูงรูปใหญ่ขึ้น */
-  object-fit: cover;               /* ปรับขนาดรูปให้พอดีกรอบ */
-  border: 4px solid #ffffff;       /* ขอบสีขาวให้เห็นชัดบนพื้นหลังเบลอ */
-  transition: transform 0.3s ease; /* เอฟเฟกต์ hover */
+/* ===========================================
+   Promotion Cards Layout
+   =========================================== */
+.promotion-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
   opacity: 0;                      /* เริ่มต้นโปร่งใส */
-  animation: fadeInContent 1s ease-out 0.5s forwards; /* เอฟเฟกต์ปรากฏ */
-  display: block;                  /* ทำให้เป็น block element */
-  margin: 0 auto 30px auto;        /* จัดกึ่งกลางและเพิ่ม margin-bottom */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* เงารอบรูปเพื่อให้เด่น */
+  animation: fadeInContent 1.2s ease-out 0.3s forwards; /* เอฟเฟกต์ปรากฏ */
 }
 
-/* หัวข้อรองโปรโมชั่น */
-.promotion-subtitle {
-  color: #ffeb3b;                  /* สีเหลืองสดใสสำหรับโปรโมชั่น */
-  font-weight: bold;               /* ตัวหนา */
-  margin: 0 0 25px 0;              /* ปรับ margin ให้เหมาะสม */
-  font-size: 32px;                 /* ขนาดตัวอักษรใหญ่ขึ้น */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* เงาตัวอักษรเข้มขึ้น */
-  opacity: 0;                      /* เริ่มต้นโปร่งใส */
-  animation: fadeInContent 1s ease-out 0.6s forwards; /* เอฟเฟกต์ปรากฏ */
+@media (max-width: 1200px) { 
+  .promotion-cards { 
+    grid-template-columns: repeat(2,1fr);
+  } 
 }
 
-/* คำอธิบายโปรโมชั่น */
-.promotion-description {
-  font-size: 18px;                 /* ขนาดตัวอักษรใหญ่ขึ้น */
-  line-height: 1.6;                /* ระยะห่างบรรทัด */
-  color: #ffffff;                  /* สีขาวเพื่อให้เห็นชัดบนพื้นหลังเบลอ */
-  margin: 0 0 40px 0;              /* ปรับ margin ให้เหมาะสม */
-  padding: 0 20px;                 /* เพิ่ม padding ด้านข้าง */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* เงาตัวอักษรเพื่อให้อ่านง่าย */
-  opacity: 0;                      /* เริ่มต้นโปร่งใส */
-  animation: fadeInContent 1s ease-out 0.7s forwards; /* เอฟเฟกต์ปรากฏ */
+@media (max-width: 768px) { 
+  .promotion-cards { 
+    grid-template-columns: repeat(1,1fr);
+  } 
 }
 
-/* ส่วนคุณสมบัติพิเศษ */
-.features-section {
-  margin: 30px 0;
-  opacity: 0;
-  animation: fadeInContent 1s ease-out 0.8s forwards;
-}
-
-.features-section h4 {
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-.features-list {
-  list-style: none;
+.promotion-card-item {
+  display: flex; 
+  flex-direction: column; 
+  text-decoration: none;
+  text-align: left; 
+  color: #eee;
+  background: radial-gradient(100% 120% at 0% 0%, #450000, #000000);
+  border-radius: 16px; 
   padding: 0;
-  margin: 0;
-  text-align: left;
-  max-width: 400px;
-  margin: 0 auto;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 12px 30px rgba(0,0,0,.35);
+  transition: transform .15s, box-shadow .15s, opacity 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  /* Animation Properties */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.promotion-card-item:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 0 0 1px rgba(255, 0, 0, 0.5), 0 14px 36px rgba(0,0,0,.5); 
+}
+
+/* Animation delays สำหรับแต่ละการ์ด */
+.promotion-card-item:nth-child(1) { animation-delay: 0.4s; }
+.promotion-card-item:nth-child(2) { animation-delay: 0.5s; }
+.promotion-card-item:nth-child(3) { animation-delay: 0.6s; }
+.promotion-card-item:nth-child(4) { animation-delay: 0.7s; }
+.promotion-card-item:nth-child(5) { animation-delay: 0.8s; }
+.promotion-card-item:nth-child(6) { animation-delay: 0.9s; }
+
+.promotion-thumb { 
+  position: relative;
+  aspect-ratio: 16/9; 
+  border-radius: 16px 16px 0 0; 
+  overflow: hidden; 
+  background: #2b0000; 
+}
+
+.promotion-thumb img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  display: block; 
+}
+
+.discount-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.promotion-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.promotion-title { 
+  font-weight: 700; 
+  color: #fff; 
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.promotion-subtitle {
+  color: #ffeb3b;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.promotion-description {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.promotion-features {
+  margin-bottom: 16px;
 }
 
 .feature-item {
-  color: #ffffff;
-  font-size: 16px;
-  margin: 10px 0;
-  padding: 10px 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  border-left: 4px solid #ffeb3b;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 13px;
+  margin: 6px 0;
+  line-height: 1.3;
 }
 
-.feature-item:hover {
-  background: rgba(255, 255, 255, 0.2);
+.feature-icon {
+  color: #4caf50;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 12px;
 }
 
-/* ส่วนปุ่มการกระทำ */
-.action-section {
-  margin-top: 40px;
-  opacity: 0;
-  animation: fadeInContent 1s ease-out 0.9s forwards;
+.more-features {
+  color: #ffeb3b;
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 6px;
 }
 
-.btn-primary, .btn-secondary {
-  padding: 12px 30px;
-  margin: 10px;
+.promotion-action {
+  margin-top: auto;
+}
+
+.btn-select {
+  width: 100%;
+  padding: 12px;
   border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #cc0000, #ff4444);
+  color: #fff;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
 }
 
-.btn-primary {
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-  color: white;
-  box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+.btn-select:hover {
+  background: linear-gradient(45deg, #aa0000, #cc3333);
+  transform: translateY(-1px);
 }
 
 /* ===========================================
@@ -231,63 +259,63 @@
   }
 }
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ===========================================
    การปรับแต่งสำหรับหน้าจอมือถือ (Responsive Design)
    =========================================== */
 @media (max-width: 768px) {
-  /* Container - ปรับ padding สำหรับมือถือ */
   .container {
-    padding: 100px 15px 40px 15px;  /* เพิ่ม padding-top สำหรับมือถือ */
+    padding: 30px 15px;
   }
   
-  /* กล่องเนื้อหาหลัก - ลดระยะห่างภายใน */
   .page-box {
-    padding: 30px 15px;            /* ลด padding สำหรับมือถือ */
-    max-width: 100%;               /* ใช้ความกว้างเต็มสำหรับมือถือ */
+    padding: 15px;
   }
   
-  /* หัวข้อหลัก - ขนาดเล็กลงสำหรับมือถือ */
-  .page-box h2 {
-    font-size: 28px;               /* ลดขนาดตัวอักษร */
-    margin-bottom: 30px;           /* ลดระยะห่าง */
+  h2 {
+    font-size: 28px !important;
+    margin-bottom: 20px !important;
   }
   
-  /* รูปโลโก้โปรโมชั่น - ขนาดเล็กลงสำหรับมือถือ */
-  .promotion-image img {
-    width: 140px;                  /* ความกว้างเล็กลง */
-    height: 140px;                 /* ความสูงเล็กลง */
-    margin-bottom: 20px;           /* ลดระยะห่างด้านล่าง */
+  .promotion-cards {
+    gap: 15px;
   }
   
-  /* หัวข้อรองโปรโมชั่น - ขนาดตัวอักษรเล็กลงสำหรับมือถือ */
+  .promotion-content {
+    padding: 16px;
+  }
+  
+  .promotion-title {
+    font-size: 16px;
+  }
+  
   .promotion-subtitle {
-    font-size: 26px;               /* ลดขนาดตัวอักษร */
-    margin-bottom: 20px;           /* ลดระยะห่าง */
+    font-size: 14px;
   }
   
-  /* คำอธิบายโปรโมชั่น - ปรับสำหรับมือถือ */
   .promotion-description {
-    font-size: 16px;               /* ลดขนาดตัวอักษร */
-    padding: 0 10px;               /* ลด padding ด้านข้าง */
-    margin-bottom: 25px;           /* ลดระยะห่าง */
-  }
-  
-  /* คุณสมบัติพิเศษ - ปรับสำหรับมือถือ */
-  .features-section h4 {
-    font-size: 18px;
+    font-size: 13px;
   }
   
   .feature-item {
-    font-size: 14px;
-    padding: 8px 12px;
+    font-size: 12px;
   }
   
-  /* ปุ่มการกระทำ - ปรับสำหรับมือถือ */
-  .btn-primary, .btn-secondary {
-    padding: 10px 20px;
-    margin: 8px;
-    font-size: 14px;
+  .discount-badge {
+    top: 8px;
+    right: 8px;
+    padding: 6px 10px;
+    font-size: 12px;
   }
-
 }
 
