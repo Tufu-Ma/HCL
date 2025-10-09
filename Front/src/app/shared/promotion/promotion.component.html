@@ -1,33 +1,44 @@
 <app-header-navbar></app-header-navbar>
 <div class="container">
-  <div class="page-box">
-    
-    <!-- โปรโมชั่นพิเศษ -->
-    <div class="promotion-section">
-      <!-- โลโก้ -->
-      <div class="promotion-image">
-        <img src="assets/testprofile.jpg" alt="Promotion Logo" class="rounded-circle">
-      </div>
-      
-      <!-- หัวข้อโปรโมชั่น -->
-      <h2>{{ currentPromotion.title }}</h2>
-      <h3 class="promotion-subtitle">{{ currentPromotion.subtitle }}</h3>
-      <p class="promotion-description">{{ currentPromotion.description }}</p>
+  <div class="row">
+    <div class="col-10 offset-1 page-box">
+      <h2 class="mb-3">โปรโมชั่นพิเศษ</h2>
 
-      <!-- คุณสมบัติพิเศษ -->
-      <div class="features-section">
-        <h4>สิทธิพิเศษที่คุณจะได้รับ:</h4>
-        <ul class="features-list">
-          <li *ngFor="let feature of currentPromotion.features" class="feature-item">
-            {{ feature }}
-          </li>
-        </ul>
-      </div>
+      <!-- กรอบแสดงโปรโมชั่นทั้งหมด -->
+      <div class="promotion-cards">
+        <div class="promotion-card-item" 
+             *ngFor="let promotion of promotions; trackBy: trackById" 
+             (click)="selectPromotion(promotion)">
+          
+          <!-- รูปภาพโปรโมชั่น -->
+          <div class="promotion-thumb">
+            <img [src]="promotion.imageUrl || 'assets/testBG.jpg'" [alt]="promotion.title">
+            <!-- แสดงส่วนลดด้านบน -->
+            <div class="discount-badge">
+              {{ promotion.discount }}
+            </div>
+          </div>
+          
+          <!-- ข้อมูลโปรโมชั่น -->
+          <div class="promotion-content">
+            <div class="promotion-title">{{ promotion.title }}</div>
+            <div class="promotion-subtitle">{{ promotion.subtitle }}</div>
+            <div class="promotion-description">{{ promotion.description }}</div>
+            
+            <!-- คุณสมบัติพิเศษ (แสดงแค่ 2 อันแรก) -->
+            <div class="promotion-features">
+              <div class="feature-item" *ngFor="let feature of promotion.features.slice(0, 2)">
+                <i class="feature-icon">✓</i>
+                {{ feature }}
+              </div>
+            </div>
 
-      <!-- ปุ่มการกระทำ -->
-      <div class="action-section">
-        <button class="btn-primary">เริ่มใช้งานเลย!</button>
-        <button class="btn-secondary">ดูข้อมูลเพิ่มเติม</button>
+            <!-- ปุ่มดูรายละเอียด -->
+            <div class="promotion-action">
+              <button class="btn-select">เลือกโปรโมชั่นนี้</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
