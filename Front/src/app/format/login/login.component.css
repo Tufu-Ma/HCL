@@ -1,0 +1,34 @@
+/* กล่องฟอร์ม */
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(173, 12, 0, 0.884);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+/* ปุ่มหลัก */
+.btn-login {
+  background: linear-gradient(90deg, #6e0000, #550000);
+  border: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  opacity: 0.85;
+}
+
+.text-muted {
+  color: #ffffff !important;
+}
+
+/* ลิงก์ชมพู */
+.text-pink {
+  color: #ff33cc;
+}
+
+.text-pink:hover {
+  text-decoration: underline;
+}
+

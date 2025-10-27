@@ -67,3 +67,7 @@ small.text-muted {
   z-index: 2;
   padding-top: 100px; /* เว้นที่สำหรับ navbar */
 }
+
+.container {
+  margin: 50px;
+}

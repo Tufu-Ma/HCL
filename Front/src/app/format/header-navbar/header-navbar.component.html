@@ -9,13 +9,41 @@
       <li><a routerLink="/home" class="text-nowrap">บัตร Coin</a></li>
       <li><a routerLink="/promotion" class="text-nowrap">โปรโมชั่น</a></li>
       <li><a routerLink="/about-me" class="text-nowrap">เกี่ยวกับเรา</a></li>
+
+      <!-- ✅ เฉพาะ admin -->
+      <li *ngIf="isAdmin">
+        <a routerLink="/addgame" class="text-nowrap text-warning">จัดการเกม</a>
+      </li>
     </ul>
 
-    <div class="right">
+    <div class="right d-flex align-items-center gap-3">
       <form class="search" role="search">
         <input type="search" placeholder="ค้นหา..." />
       </form>
-      <a class="btn-login" routerLink="/home">เข้าสู่ระบบ</a>
+
+      <!-- ✅ ถ้ายังไม่ได้ login -->
+      <a *ngIf="!isLoggedIn" class="btn-login" routerLink="/login">
+        เข้าสู่ระบบ
+      </a>
+
+      <!-- ✅ ถ้า login แล้ว -->
+      <div *ngIf="isLoggedIn" class="position-relative">
+        <button class="btn btn-outline-light" (click)="toggleMenu()">
+          <i class="bi bi-person-circle"></i> {{ username }}
+        </button>
+
+        <!-- เมนู dropdown -->
+        <ul
+          *ngIf="menuOpen"
+          class="dropdown-menu show position-absolute end-0 mt-2"
+          style="display: block; z-index: 1050;"
+        >
+          <li><a class="dropdown-item" routerLink="/profile">โปรไฟล์</a></li>
+          <li *ngIf="isAdmin"><a class="dropdown-item text-warning" routerLink="/addgame">จัดการเกม</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><button class="dropdown-item text-danger" (click)="logout()">ออกจากระบบ</button></li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

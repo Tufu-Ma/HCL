@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LoginComponent } from './format/login/login.component';
+
 import { HomeComponent } from './shared/home/home.component';
 import { AddGameComponent } from './shared/add-game/add-game.component';
 import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'promotion', component: PromotionComponent },
   { path: 'addgame', component: AddGameComponent },
   { path: 'addgame-detail/:id', component: AddGameDetailComponent },
+  
+  { path: 'login', component: LoginComponent },
 ];
 
 
