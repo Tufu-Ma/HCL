@@ -13,6 +13,7 @@ import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail
 import { AboutMeComponent } from './shared/about-me/about-me.component';
 import { PromotionComponent } from './shared/promotion/promotion.component';
 import { LoginComponent } from './format/login/login.component';
+import { GameDetailComponent } from './shared/game-detail/game-detail.component';
 
 
 
@@ -27,6 +28,7 @@ import { LoginComponent } from './format/login/login.component';
     AboutMeComponent,
     PromotionComponent,
     LoginComponent,
+    GameDetailComponent,
 
   ],
   imports: [
