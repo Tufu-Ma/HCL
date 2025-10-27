@@ -1,0 +1,78 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="checkout" *ngIf="data; else invalid" [style.--accent]="accentColor">
+  <!-- Hero Header -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="badge">ชำระเงิน</div>
+      <h1 class="title">{{ data!.game }}</h1>
+      <div class="pill">
+        <span class="k">ช่องทาง</span>
+        <span class="v">{{ methodLabel }}</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="amount-wrap">
+        <div class="label">ยอดชำระ</div>
+        <div class="amount">{{ data!.amount | number:'1.0-0' }} ฿</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card summary">
+      <div class="card-title">สรุปรายการ</div>
+      <div class="row">
+        <div class="k">เกม</div>
+        <div class="v">{{ data!.game }}</div>
+      </div>
+      <div class="row">
+        <div class="k">{{ data!.accountType }}</div>
+        <div class="v mono">{{ data!.accountValue }}</div>
+      </div>
+      <div class="row">
+        <div class="k">ช่องทาง</div>
+        <div class="v">{{ methodLabel }}</div>
+      </div>
+      <div class="divider"></div>
+      <div class="row total">
+        <div class="k">ยอดรวม</div>
+        <div class="v strong">{{ data!.amount | number:'1.0-0' }} บาท</div>
+      </div>
+      <div class="hint">หลังชำระเงิน ระบบจะปรับยอดอัตโนมัติภายใน 1–2 นาที</div>
+    </div>
+
+    <div class="card pay">
+      <div class="card-title">สแกนเพื่อชำระเงิน</div>
+      <div class="qr">
+        <img [src]="paymentImage" alt="payment image" />
+      </div>
+      <div class="actions">
+        <button class="btn pay-btn" [disabled]="isPaying || isPaid" (click)="payNow()">
+          {{ isPaid ? 'ชำระเงินแล้ว' : (isPaying ? 'กำลังชำระเงิน...' : 'ยืนยันการชำระเงิน') }}
+        </button>
+        <button class="btn ghost" (click)="backToOrigin()">
+          {{ origin === 'giftcard' ? 'กลับไปหน้า Gift Card' : (origin === 'subscription' ? 'กลับไปหน้า Subscription' : 'กลับไปหน้าเลือกเกม') }}
+        </button>
+      </div>
+      <div class="success" *ngIf="isPaid">
+        ชำระเงินสำเร็จ เลขที่คำสั่งซื้อ: <span class="mono">{{ orderId }}</span>
+        <div style="margin-top:8px">
+          <button class="btn ghost" (click)="backToOrigin()">
+            {{ origin === 'giftcard' ? 'กลับไปหน้า Gift Card' : (origin === 'subscription' ? 'กลับไปหน้า Subscription' : 'กลับไปหน้าเลือกเกม') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #invalid>
+  <div class="invalid">
+    <div class="invalid-card">
+      <div class="oops">ขาดข้อมูล</div>
+      <div class="msg">ข้อมูลรายการไม่ครบถ้วน กรุณากลับไปเลือกใหม่</div>
+      <button class="btn ghost" (click)="backToGames()">กลับไปหน้าเลือกเกม</button>
+    </div>
+  </div>
+</ng-template>

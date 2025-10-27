@@ -1,0 +1,67 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-banner">
+      <img src="https://preview.redd.it/zenless-zone-zero-icon-revealed-official-announcement-v0-fiyaihcffwx81.jpg?auto=webp&s=29cd0931179f9f15f88164e181a146b144fb635b" alt="Zenless Zone Zero Banner">
+    </div>
+    <div class="game-info">
+      <h1>ZENLESS ZONE ZERO</h1>
+      <p class="game-description">เติมเกม ZZZ ด้วย UID ผู้เล่น เพื่อซื้อเพชรและไอเทม</p>
+    </div>
+  </div>
+
+  <div class="topup-section">
+    <div class="topup-card">
+      <h2>เติมเกม Zenless Zone Zero</h2>
+
+      <div class="input-group">
+        <label for="uid">UID ผู้เล่น</label>
+        <input id="uid" type="text" [(ngModel)]="uid" (input)="validateUid()" placeholder="กรอก UID (ตัวเลข 6–20 หลัก)">
+        <span class="error-message" *ngIf="!isValidUid && uid">รูปแบบ UID ไม่ถูกต้อง (ต้องเป็นตัวเลข 6–20 หลัก)</span>
+      </div>
+
+      <div class="amount-selection">
+        <h3>เลือกจำนวน Crystals</h3>
+        <div class="amount-grid">
+          <button *ngFor="let option of options" class="amount-option"
+                  [class.selected]="selectedAmount === option.amount"
+                  (click)="selectAmount(option)">
+            <span class="vp-amount">{{ option.coins }} Crystals</span>
+            <span class="price">{{ option.amount }} บาท</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <h3>เลือกช่องทางการชำระเงิน</h3>
+        <div class="payment-options">
+          <button *ngFor="let method of paymentMethods" class="payment-option"
+                  [class.selected]="selectedPayment === method.id"
+                  (click)="selectPayment(method.id)">
+            <img [src]="method.icon" [alt]="method.name">
+            <span>{{ method.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="confirm-button"
+              [disabled]="!isValidUid || !selectedAmount || !selectedPayment"
+              (click)="confirmTopup()">
+        ยืนยันการเติมเงิน
+      </button>
+    </div>
+
+    <div class="instruction-card">
+      <h2>วิธีการเติมเกม</h2>
+      <ol>
+        <li>กรอก UID ผู้เล่น</li>
+        <li>เลือกจำนวน Crystals ที่ต้องการ</li>
+        <li>เลือกช่องทางการชำระเงิน</li>
+        <li>กดยืนยันการเติมเงินและชำระเงิน</li>
+        <li>รอรับสินค้าในเกมภายใน 1–2 นาที</li>
+      </ol>
+      <div class="note"><strong>หมายเหตุ:</strong> กรุณาตรวจสอบ UID ให้ถูกต้องก่อนทำรายการ</div>
+    </div>
+  </div>
+</div>

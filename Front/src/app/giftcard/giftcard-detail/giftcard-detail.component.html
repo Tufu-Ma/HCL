@@ -1,0 +1,61 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="game-container" *ngIf="card; else notfound">
+  <div class="game-header">
+    <div class="game-banner">
+      <img [src]="card!.banner" [alt]="card!.name" />
+    </div>
+    <div class="game-info">
+      <h1>{{ card!.name }}</h1>
+      <p class="game-description">เลือกมูลค่าบัตรและช่องทางชำระเงิน แล้วกดยืนยัน</p>
+    </div>
+  </div>
+
+  <div class="topup-section">
+    <div class="topup-card">
+      <h2>เลือกมูลค่าบัตร ({{ card!.currency }})</h2>
+      <div class="amount-grid">
+        <button class="amount-option" *ngFor="let option of card!.options"
+                [class.selected]="selectedAmount === option.amount"
+                (click)="selectAmount(option)">
+          <span class="vp-amount">{{ option.value }} {{ card!.currency }}</span>
+          <span class="price">ราคา {{ option.amount | number:'1.0-0' }} บาท</span>
+        </button>
+      </div>
+
+      <div class="payment-method">
+        <h3>เลือกช่องทางการชำระเงิน</h3>
+        <div class="payment-options">
+          <button class="payment-option" *ngFor="let m of paymentMethods"
+                  [class.selected]="selectedPayment === m.id"
+                  (click)="selectPayment(m.id)">
+            <img [src]="m.icon" [alt]="m.name" />
+            <span>{{ m.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="confirm-button" [disabled]="!selectedAmount || !selectedPayment" (click)="confirm()">
+        ยืนยันการสั่งซื้อ
+      </button>
+    </div>
+
+    <div class="instruction-card">
+      <h2>วิธีใช้งานบัตร</h2>
+      <ol>
+        <li>เลือกมูลค่าบัตรตามต้องการ</li>
+        <li>เลือกช่องทางการชำระเงิน</li>
+        <li>ยืนยันการสั่งซื้อและชำระเงิน</li>
+        <li>รับโค้ดอัตโนมัติในคำสั่งซื้อ</li>
+      </ol>
+      <div class="note"><strong>หมายเหตุ:</strong> บัตรบางชนิดจำกัดประเทศ/สกุลเงิน โปรดตรวจสอบก่อนซื้อ</div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notfound>
+  <div class="notfound">ไม่พบบัตรที่เลือก</div>
+  <div class="back"><a routerLink="/giftcard">ย้อนกลับ</a></div>
+  
+</ng-template>
+

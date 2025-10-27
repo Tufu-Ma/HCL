@@ -1,0 +1,73 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-banner">
+      <img src="https://scontent.fbkk29-9.fna.fbcdn.net/v/t39.30808-6/481658160_611499911751510_4966914207878309164_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=S5mTv3W2iHEQ7kNvwGfxoJ6&_nc_oc=AdlJtnbdpb-WAjY4P7NDWhjrp-i8xtOxF6-B_B356ykoIMWi-FBtMi4s_O37yn55cZCNGUpCej_lHyZqNu3tG9H4&_nc_zt=23&_nc_ht=scontent.fbkk29-9.fna&_nc_gid=C0G3WJ4ssVMNv0OE_GVBgg&oh=00_AffQtovYYEXq7TR3EqNg6AMzH7DczQr4RW1QGKPsE96qwA&oe=6905608F" alt="League of Legends Banner">
+    </div>
+    <div class="game-info">
+      <h1>LEAGUE OF LEGENDS</h1>
+      <p class="game-description">เติมเกม League of Legends PC ด้วยชื่อผู้เล่น Summoner Name เพื่อซื้อ Skin แชมเปี้ยน, Battle Pass และไอเทมอื่นๆ ในเกม</p>
+    </div>
+  </div>
+
+  <div class="topup-section">
+    <div class="topup-card">
+      <h2>เติมเกม League of Legends</h2>
+      
+      <div class="input-group">
+        <label for="summonerName">Summoner Name</label>
+        <input type="text" id="summonerName" [(ngModel)]="summonerName" (input)="validateName()" placeholder="กรอกชื่อผู้เล่นของคุณ">
+        <span class="error-message" *ngIf="!isValidName && summonerName">ชื่อผู้เล่นต้องมีความยาว 3-16 ตัวอักษร</span>
+      </div>
+
+      <div class="amount-selection">
+        <h3>เลือกจำนวน Riot Points</h3>
+        <div class="amount-grid">
+          <button *ngFor="let option of rpOptions" 
+                  [class.selected]="selectedAmount === option.amount"
+                  (click)="selectAmount(option)"
+                  class="amount-option">
+            <span class="rp-amount">{{option.rp}} RP</span>
+            <img src="assets/rp-icon.png" alt="RP" class="rp-icon">
+            <span class="price">{{option.amount}} บาท</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <h3>เลือกช่องทางการชำระเงิน</h3>
+        <div class="payment-options">
+          <button *ngFor="let method of paymentMethods"
+                  [class.selected]="selectedPayment === method.id"
+                  (click)="selectPayment(method.id)"
+                  class="payment-option">
+            <img [src]="method.icon" [alt]="method.name">
+            <span>{{method.name}}</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="confirm-button" 
+              [disabled]="!isValidName || !selectedAmount || !selectedPayment"
+              (click)="confirmTopup()">
+        ยืนยันการเติมเงิน
+      </button>
+    </div>
+
+    <div class="instruction-card">
+      <h2>วิธีการเติมเกม</h2>
+      <ol>
+        <li>กรอกชื่อผู้เล่น Summoner Name ของคุณ</li>
+        <li>เลือกจำนวน Riot Points ที่ต้องการ</li>
+        <li>เลือกช่องทางการชำระเงิน</li>
+        <li>กดปุ่มยืนยันการเติมเงิน</li>
+        <li>ทำการชำระเงินตามช่องทางที่เลือก</li>
+        <li>รอรับ Points ภายใน 1-2 นาที</li>
+      </ol>
+      <div class="note">
+        <strong>หมายเหตุ:</strong> กรุณาตรวจสอบชื่อผู้เล่นให้ถูกต้องก่อนทำการเติมเงิน
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-banner">
+      <img src="https://scontent.fbkk29-8.fna.fbcdn.net/v/t39.30808-6/568389200_1138626371733602_4634468519440431069_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=D6fbpj65MREQ7kNvwGltMcT&_nc_oc=Adn-SliAlJHlFrX3eyVW0gcBXafwbeeGUzyA7ojSZEg8c5f-1si2sgEoHG3Nxf7MWPifC4CzabrphW9xotInWUC6&_nc_zt=23&_nc_ht=scontent.fbkk29-8.fna&_nc_gid=WW3WRphjCP57gF2f1hjOng&oh=00_Afcv3XDlmz2-uCmgPCIduI-Fxmlath1SDs4tAv826Mveeg&oe=69056EA7" alt="Genshin Impact Banner">
+    </div>
+    <div class="game-info">
+      <h1>GENSHIN IMPACT</h1>
+      <p class="game-description">เติมเกม Genshin ด้วย UID ผู้เล่น เพื่อซื้อ Genesis Crystals</p>
+    </div>
+  </div>
+
+  <div class="topup-section">
+    <div class="topup-card">
+      <h2>เติมเกม Genshin Impact</h2>
+
+      <div class="input-group">
+        <label for="uid">UID ผู้เล่น</label>
+        <input id="uid" type="text" [(ngModel)]="uid" (input)="validateUid()" placeholder="กรอก UID (ตัวเลข 6–20 หลัก)">
+        <span class="error-message" *ngIf="!isValidUid && uid">รูปแบบ UID ไม่ถูกต้อง (ต้องเป็นตัวเลข 6–20 หลัก)</span>
+      </div>
+
+      <div class="amount-selection">
+        <h3>เลือกจำนวน Crystals</h3>
+        <div class="amount-grid">
+          <button *ngFor="let option of options" class="amount-option"
+                  [class.selected]="selectedAmount === option.amount"
+                  (click)="selectAmount(option)">
+            <span class="vp-amount">{{ option.coins }} Crystals</span>
+            <span class="price">{{ option.amount }} บาท</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <h3>เลือกช่องทางการชำระเงิน</h3>
+        <div class="payment-options">
+          <button *ngFor="let method of paymentMethods" class="payment-option"
+                  [class.selected]="selectedPayment === method.id"
+                  (click)="selectPayment(method.id)">
+            <img [src]="method.icon" [alt]="method.name">
+            <span>{{ method.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="confirm-button"
+              [disabled]="!isValidUid || !selectedAmount || !selectedPayment"
+              (click)="confirmTopup()">
+        ยืนยันการเติมเงิน
+      </button>
+    </div>
+
+    <div class="instruction-card">
+      <h2>วิธีการเติมเกม</h2>
+      <ol>
+        <li>กรอก UID ผู้เล่น</li>
+        <li>เลือกจำนวน Crystals ที่ต้องการ</li>
+        <li>เลือกช่องทางการชำระเงิน</li>
+        <li>กดยืนยันการเติมเงินและชำระเงิน</li>
+        <li>รอรับสินค้าในเกมภายใน 1–2 นาที</li>
+      </ol>
+      <div class="note"><strong>หมายเหตุ:</strong> กรุณาตรวจสอบ UID ให้ถูกต้องก่อนทำรายการ</div>
+    </div>
+  </div>
+</div>

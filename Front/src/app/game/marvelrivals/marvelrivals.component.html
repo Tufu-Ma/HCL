@@ -1,0 +1,67 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-banner">
+      <img src="https://scontent.fbkk29-4.fna.fbcdn.net/v/t39.30808-6/504011719_122199658310122686_6440503640629080301_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=lXtOgThASw0Q7kNvwFisFLA&_nc_oc=AdnWccV6c-zXqUzNJt-5d3cxto3pp2KXOzldGrY202a6yuJqGKR-LfKubGPhzdgwoJYhbS_O_T9yasUWLCcpuRez&_nc_zt=23&_nc_ht=scontent.fbkk29-4.fna&_nc_gid=TwloX7eHKzTatnTr6LcCIQ&oh=00_Afe1Bv8E7EUNCqIKvt1opHthnuGWhV4NsVHuDOD3uSDY6A&oe=690569F3" alt="Marvel Rivals Banner">
+    </div>
+    <div class="game-info">
+      <h1>MARVEL RIVALS</h1>
+      <p class="game-description">เติมเกม Marvel Rivals ด้วย UID ผู้เล่น เพื่อซื้อสกินและไอเทม</p>
+    </div>
+  </div>
+
+  <div class="topup-section">
+    <div class="topup-card">
+      <h2>เติมเกม Marvel Rivals</h2>
+
+      <div class="input-group">
+        <label for="uid">UID ผู้เล่น</label>
+        <input id="uid" type="text" [(ngModel)]="uid" (input)="validateUid()" placeholder="กรอก UID (ตัวเลข 6–20 หลัก)">
+        <span class="error-message" *ngIf="!isValidUid && uid">รูปแบบ UID ไม่ถูกต้อง (ต้องเป็นตัวเลข 6–20 หลัก)</span>
+      </div>
+
+      <div class="amount-selection">
+        <h3>เลือกจำนวน Coins</h3>
+        <div class="amount-grid">
+          <button *ngFor="let option of options" class="amount-option"
+                  [class.selected]="selectedAmount === option.amount"
+                  (click)="selectAmount(option)">
+            <span class="vp-amount">{{ option.coins }} Coins</span>
+            <span class="price">{{ option.amount }} บาท</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <h3>เลือกช่องทางการชำระเงิน</h3>
+        <div class="payment-options">
+          <button *ngFor="let method of paymentMethods" class="payment-option"
+                  [class.selected]="selectedPayment === method.id"
+                  (click)="selectPayment(method.id)">
+            <img [src]="method.icon" [alt]="method.name">
+            <span>{{ method.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="confirm-button"
+              [disabled]="!isValidUid || !selectedAmount || !selectedPayment"
+              (click)="confirmTopup()">
+        ยืนยันการเติมเงิน
+      </button>
+    </div>
+
+    <div class="instruction-card">
+      <h2>วิธีการเติมเกม</h2>
+      <ol>
+        <li>กรอก UID ผู้เล่น</li>
+        <li>เลือกจำนวน Coins ที่ต้องการ</li>
+        <li>เลือกช่องทางการชำระเงิน</li>
+        <li>กดยืนยันการเติมเงินและชำระเงิน</li>
+        <li>รอรับสินค้าในเกมภายใน 1–2 นาที</li>
+      </ol>
+      <div class="note"><strong>หมายเหตุ:</strong> กรุณาตรวจสอบ UID ให้ถูกต้องก่อนทำรายการ</div>
+    </div>
+  </div>
+</div>
