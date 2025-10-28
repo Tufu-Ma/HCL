@@ -9,7 +9,7 @@
       <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
 
       <div class="cards" *ngIf="!loading && !error">
-        <a class="card-item" *ngFor="let g of games; trackBy: trackById" [routerLink]="['/game', g.slug || g.id]">
+        <a class="card-item" *ngFor="let g of games; trackBy: trackById" [routerLink]="['/games', g.slug || g.id]">
           <div class="thumb">
             <img [src]="g.coverurl || 'assets/testBG.jpg'" [alt]="g.name">
           </div>

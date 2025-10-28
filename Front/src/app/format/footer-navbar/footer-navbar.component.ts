@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-footer-navbar',
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './footer-navbar.component.html',
-  styleUrl: './footer-navbar.component.css'
+  styleUrls: ['./footer-navbar.component.css'],
 })
-export class FooterNavbarComponent {
-
-}
+export class FooterNavbarComponent {}

@@ -7,6 +7,7 @@
   padding-top: 100vh;  
 }
 
+
 /* ลบกฎนี้ทิ้ง หรือเปลี่ยนชื่อคลาส */
 .container{
   padding-top: 50px; /* เพิ่มระยะห่างจากขอบบน */
@@ -93,3 +94,4 @@ h2 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+

@@ -1,0 +1,27 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="wrap">
+  <header class="header">
+    <div class="brand">
+      <div>
+        <h1>บัตรเติมเกม / Gift Card</h1>
+        <div class="small">เลือกการ์ดที่ต้องการ แล้วไปขั้นตอนชำระเงิน</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="grid">
+    <article class="card" *ngFor="let c of items; trackBy: trackById">
+      <a [routerLink]="['/giftcard', c.id]" class="game-link">
+        <div class="thumb">
+          <img [src]="c.image" [alt]="c.name" class="game-image" />
+        </div>
+        <div class="title">{{ c.name }}</div>
+        <div class="meta">
+          <span class="small">{{ c.subtitle }}</span>
+        </div>
+      </a>
+      <button class="btn" [routerLink]="['/giftcard', c.id]">ซื้อการ์ด</button>
+    </article>
+  </section>
+</div>

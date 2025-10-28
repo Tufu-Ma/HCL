@@ -5,20 +5,19 @@
     </a>
 
     <ul class="menu">
-      <li><a routerLink="/home" class="text-nowrap">เติมเกม UID</a></li>
-      <li><a routerLink="/home" class="text-nowrap">บัตร Coin</a></li>
+      <li><a routerLink="/termgame" class="text-nowrap">เติมเกม UID</a></li>
+      <li><a routerLink="/giftcard" class="text-nowrap">บัตรกำนัล/บัตรเติมเกม</a></li>
+      <li><a routerLink="/subscription" class="text-nowrap">ต่อสมาชิกแอพ</a></li>
       <li><a routerLink="/promotion" class="text-nowrap">โปรโมชั่น</a></li>
       <li><a routerLink="/about-me" class="text-nowrap">เกี่ยวกับเรา</a></li>
 
       <!-- ✅ เฉพาะ admin -->
-      <li *ngIf="isAdmin">
-        <a routerLink="/addgame" class="text-nowrap text-warning">จัดการเกม</a>
-      </li>
+      
     </ul>
 
     <div class="right d-flex align-items-center gap-3">
       <form class="search" role="search">
-        <input type="search" placeholder="ค้นหา..." />
+        <input type="search" placeholder="ค้นหา..." [(ngModel)]="searchTerm" (input)="onSearch($event)" name="search" />
       </form>
 
       <!-- ✅ ถ้ายังไม่ได้ login -->
