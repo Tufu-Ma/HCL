@@ -74,3 +74,36 @@
 @media (max-width: 900px){
   .menu li:nth-last-child(-n+2){ display:none; }
 }
+
+.btn-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding: 4px 10px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-profile:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ff4dcf;
+  box-shadow: 0 0 10px rgba(255, 77, 207, 0.5);
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.username {
+  font-size: 0.95rem;
+  color: #fff;
+}

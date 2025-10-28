@@ -1,1 +1,133 @@
-<p>game-detail works!</p>
+<app-header-navbar></app-header-navbar>
+
+<div class="game-detail-wrapper ">
+
+    <div class="container py-5 fade-in-up">
+        <h1 class="page-title text-center">เติมเกม {{ game?.name }}</h1>
+            <nav class="breadcrumb-nav text-center">
+                <a routerLink="/" class="breadcrumb-link">หน้าหลัก</a>
+                <span class="breadcrumb-separator">/</span>
+                <a routerLink="/uid" class="breadcrumb-link">เติมเกม UID</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">{{ game?.name }}</span>
+            </nav>
+        <!-- Loading / Error -->
+        <div *ngIf="loading" class="text-center text-light">กำลังโหลด...</div>
+        <div *ngIf="!loading && error" class="text-center text-danger">{{ error }}</div>
+
+        <!-- เนื้อหาเมื่อโหลดแล้วสำเร็จ -->
+        <div *ngIf="!loading && !error && game" class="row justify-content-center align-items-start">
+
+            <!-- ซ้าย: ข้อมูลเกม -->
+            <div class="col-12 col-md-4 text-center mb-4">
+                <div class="game-card">
+                    <img class="game-cover" [src]="game.coverurl || 'assets/testBG.jpg'" [alt]="game.name"
+                        (error)="onImgError($event)" />
+                </div>
+
+                <h2 class="game-title mt-3">{{ game.name }}</h2>
+                <p class="game-desc">
+                    {{ game.description || 'ไม่มีคำอธิบายเกม' }}
+                </p>
+            </div>
+
+            <!-- ขวา: ฟอร์ม + แพ็กเกจ + ปุ่ม -->
+            <div class="col-12 col-md-7">
+                <div class="price-box">
+
+                    <!-- หัวข้อเลือกแพ็กเกจ -->
+                    <h3 class="section-heading mb-3">เลือกสินค้าที่ต้องการเติม</h3>
+
+                    <!-- แสดงแพ็กเกจ -->
+                    <div class="row g-4 justify-content-left">
+                        <div class="col-12 col-md-4" *ngFor="let p of prices">
+                            <div class="package-card" [ngClass]="{ 'selected': p.id === selectedPriceId }"
+                                (click)="selectPackage(p)">
+                                <div class="selected-badge" *ngIf="p.id === selectedPriceId">
+                                    ✓
+                                </div>
+
+                                <img class="package-img" [src]="p.iconurl || 'assets/testBG.jpg'" [alt]="p.title"
+                                    (error)="onImgError($event)" />
+
+                                <div class="package-title">{{ p.title }}</div>
+                                <div class="package-price">฿{{ p.priceThb | number:'1.0-0' }}</div>
+                            </div>
+                        </div>
+                        <!-- ฟอร์มข้อมูล ID-PASS (เฉพาะผู้ที่ login แล้วเท่านั้น) -->
+                        <div *ngIf="isLoggedIn">
+                            <h3 class="section-heading mb-4">ข้อมูลสำหรับเติมเกมด้วย ID-PASS</h3>
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label-custom">ID Login <span class="req">*</span></label>
+                                    <input type="text" class="form-control-custom" placeholder="กรุณากรอก ID Login"
+                                        [(ngModel)]="topupData.loginId" />
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label-custom">Password <span class="req">*</span></label>
+                                    <input type="password" class="form-control-custom" placeholder="กรุณากรอก Password"
+                                        [(ngModel)]="topupData.password" />
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label-custom">
+                                        ช่องทางการล็อกอินเกม <span class="req">*</span>
+                                    </label>
+
+                                    <div class="select-wrapper">
+                                        <select class="form-control-custom select-control"
+                                            [(ngModel)]="topupData.loginMethod">
+                                            <option value="gmail">Gmail</option>
+                                            <option value="facebook">Facebook</option>
+                                            <option value="id">ID (บัญชีเกม)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label-custom">ชื่อตัวละคร <span class="req">*</span></label>
+                                    <input type="text" class="form-control-custom"
+                                        placeholder="กรุณากรอกชื่อตัวละครในเกม" [(ngModel)]="topupData.characterName" />
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label-custom">เลเวล <span class="req">*</span></label>
+                                    <input type="number" class="form-control-custom" placeholder="กรุณากรอก เลเวล"
+                                        [(ngModel)]="topupData.level" />
+                                </div>
+                            </div>
+
+                            <hr class="divider-line my-4" />
+                        </div>
+                    </div>
+
+                    <!-- ถ้ายังไม่ล็อกอิน -> บล็อกเข้าสู่ระบบ -->
+                    <div *ngIf="!isLoggedIn" class="text-center mt-4">
+                        <p class="text-login-hint">กรุณาเข้าสู่ระบบก่อนทำรายการ</p>
+                        <button class="btn-login-first" (click)="goLogin()">
+                            เข้าสู่ระบบ
+                        </button>
+                    </div>
+
+                    <!-- ถ้าล็อกอินแล้ว -> ปุ่มจ่าย -->
+                    <div *ngIf="isLoggedIn" class="text-center mt-4">
+                        <button class="btn-go-checkout" [disabled]="
+                !selectedPriceId ||
+                !topupData.loginId ||
+                !topupData.password ||
+                !topupData.characterName ||
+                !topupData.level
+              " (click)="goCheckout()">
+                            ดำเนินการชำระเงิน
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

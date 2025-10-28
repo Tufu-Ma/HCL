@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col-10 offset-1 page-box">
-      <h2 class="mb-3">เติมเกม UID</h2>
+      <h2 class="mb-3">เติม ID-Pass</h2>
 
       <div *ngIf="loading">กำลังโหลด...</div>
       <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
@@ -13,9 +13,13 @@
           <div class="thumb">
             <img [src]="g.coverurl || 'assets/testBG.jpg'" [alt]="g.name">
           </div>
-          <div class="name">{{ g.name }}</div>
+          <div class="meta">
+            <div class="name">{{ g.name }}</div>
+            <button class="btn">เติมเกม</button>
+          </div>
         </a>
       </div>
+
 
     </div>
   </div>
