@@ -12,8 +12,6 @@ import { AddGameComponent } from './shared/add-game/add-game.component';
 import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail.component';
 import { AboutMeComponent } from './shared/about-me/about-me.component';
 import { PromotionComponent } from './shared/promotion/promotion.component';
-// ❌ ลบ import TermgameComponent เพราะเป็น standalone และใช้ผ่าน Router
-// import { TermgameComponent } from './shared/termgame/termgame.component';
 
 import { ValorantComponent } from './game/valorant/valorant.component';
 import { LolpcComponent } from './game/lolpc/lolpc.component';

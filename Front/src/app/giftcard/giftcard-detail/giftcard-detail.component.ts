@@ -24,7 +24,7 @@ export class GiftcardDetailComponent implements OnInit {
     {
       id: 'truemoney',
       name: 'TrueMoney Gift Card',
-      banner: 'https://seagm-media.seagmcdn.com/item_480/214.png?x-oss-process=image/resize,w_360',
+      banner: 'https://www.truemoney.com/wp-content/uploads/2024/12/payouts-article-01-banner-20241206-1100x550-1.jpg',
       currency: '฿',
       options: [ { value: 100, amount: 100 }, { value: 200, amount: 200 }, { value: 300, amount: 300 }, { value: 500, amount: 500 } ],
     },
@@ -43,9 +43,9 @@ export class GiftcardDetailComponent implements OnInit {
       options: [ { value: 100, amount: 100 }, { value: 250, amount: 250 }, { value: 500, amount: 500 }, { value: 1000, amount: 1000 } ],
     },
     {
-      id: 'unipin',
-      name: 'UniPin Gift Card',
-      banner: 'https://seagm-media.seagmcdn.com/item_480/1187.png',
+      id: 'riot',
+      name: 'RIOT Gift Card',
+      banner: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Riot_Games_Logo.svg',
       currency: '฿',
       options: [ { value: 100, amount: 100 }, { value: 300, amount: 300 }, { value: 500, amount: 500 }, { value: 1000, amount: 1000 } ],
     },
@@ -80,11 +80,11 @@ export class GiftcardDetailComponent implements OnInit {
       banner: '<img src="https://www.nicepng.com/png/detail/236-2366850_free-psn-codes-gift-card-playstation-com-logo.png" alt="Free Psn Codes Gift Card - Playstation Com Logo@nicepng.com">', 
       currency: '฿', options: [ { value: 200, amount: 200 }, { value: 500, amount: 500 } ] },
     { 
-      id: 'nintendo-us', 
-      name: 'Nintendo eShop (US)', 
-      banner: 'https://seagm-media.seagmcdn.com/item_480/200.png?x-oss-process=image/resize,w_360', 
-      currency: 'USD', 
-      options: [ { value: 10, amount: 399 }, { value: 20, amount: 779 }, { value: 50, amount: 1890 } ] },
+      id: 'line-prepaid', 
+      name: 'LINE Prepaid Card', 
+      banner: 'https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg', 
+      currency: '฿', 
+      options: [ { value: 50, amount: 50 }, { value: 100, amount: 100 }, { value: 300, amount: 300 } ] },
   ];
 
   card: CardConfig | null = null;

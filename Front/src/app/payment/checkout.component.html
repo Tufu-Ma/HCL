@@ -51,16 +51,12 @@
         <button class="btn pay-btn" [disabled]="isPaying || isPaid" (click)="payNow()">
           {{ isPaid ? 'ชำระเงินแล้ว' : (isPaying ? 'กำลังชำระเงิน...' : 'ยืนยันการชำระเงิน') }}
         </button>
-        <button class="btn ghost" (click)="backToOrigin()">
-          {{ origin === 'giftcard' ? 'กลับไปหน้า Gift Card' : (origin === 'subscription' ? 'กลับไปหน้า Subscription' : 'กลับไปหน้าเลือกเกม') }}
-        </button>
+        <button class="btn ghost" (click)="backToOrigin()">กลับไปหน้าก่อนหน้า</button>
       </div>
       <div class="success" *ngIf="isPaid">
         ชำระเงินสำเร็จ เลขที่คำสั่งซื้อ: <span class="mono">{{ orderId }}</span>
         <div style="margin-top:8px">
-          <button class="btn ghost" (click)="backToOrigin()">
-            {{ origin === 'giftcard' ? 'กลับไปหน้า Gift Card' : (origin === 'subscription' ? 'กลับไปหน้า Subscription' : 'กลับไปหน้าเลือกเกม') }}
-          </button>
+          <button class="btn ghost" (click)="backToOrigin()">กลับไปหน้าก่อนหน้า</button>
         </div>
       </div>
     </div>

@@ -63,7 +63,7 @@ export class TermgameComponent implements OnInit {
       tag: 'UID', 
       path: '/game/wildrift' },
 
-    { id: 'tft', name: 'Teamfight Tactics', image: 'https://play-lh.googleusercontent.com/7HYunTZkp2klKzU-4YBsKLFa5Yy6itr_TrrPAvY-1EbjdFNhtvluchkAqhPf7RvrnALZwbZLGQA1fFgXSd0WEg=w240-h480-rw'
+    { id: 'tft', name: 'Teamfight Tactics', image: 'https://scontent.fbkk29-6.fna.fbcdn.net/v/t39.30808-6/475917192_1343035120447618_7580631604889998297_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=ItEmLY06XcIQ7kNvwHXqdZ4&_nc_oc=Adk9M8OTcMaV3z9sjnvqDRJFzV25g9AMpu56oHhDThMxuD6MrrChXwR9qpfGhQoqtC7dbUUG2UMgGKXjNKzg38p_&_nc_zt=23&_nc_ht=scontent.fbkk29-6.fna&_nc_gid=zEzuc3qXa6i7Iig5qQ_kbw&oh=00_AfeJKa4SpGCy4MFOlHN6LMgd_9N1WUn65_zRREqVpZnqNg&oe=69065381'
       , 
       tag: 'UID', 
       path: '/game/teamfight-tactic' },

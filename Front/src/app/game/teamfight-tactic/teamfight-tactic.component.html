@@ -3,69 +3,162 @@
 <div class="game-container">
   <div class="game-header">
     <div class="game-banner">
-      <img src="https://play-lh.googleusercontent.com/7HYunTZkp2klKzU-4YBsKLFa5Yy6itr_TrrPAvY-1EbjdFNhtvluchkAqhPf7RvrnALZwbZLGQA1fFgXSd0WEg=w240-h480-rw" alt="TFT Banner">
+      <img src="https://scontent.fbkk29-5.fna.fbcdn.net/v/t39.30808-6/572000723_1144466904465314_5868244266733749962_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=OUphQ3ESLR8Q7kNvwEKldKR&_nc_oc=Adl-PC3jwRK8d5ccs1wPdNNpZDBpMprUa0ZLwqIC2Fl_jzvlylwH1F7vbihTggBOz0WK1lLsHaGwJYhcKSMAjrnn&_nc_zt=23&_nc_ht=scontent.fbkk29-5.fna&_nc_gid=RxoyFMDsG6-3zK33xY2deg&oh=00_AfdB3_ooCErIp5vgYucK0gFhzfMlnuUroHdRBYoNG0rx6Q&oe=69065B33" alt="TFT Banner">
     </div>
     <div class="game-info">
       <h1>TEAMFIGHT TACTICS</h1>
-      <p class="game-description">เติมเกม TFT ด้วย UID ผู้เล่น เพื่อซื้อ Pass และไอเทมต่างๆ</p>
+      <p class="game-description">ซื้อ ePIN สำหรับ TFT Coins เลือกแพ็คและเพิ่มลงตะกร้า</p>
     </div>
   </div>
 
   <div class="topup-section">
     <div class="topup-card">
-      <h2>เติมเกม Teamfight Tactics</h2>
-
+      <h2>ซื้อ TFT Coins ePIN</h2>
       <div class="input-group">
-        <label for="uid">UID ผู้เล่น</label>
-        <input id="uid" type="text" [(ngModel)]="uid" (input)="validateUid()" placeholder="กรอก UID (ตัวเลข 6–20 หลัก)">
-        <span class="error-message" *ngIf="!isValidUid && uid">รูปแบบ UID ไม่ถูกต้อง (ต้องเป็นตัวเลข 6–20 หลัก)</span>
+        <label for="riot">Riot Tag</label>
+        <input id="riot" type="text" [(ngModel)]="riotTag" (input)="validateTag()" placeholder="เช่น Richman#1234" />
+        <span class="error-message" *ngIf="riotTag && !isValidTag">กรุณากรอก Riot Tag ให้ถูกต้อง (เช่น Aespa#1234)</span>
+        <button class="clear-btn" type="button" (click)="saveTag()" [disabled]="!isValidTag" style="margin-top:8px">บันทึกไว้ใช้ครั้งหน้า</button>
       </div>
-
-      <div class="amount-selection">
-        <h3>เลือกจำนวน Coins</h3>
-        <div class="amount-grid">
-          <button *ngFor="let option of options"
-                  [class.selected]="selectedAmount === option.amount"
-                  (click)="selectAmount(option)"
-                  class="amount-option">
-            <span class="vp-amount">{{ option.coins }} Coins</span>
-            <span class="price">{{ option.amount }} บาท</span>
-          </button>
+      <div class="product-grid">
+        <div class="product-card" *ngFor="let p of products">
+          <div class="vp">{{ p.value | number }} {{ unit }}</div>
+          <div class="price">{{ p.amount | number }} บาท</div>
+          <button class="add-btn" (click)="addToCart(p)">เพิ่มลงตะกร้า</button>
         </div>
       </div>
-
-      <div class="payment-method">
-        <h3>เลือกช่องทางการชำระเงิน</h3>
-        <div class="payment-options">
-          <button *ngFor="let method of paymentMethods"
-                  [class.selected]="selectedPayment === method.id"
-                  (click)="selectPayment(method.id)"
-                  class="payment-option">
-            <img [src]="method.icon" [alt]="method.name">
-            <span>{{ method.name }}</span>
-          </button>
+      <div class="instruction-card" style="margin-top:16px">
+        <h2>วิธีการเติมเกม</h2>
+        <div class="guide-media" *ngIf="guideImage">
+          <img class="guide-image" [src]="guideImage" alt="TFT Guide" (click)="openLightbox()" title="คลิกเพื่อขยาย" />
         </div>
+        <div class="note">กรอก Riot Tag ให้ถูกต้อง (เช่น Aespa#1234) แล้วเลือกแพ็ค</div>
       </div>
-
-      <button class="confirm-button"
-              [disabled]="!isValidUid || !selectedAmount || !selectedPayment"
-              (click)="confirmTopup()">
-        ยืนยันการเติมเงิน
-      </button>
     </div>
 
-    <div class="instruction-card">
-      <h2>วิธีการเติมเกม</h2>
-      <ol>
-        <li>กรอก UID ผู้เล่น</li>
-        <li>เลือกจำนวน Coins ที่ต้องการ</li>
-        <li>เลือกช่องทางการชำระเงิน</li>
-        <li>กดยืนยันการเติมเงินและชำระเงิน</li>
-        <li>รอรับสินค้าในเกมภายใน 1–2 นาที</li>
-      </ol>
-      <div class="note">
-        <strong>หมายเหตุ:</strong> กรุณาตรวจสอบ UID ให้ถูกต้องก่อนทำรายการ
-      </div>
+    <div class="instruction-card cart-card" [ngSwitch]="step">
+      <!-- Step: Cart -->
+      <ng-container *ngSwitchCase="'cart'">
+        <div class="cart-header">
+          <h2>ตะกร้าสินค้า</h2>
+          <button class="link-clear" *ngIf="cart.length" (click)="clearCart()">ล้าง</button>
+        </div>
+        <ng-container *ngIf="cart.length; else emptyCart">
+          <div class="cart-items">
+            <div class="cart-item" *ngFor="let it of cart">
+              <div class="chip">{{ unit }}</div>
+              <div class="info">
+                <div class="name">{{ it.value }}</div>
+                <div class="unit">{{ it.amount | number }} บาท</div>
+              </div>
+              <div class="qty">
+                <button class="step" (click)="dec(it)">−</button>
+                <span class="count">{{ it.qty }}</span>
+                <button class="step" (click)="inc(it)">＋</button>
+              </div>
+              <div class="line">{{ (it.qty * it.amount) | number }} บาท</div>
+              <button class="remove" (click)="remove(it)">×</button>
+            </div>
+          </div>
+          <div class="cart-summary">
+            <div class="row"><div class="k">รวม ({{ totalQty }} รายการ)</div><div class="v">{{ totalAmount | number }} บาท</div></div>
+          </div>
+          <div class="cart-actions">
+            <button class="clear-btn" (click)="clearCart()">ล้างตะกร้า</button>
+            <button class="confirm-button pretty" [disabled]="!cart.length || !isValidTag" (click)="goToMethod()">ชำระเงิน</button>
+          </div>
+          <div class="note" style="margin-top:12px">กรอก Riot Tag (เช่น Aespa#1234) ให้ถูกต้องก่อนชำระเงิน</div>
+        </ng-container>
+      </ng-container>
+
+      <!-- Step: Method selection -->
+      <ng-container *ngSwitchCase="'method'">
+        <h2>เลือกวิธีการชำระเงิน</h2>
+        <div class="method-list">
+          <button class="method-item" [class.selected]="selectedPayment==='promptpay'" (click)="choosePayment('promptpay')">
+            <div class="left"><img src="https://download-th.com/wp-content/uploads/2023/02/ThaiQR.jpg" alt="PromptPay"><div class="name">พร้อมเพย์</div></div>
+            <div class="right"><div class="amt">{{ baseAfterDiscount | number:'1.2-2' }} ฿</div><div class="fee">ไม่มีค่าธรรมเนียม</div></div>
+          </button>
+          <button class="method-item" [class.selected]="selectedPayment==='truemoney'" (click)="choosePayment('truemoney')">
+            <div class="left"><img src="https://download-th.com/wp-content/uploads/2021/02/True-money.jpg" alt="TrueMoney"><div class="name">ทรูมันนี่ วอลเลต</div></div>
+            <div class="right"><div class="amt">{{ (baseAfterDiscount + (baseAfterDiscount*0.025)) | number:'1.2-2' }} ฿</div><div class="fee">ค่าธรรมเนียม {{ (baseAfterDiscount*0.025) | number:'1.2-2' }} ฿</div></div>
+          </button>
+        </div>
+        <div class="wizard-actions">
+          <button class="btn ghost" (click)="backToCart()">ย้อนกลับ</button>
+          <button class="btn primary" [disabled]="!selectedPayment" (click)="proceedFromMethod()">ดำเนินการต่อ</button>
+        </div>
+      </ng-container>
+
+      <!-- Step: Summary -->
+      <ng-container *ngSwitchCase="'summary'">
+        <div class="summary-header">
+          <h2>สรุปคำสั่งซื้อ</h2>
+          <img class="method-badge" [src]="selectedPayment==='truemoney' ? 'https://download-th.com/wp-content/uploads/2021/02/True-money.jpg' : 'https://download-th.com/wp-content/uploads/2023/02/ThaiQR.jpg'" alt="method" />
+        </div>
+        <div class="summary-items">
+          <div class="summary-item" *ngFor="let it of cart">
+            <div class="left">TFT {{ it.value | number }} × {{ it.qty }}</div>
+            <div class="right">{{ (it.qty * it.amount) | number:'1.0-0' }} ฿</div>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="coupon-row">
+            <input class="coupon-input" type="text" [(ngModel)]="couponCode" placeholder="กรอกโค้ดส่วนลด เช่น HCI400" (keyup.enter)="applyCoupon()">
+            <button class="btn apply" (click)="applyCoupon()">ใช้โค้ด</button>
+          </div>
+          <div class="coupon-state">
+            <span class="applied" *ngIf="couponApplied">ใช้แล้ว: HCI400 (ลด 10%)</span>
+            <span class="error" *ngIf="!couponApplied && couponError">{{ couponError }}</span>
+            <button *ngIf="couponApplied" class="link-clear" (click)="clearCoupon()">ลบโค้ด</button>
+          </div>
+        </div>
+
+        <div class="summary-lines">
+          <div class="row"><div class="k">รวม</div><div class="v">{{ totalAmount | number:'1.0-0' }} ฿</div></div>
+          <div class="row" *ngIf="discountAmount > 0"><div class="k">ส่วนลด</div><div class="v" style="color:#16a34a;">-{{ discountAmount | number:'1.2-2' }} ฿</div></div>
+          <div class="row"><div class="k">ค่าธรรมเนียม</div><div class="v">{{ fee | number:'1.2-2' }} ฿</div></div>
+          <div class="row total"><div class="k">ยอดชำระ</div><div class="v">{{ grandTotal | number:'1.2-2' }} ฿</div></div>
+        </div>
+        <label class="terms"><input type="checkbox" [(ngModel)]="acceptTerms"> ยืนยันรายการในตะกร้าและยอมรับเงื่อนไข</label>
+        <div class="wizard-actions">
+          <button class="btn ghost" (click)="backToMethod()">ย้อนกลับ</button>
+          <button class="btn primary" [disabled]="!acceptTerms" (click)="proceedToPay()">ดำเนินการต่อ</button>
+        </div>
+      </ng-container>
+
+      <!-- Step: Pay -->
+      <ng-container *ngSwitchCase="'pay'">
+        <h2>ชำระเงิน</h2>
+        <div class="pay-block" *ngIf="selectedPayment==='promptpay'">
+          <img class="zoomable" (click)="openLightbox(promptPayQr)" [src]="promptPayQr" alt="PromptPay QR">
+          <div class="pay-amt">ยอดชำระ {{ grandTotal | number:'1.2-2' }} ฿</div>
+          <button class="btn primary wide" [disabled]="isPaying || isPaid" (click)="confirmPay()">{{ isPaid ? 'ชำระเงินแล้ว' : (isPaying ? 'กำลังยืนยัน...' : 'ยืนยันการชำระเงิน') }}</button>
+          <button class="btn ghost" (click)="backToMethod()">ย้อนกลับ</button>
+        </div>
+        <div class="pay-block" *ngIf="selectedPayment==='truemoney'">
+          <div class="tm-phone">โอน TrueMoney Wallet ไปที่ <strong>{{ truemoneyPhone }}</strong></div>
+          <label class="slip-upload"><input type="file" accept="image/*" (change)="onSlipSelected($event)"> อัปโหลดรูปสลิปทรูมันนี่</label>
+          <img *ngIf="truemoneySlipData" [src]="truemoneySlipData" class="slip-preview zoomable" alt="สลิปทรูมันนี่">
+          <div class="pay-amt">ยอดชำระ {{ grandTotal | number:'1.2-2' }} ฿</div>
+          <button class="btn primary wide" [disabled]="isPaying || isPaid || !truemoneySlipData" (click)="confirmPay()">{{ isPaid ? 'ชำระเงินแล้ว' : (isPaying ? 'กำลังยืนยัน...' : 'ยืนยันการชำระเงิน') }}</button>
+          <button class="btn ghost" (click)="backToMethod()">ย้อนกลับ</button>
+        </div>
+      </ng-container>
+
+      <ng-template #emptyCart>
+        <div class="empty">ยังไม่มีสินค้าในตะกร้า</div>
+      </ng-template>
     </div>
   </div>
+</div>
+
+<!-- Lightbox for guide/QR image -->
+<div class="lightbox" *ngIf="isLightboxOpen" (click)="closeLightbox()">
+  <div class="lightbox-content" (click)="$event.stopPropagation()">
+    <button class="lightbox-close" (click)="closeLightbox()" aria-label="ปิดภาพ">×</button>
+    <img [src]="lightboxImage || guideImage" alt="TFT Image" />
+  </div>
+  <div class="lightbox-backdrop" (click)="closeLightbox()"></div>
 </div>

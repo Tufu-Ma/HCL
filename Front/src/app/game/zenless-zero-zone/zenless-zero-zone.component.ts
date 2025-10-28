@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-zenless-zero-zone',
@@ -7,19 +8,41 @@ import { Router } from '@angular/router';
   templateUrl: './zenless-zero-zone.component.html',
   styleUrl: './zenless-zero-zone.component.css'
 })
-export class ZenlessZeroZoneComponent {
-  constructor(private router: Router) {}
+export class ZenlessZeroZoneComponent implements OnInit {
+  constructor(private router: Router, private location: Location) {}
   uid = '';
   isValidUid = false;
-  selectedAmount: number | null = null;
-  selectedPayment: string | null = null;
+  server: 'Asia' | 'America' | 'Europe' | 'HMT' = 'Asia';
+  unit = 'Crystals';
+  selectedPayment: 'promptpay' | 'truemoney' | null = null;
+  guideImage = 'https://www.overtopup.com/assets/uploads/files/pic/ZZZ_%E0%B9%81%E0%B8%99%E0%B8%B0%E0%B8%99%E0%B8%B3%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1_UID.png';
+  isLightboxOpen = false;
+  lightboxImage: string | null = null;
+  promptPayQr = 'https://scontent.fbkk29-1.fna.fbcdn.net/v/t1.15752-9/566538890_1130417712554071_1302665028930504060_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=XnLa62aA9CAQ7kNvwEEBiS3&_nc_oc=AdlxmdjWQ7W7K5CMMYEWZ-f2lmEXrAS10zf-FtDQC4IZXKD0FKNQ58QSZflA99nYq3nXHQXSQvPLk-fGOrYa-GTr&_nc_zt=23&_nc_ht=scontent.fbkk29-1.fna&oh=03_Q7cD3gGz-UDa2joAwcyiTBLY-9ivZAuNOsSMeKFzjE8-NK8bQg&oe=692856EE';
 
-  options = [
-    { coins: 60, amount: 35 },
-    { coins: 300, amount: 179 },
-    { coins: 980, amount: 549 },
-    { coins: 1980, amount: 1090 }
-  ];
+  products = [
+  { id: 'zzz-0060', value: 60, amount: 27 },
+  { id: 'zzz-0300p30', value: '300+30', amount: 119 },
+  { id: 'zzz-0980p110', value: '980+110', amount: 349 },
+  { id: 'zzz-1980p260', value: '1980+260', amount: 709 },
+  { id: 'zzz-3280p600', value: '3280+600', amount: 1169 },
+  { id: 'zzz-6480p1600', value: '6480+1600', amount: 2199 },
+  { id: 'zzz-6480p1600-x2', value: '6480+1600 x2 แพ็ก', amount: 4398 },
+  { id: 'zzz-6480p1600-x3', value: '6480+1600 x3 แพ็ก', amount: 6597 },
+  { id: 'zzz-6480p1600-x5', value: '6480+1600 x5 แพ็ก', amount: 10995 },
+  { id: 'zzz-6480p1600-x10', value: '6480+1600 x10 แพ็ก', amount: 21990 },
+  { id: 'zzz-set-all', value: 'เหมาทุกแพ็กอย่างละครั้ง (ไม่รวม Inter)', amount: 4572 },
+
+  // Inter
+  { id: 'zzz-inter', value: 'Inter', amount: 119 },
+  { id: 'zzz-inter-x2', value: 'Inter x2', amount: 238 },
+  { id: 'zzz-inter-x3', value: 'Inter x3', amount: 357 },
+  { id: 'zzz-inter-x4', value: 'Inter x4', amount: 476 },
+  { id: 'zzz-inter-x5', value: 'Inter x5', amount: 595 }
+];
+
+
+  cart: { id: string; value: any; amount: number; qty: number }[] = [];
 
   paymentMethods = [
     { id: 'promptpay', name: 'PromptPay', icon: 'https://download-th.com/wp-content/uploads/2023/02/ThaiQR.jpg' },
@@ -27,19 +50,107 @@ export class ZenlessZeroZoneComponent {
   ];
 
   validateUid(): void { this.isValidUid = /^\d{6,20}$/.test(this.uid.trim()); }
-  selectAmount(o: any): void { this.selectedAmount = o.amount; }
-  selectPayment(id: string): void { this.selectedPayment = id; }
-  confirmTopup(): void {
-    if (!this.isValidUid || !this.selectedAmount || !this.selectedPayment) return;
-    this.router.navigate(['/checkout'], {
-      queryParams: {
-        game: 'ZENLESS ZONE ZERO',
-        accountType: 'UID',
-        accountValue: this.uid,
-        amount: this.selectedAmount,
-        method: this.selectedPayment,
-        origin: 'termgame',
-      },
-    });
+  ngOnInit(): void {
+    const saved = localStorage.getItem('saved.uid.zzz');
+    if (saved) { this.uid = saved; this.validateUid(); }
+  }
+  saveUid(): void {
+    if (!this.uid) return;
+    localStorage.setItem('saved.uid.zzz', this.uid);
+    import('sweetalert2').then(({ default: Swal }) => Swal.fire({ icon: 'success', title: 'บันทึกแล้ว', text: 'บันทึก UID สำหรับครั้งถัดไปเรียบร้อย' }));
+  }
+  choosePayment(id: 'promptpay' | 'truemoney'): void { this.selectedPayment = id; }
+  addToCart(p: any) { const f = this.cart.find(i => i.id === p.id); if (f) f.qty++; else this.cart.push({ id: p.id, value: p.value, amount: p.amount, qty: 1 }); }
+  inc(it: any) { it.qty++; }
+  dec(it: any) { if (it.qty > 1) it.qty--; else this.remove(it); }
+  remove(it: any) { this.cart = this.cart.filter(x => x.id !== it.id); }
+  clearCart() { this.cart = []; }
+  get totalQty() { return this.cart.reduce((s, i) => s + i.qty, 0); }
+  get totalAmount() { return this.cart.reduce((s, i) => s + i.qty * i.amount, 0); }
+  // --- In-page wizard (Cart -> Method -> Summary -> Pay)
+  step: 'cart' | 'method' | 'summary' | 'pay' = 'cart';
+  methodFees: Record<'promptpay'|'truemoney', number> = { promptpay: 0, truemoney: 0.025 };
+  acceptTerms = false;
+  // Coupon
+  couponCode = '';
+  discountRate = 0;
+  couponApplied = false;
+  couponError: string | null = null;
+  // TrueMoney
+  truemoneyPhone = '0917171717';
+  truemoneySlipData: string | null = null;
+  truemoneySlipName = '';
+  // Pay state
+  isPaying = false;
+  isPaid = false;
+  orderId = '';
+
+  get discountAmount(): number { return Math.round((this.totalAmount * this.discountRate) * 100) / 100; }
+  get baseAfterDiscount(): number { return Math.max(0, this.totalAmount - this.discountAmount); }
+  get fee(): number { if (!this.selectedPayment) return 0; const r = this.methodFees[this.selectedPayment] || 0; return Math.round(this.baseAfterDiscount * r * 100) / 100; }
+  get grandTotal(): number { return Math.round((this.baseAfterDiscount + this.fee) * 100) / 100; }
+
+  goToMethod(): void { if (this.cart.length && this.isValidUid) this.step = 'method'; }
+  proceedFromMethod(): void { if (this.selectedPayment) this.step = 'summary'; }
+  backToCart(): void { this.step = 'cart'; }
+  backToMethod(): void { this.step = 'method'; }
+  proceedToPay(): void { if (this.acceptTerms && this.selectedPayment) this.step = 'pay'; }
+
+  onSlipSelected(ev: any): void {
+    const file: File | undefined = ev?.target?.files?.[0];
+    if (!file) { this.truemoneySlipData = null; this.truemoneySlipName = ''; return; }
+    if (!file.type.startsWith('image/')) return;
+    if (file.size > 8 * 1024 * 1024) return; // 8MB
+    const reader = new FileReader();
+    reader.onload = () => { this.truemoneySlipData = reader.result as string; this.truemoneySlipName = file.name; };
+    reader.readAsDataURL(file);
+  }
+
+  applyCoupon(): void {
+    const code = this.couponCode.trim().toUpperCase();
+    if (!code) { this.discountRate = 0; this.couponApplied = false; this.couponError = null; return; }
+    if (code === 'HCI400') { this.discountRate = 0.10; this.couponApplied = true; this.couponError = null; }
+    else { this.discountRate = 0; this.couponApplied = false; this.couponError = 'โค้ดไม่ถูกต้อง'; }
+  }
+  clearCoupon(): void { this.couponCode = ''; this.discountRate = 0; this.couponApplied = false; this.couponError = null; }
+
+  checkout(): void {
+    if (!this.cart.length || !this.selectedPayment || !this.isValidUid) return;
+    const prefix = `UID: ${this.uid} (Server: ${this.server}) | `;
+    const summary = prefix + this.cart.map(i => `${i.value}${this.unit} x${i.qty}`).join(', ');
+    this.router.navigate(['/checkout'], { queryParams: { game: 'ZENLESS ZONE ZERO', accountType: 'UID/Server', accountValue: summary, amount: this.totalAmount, method: this.selectedPayment, origin: 'termgame' } });
+  }
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/termgame']);
+    }
+  }
+
+  openLightbox(src?: string): void {
+    if (src) { this.lightboxImage = src; this.isLightboxOpen = true; return; }
+    if (this.guideImage) { this.lightboxImage = this.guideImage; this.isLightboxOpen = true; }
+  }
+  closeLightbox(): void { this.isLightboxOpen = false; this.lightboxImage = null; }
+
+  confirmPay(): void {
+    if (this.isPaying || this.isPaid) return;
+    if (this.selectedPayment === 'truemoney' && !this.truemoneySlipData) return;
+    this.isPaying = true;
+    setTimeout(() => {
+      this.isPaying = false;
+      this.isPaid = true;
+      this.orderId = 'ZZZ' + Math.floor(100000 + Math.random()*900000);
+      import('sweetalert2').then(({ default: Swal }) =>
+        Swal.fire({ icon: 'success', title: 'ชำระเงินสำเร็จ', text: `เลขคำสั่งซื้อ ${this.orderId}` })
+      );
+      setTimeout(() => {
+        this.clearCart();
+        this.acceptTerms = false; this.selectedPayment = null; this.step = 'cart'; this.isPaid = false; this.orderId = '';
+        this.truemoneySlipData = null; this.truemoneySlipName = ''; this.couponCode = ''; this.discountRate = 0; this.couponApplied = false; this.couponError = null;
+      }, 1000);
+    }, 800);
   }
 }
