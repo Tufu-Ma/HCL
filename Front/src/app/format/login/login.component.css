@@ -2,33 +2,52 @@
 .login-box {
   width: 100%;
   max-width: 420px;
-  background: rgba(173, 12, 0, 0.884);
+  background: linear-gradient(145deg, #5a0000, #7a1a1a);
   border-radius: 1rem;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  color: #f9f9f9;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* หัวข้อ */
+.login-box h2,
+.login-box h3 {
+  color: #ffe6a7; /* เหลืองนวล เข้ากับพื้นเบส */
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 /* ปุ่มหลัก */
 .btn-login {
-  background: linear-gradient(90deg, #6e0000, #550000);
+  background: linear-gradient(90deg, #d4a017, #b8860b);
+  color: #fffaf0;
   border: none;
-  color: white;
-  transition: 0.3s;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
 }
 
 .btn-login:hover {
-  opacity: 0.85;
+  background: linear-gradient(90deg, #e3b733, #c9980d);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+
+/* ข้อความ */
 .text-muted {
-  color: #ffffff !important;
+  color: #f5f5f5 !important;
+  opacity: 0.9;
 }
 
 /* ลิงก์ชมพู */
 .text-pink {
-  color: #ff33cc;
+  color: #ff66b2;
+  font-weight: 500;
 }
 
 .text-pink:hover {
+  color: #ff99cc;
   text-decoration: underline;
 }
-

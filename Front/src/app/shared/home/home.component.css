@@ -16,71 +16,80 @@
 /* สไตล์สำหรับหัวข้อ "เติมเกม UID" */
 h2 {
   color: white !important;
-  text-align: center;
+  text-align: left;
   margin-bottom: 30px !important;
 }
 
-.cards{
+.cards {
   display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  justify-content: center;
 }
 
-@media (max-width: 1200px){ .cards{ grid-template-columns: repeat(4,1fr);} }
-
-@media (max-width: 900px) { .cards{ grid-template-columns: repeat(2,1fr);} }
-
-.card-item{
-  display:flex; 
-  flex-direction:column; 
-  text-decoration:none;
-  text-align: center; 
-  color:#eee;
+/* ปรับขนาด card */
+.card-item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  text-align: center;
+  color: #eee;
   background: radial-gradient(100% 120% at 0% 0%, #450000, #000000);
-  border-radius:16px; 
-  padding:16px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 12px 30px rgba(0,0,0,.35);
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 8px 20px rgba(0,0,0,.35);
   transition: transform .15s, box-shadow .15s;
+  max-width: 200px; /* 🔹 จำกัดความกว้างสูงสุดของ card */
+  margin: auto;
 }
 
-.card-item:hover{ 
-  transform: translateY(-3px); 
-  box-shadow: 0 0 0 1px rgba(255, 0, 0, 0.5), 0 14px 36px rgba(0,0,0,.5); 
+.card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px rgba(255, 0, 0, 0.5), 0 12px 28px rgba(0,0,0,.5);
 }
 
-.thumb{ 
-  aspect-ratio: 1/1; 
-  border-radius:12px; 
-  overflow:hidden; 
-  background:#2b0000; 
-  margin-bottom:12px; 
+/* ปรับขนาดภาพ */
+.thumb {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #2b0000;
+  margin-bottom: 10px;
 }
 
-.thumb img{ 
-  width:100%; 
-  height:100%; 
-  object-fit:cover; 
-  display:block; 
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.meta{ 
-  display:flex; 
-  flex-direction:column; 
-  gap:10px; 
+/* ชื่อเกม */
+.name {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.name{ 
-  font-weight:700; 
-  color:#fff; 
+/* ปุ่มเติมเกม */
+.btn {
+  align-self: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #cc0000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, .35);
+  font-size: 0.9rem;
 }
 
-.btn{
-  align-self:flex-start; 
-  padding:8px 14px; 
-  border-radius:10px;
-  background:#cc0000; 
-  color:#fff; 
-  border:none; 
-  cursor:pointer;
-  box-shadow: 0 0 0 3px rgba(204,0,0,.35);
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

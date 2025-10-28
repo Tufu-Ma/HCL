@@ -28,9 +28,15 @@
 
       <!-- ✅ ถ้า login แล้ว -->
       <div *ngIf="isLoggedIn" class="position-relative">
-        <button class="btn btn-outline-light" (click)="toggleMenu()">
-          <i class="bi bi-person-circle"></i> {{ username }}
-        </button>
+        <button class="btn-profile" (click)="toggleMenu()">
+  <img
+    src="assets/default-profile.png"
+    alt="profile"
+    class="profile-pic"
+  />
+  <span class="username ms-2">{{ username || 'ผู้ใช้ทั่วไป' }}</span>
+</button>
+
 
         <!-- เมนู dropdown -->
         <ul
