@@ -1,0 +1,30 @@
+<app-header-navbar (searchChange)="onSearchChange($event)"></app-header-navbar>
+
+<div class="wrap">
+  <header class="header">
+    <div class="brand">
+      <div>
+        <h1>เติมเกมด้วย UID</h1>
+        <div class="small">เติมเกมกับเราต้องเติมไวไฟลุก ลุกไปไหนลุกไปนั่ง</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="grid">
+    <article class="card" *ngFor="let g of filteredGames">
+      <a [routerLink]="g.path" class="game-link">
+        <div class="thumb">
+          <img [src]="g.image" [alt]="g.name" class="game-image">
+        </div>
+        <div class="title">{{ g.name }}</div>
+        <div class="meta">
+          <span class="chip">{{ g.tag }}</span>
+          <span class="small">UID เติม</span>
+        </div>
+      </a>
+      <button class="btn" [routerLink]="g.path">เติมเกม</button>
+    </article>
+  </section>
+</div>
+
+

@@ -1,81 +1,313 @@
+/* ==============================
+   HERO / พื้นหลังด้านบน
+   ============================== */
 .home-background-wrapper {
+  position: relative;
   background-image: url("../../../assets/bg4.png");
-  background-size: cover;      
-  background-position: center; 
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  max-height: 100vh;
-  padding-top: 100vh;  
+
+  /* ให้กินเต็ม viewport สูงสุดเท่าหน้าจอ */
+  min-height: 100vh;
+  width: 100%;
+
+  /* จัดทุกอย่างกลางจอ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 60px 20px;
+  color: #fff;
 }
 
-/* ลบกฎนี้ทิ้ง หรือเปลี่ยนชื่อคลาส */
-.container{
-  padding-top: 50px; /* เพิ่มระยะห่างจากขอบบน */
-  padding-bottom: 50px; /* เพิ่มระยะห่างจากขอบล่าง */
+/* กล่องปุ่มกลาง hero */
+.hero-inner {
+  position: relative;
+  z-index: 1;        /* อยู่เหนือ overlay ::before */
+  max-width: 800px;
+  margin-top: 430px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* สไตล์สำหรับหัวข้อ "เติมเกม UID" */
+/* ปุ่มตรงกลาง hero */
+.hero-scroll-btn {
+  background: rgba(0,0,0,.6);
+  border: 2px solid #ff006a;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow:
+    0 0 12px rgba(255,0,106,.6),
+    0 8px 24px rgba(0,0,0,.8);
+  transition: all .15s;
+}
+
+.hero-scroll-btn:hover {
+  background: rgba(255,0,106,.15);
+  box-shadow:
+    0 0 16px rgba(255,0,106,.9),
+    0 12px 32px rgba(0,0,0,1);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* ==============================
+   เนื้อหาด้านล่าง (carousel)
+   ============================== */
+
+/* ระยะ container */
+.container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* หัวข้อแต่ละ section */
 h2 {
   color: white !important;
   text-align: left;
   margin-bottom: 30px !important;
+  font-weight: 600;
 }
 
-.cards {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+/* =====================================
+   WRAPPER รอบแถว / ปุ่มเลื่อน carousel
+===================================== */
+.cards-row-wrapper {
+  position: relative;
+  margin-bottom: 30px;
+
+  /* center และกันให้ไม่ชิดขอบ */
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 48px;
+  box-sizing: border-box;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ปุ่มลูกศร ซ้าย/ขวา */
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+
+  width: 32px;
+  height: 48px;
+  border-radius: 8px;
+
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
   justify-content: center;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,.6);
+  transition: background .15s, box-shadow .15s;
 }
 
-/* ปรับขนาด card */
+.arrow-btn:hover {
+  background: rgba(204,0,0,0.8);
+  box-shadow: 0 12px 28px rgba(0,0,0,.8);
+}
+
+.arrow-left {
+  left: 0;
+  transform: translateY(-50%) translateX(-50%);
+}
+.arrow-right {
+  right: 0;
+  transform: translateY(-50%) translateX(50%);
+}
+
+.arrow-icon {
+  font-size: 1.2rem;
+  user-select: none;
+  line-height: 1;
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+
+/* ถ้าจอเล็ก เอาปุ่มเข้ามาด้านในหน่อย */
+@media (max-width: 600px) {
+  .cards-row-wrapper {
+    padding: 0 40px;
+    max-width: 100%;
+  }
+
+  .arrow-left {
+    left: 4px;
+    transform: translateY(-50%);
+  }
+  .arrow-right {
+    right: 4px;
+    transform: translateY(-50%);
+  }
+}
+
+/* ==============================
+   แถวแนวนอนที่เลื่อนซ้ายขวา (carousel row)
+   ============================== */
+.cards-row {
+  display: flex;
+  flex-wrap: nowrap;          /* ไม่ตกลำดับลงบรรทัดใหม่ */
+  gap: 20px;
+
+  overflow-x: auto;           /* ให้ scroll แนวนอน */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  padding-bottom: 16px;
+
+  /* ซ่อน scrollbar */
+  scrollbar-width: none;      /* Firefox */
+}
+.cards-row::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari */
+}
+
+/* ==============================
+   การ์ดเกม / การ์ดบริการ
+   ============================== */
 .card-item {
+  flex: 0 0 auto;             /* คงขนาดการ์ด ไม่ให้ยืด */
+  width: 200px;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   text-align: center;
   color: #eee;
+
   background: radial-gradient(100% 120% at 0% 0%, #450000, #000000);
   border-radius: 14px;
   padding: 12px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 8px 20px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06),
+    0 8px 20px rgba(0,0,0,.35);
   transition: transform .15s, box-shadow .15s;
-  max-width: 200px; /* 🔹 จำกัดความกว้างสูงสุดของ card */
-  margin: auto;
 }
 
 .card-item:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 0 1px rgba(255, 0, 0, 0.5), 0 12px 28px rgba(0,0,0,.5);
+  box-shadow:
+    0 0 0 1px rgba(255, 0, 0, 0.5),
+    0 12px 28px rgba(0,0,0,.5);
 }
 
-/* ปรับขนาดภาพ */
+/* ==============================
+   บล็อคภาพพื้นฐาน (เกม UID / ID-Pass)
+   ============================== */
 .thumb {
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
   background: #2b0000;
   margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;   /* เกมพวกโปสเตอร์/ปก เหมาะกับ cover */
+  object-position: center;
   display: block;
+  transition: transform .25s ease;
 }
 
-/* ชื่อเกม */
+.card-item:hover .thumb img {
+  transform: scale(1.05);
+}
+
+/* ==============================
+   ปรับเฉพาะการ์ด Subscription
+   ============================== */
+.subscription-card .thumb {
+  aspect-ratio: 16 / 9;         /* โลโก้แนวนอน */
+  background: #ffffff;
+  padding: 10px;                /* กันโลโก้ชนขอบ */
+}
+
+.subscription-card .thumb img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;          /* โลโก้ไม่ถูกครอบ/บิดรูป */
+  object-position: center;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
+  transition: transform .25s ease, filter .25s ease;
+}
+
+.subscription-card:hover .thumb img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 10px rgba(255,0,0,0.4));
+}
+
+/* ==============================
+   เนื้อหาการ์ด (ชื่อ ป้าย ปุ่ม)
+   ============================== */
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 .name {
   font-weight: 600;
   color: #fff;
   font-size: 0.95rem;
-  margin-bottom: 8px;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
-/* ปุ่มเติมเกม */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.2;
+  font-size: 0.8rem;
+  color: #ccc;
+}
+.chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #fff;
+}
+.small-text {
+  font-size: 0.7rem;
+  color: #aaa;
+}
+
+/* ปุ่ม "เติมเกม" / "สมัครแพ็กเกจ" ในการ์ด */
 .btn {
   align-self: center;
   padding: 6px 12px;
@@ -84,12 +316,54 @@ h2 {
   color: #fff;
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 0 3px rgba(204, 0, 0, .35);
+  box-shadow:
+    0 0 0 3px rgba(204, 0, 0, .35),
+    0 12px 20px rgba(0,0,0,.6);
   font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ==============================
+   Layout grid สำรอง (ถ้าอยากใช้แบบ grid ทีหลัง)
+   ============================== */
+.cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  justify-content: center;
 }
 
 @media (max-width: 900px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* ==============================
+   เอฟเฟกต์ reveal-on-scroll
+   ============================== */
+
+/* สถานะก่อนถูกโชว์ (ยังไม่อยู่ใน viewport) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
+  will-change: opacity, transform;
+}
+
+/* สถานะเมื่อถูกโชว์แล้ว */
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* เพิ่มความหน่วงเล็กน้อยแบบ stagger สำหรับการ์ดถัด ๆ ไป */
+.reveal[data-delay="1"] { transition-delay: 0.05s; }
+.reveal[data-delay="2"] { transition-delay: 0.10s; }
+.reveal[data-delay="3"] { transition-delay: 0.15s; }
+.reveal[data-delay="4"] { transition-delay: 0.20s; }
+.reveal[data-delay="5"] { transition-delay: 0.25s; }
+
+/* คุณสามารถเพิ่มได้เรื่อย ๆ ถ้าการ์ดเยอะ */
 }

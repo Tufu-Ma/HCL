@@ -1,25 +1,136 @@
 <app-header-navbar></app-header-navbar>
-<div class="home-background-wrapper"></div>
-<div class="container">
+
+<!-- ฮีโร่ด้านบน (พื้นหลัง + ปุ่มตรงกลาง) -->
+<div class="home-background-wrapper">
+  <div class="hero-inner">
+    <button class="hero-scroll-btn" (click)="scrollToContent()">
+      เริ่มดูรายการเกม ↓
+    </button>
+  </div>
+</div>
+
+<!-- เนื้อหาหลักด้านล่าง -->
+<div id="contentSection" class="container">
   <div class="row">
     <div class="col-10 offset-1 page-box">
-      <h2 class="mb-3">เติม ID-Pass</h2>
 
-      <div *ngIf="loading">กำลังโหลด...</div>
-      <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
+      <!-- SECTION: เติม UID -->
+      <h2 class="mb-3">เติม UID</h2>
+      <div class="cards-row-wrapper">
+        <button class="arrow-btn arrow-left" (click)="scrollLeft()">
+          <span class="arrow-icon">‹</span>
+        </button>
 
-      <div class="cards" *ngIf="!loading && !error">
-        <a class="card-item" *ngFor="let g of games; trackBy: trackById" [routerLink]="['/game', g.slug || g.id]">
-          <div class="thumb">
-            <img [src]="g.coverurl || 'assets/testBG.jpg'" [alt]="g.name">
-          </div>
-          <div class="meta">
-            <div class="name">{{ g.name }}</div>
-            <button class="btn">เติมเกม</button>
-          </div>
-        </a>
+        <div class="cards-row" #uidRow>
+  <a
+    #revealCard
+    class="card-item reveal"
+    *ngFor="let g of filteredGames; trackBy: trackById; let i = index"
+    [attr.data-delay]="(i % 5) + 1"
+    [routerLink]="g.path"
+  >
+    <div class="thumb">
+      <img [src]="g.image" [alt]="g.name" />
+    </div>
+
+    <div class="meta">
+      <div class="name">{{ g.name }}</div>
+
+      <div class="tag-row">
+        <span class="chip">UID</span>
+        <span class="small-text">UID เติม</span>
       </div>
 
+      <button class="btn">เติมเกม</button>
+    </div>
+  </a>
+</div>
+
+
+
+        <button class="arrow-btn arrow-right" (click)="scrollRight()">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
+
+
+      <!-- SECTION: เติม ID-Pass -->
+      <h2 class="mb-3">เติม ID-Pass</h2>
+
+      <div class="cards-row-wrapper">
+        <button class="arrow-btn arrow-left" (click)="scrollLeftIdPass()">
+          <span class="arrow-icon">‹</span>
+        </button>
+
+        <div class="cards-row" #idpassRow>
+  <div *ngIf="loading" class="text-light">กำลังโหลด...</div>
+  <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
+
+  <a
+    class="card-item reveal"
+    *ngFor="let g of apiGames; trackBy: trackById; let i = index"
+    [attr.data-delay]="(i % 5) + 1"
+    [routerLink]="['/games', g.slug || g.id]"
+  >
+    <div class="thumb">
+      <img [src]="g.coverurl || 'assets/testBG.jpg'" [alt]="g.name" />
+    </div>
+    <div class="meta">
+      <div class="name">{{ g.name }}</div>
+      <div class="tag-row">
+        <span class="chip">ID-Pass</span>
+        <span class="small-text">ล็อกอินด้วยบัญชี</span>
+      </div>
+      <button class="btn">เติมเกม</button>
+    </div>
+  </a>
+</div>
+
+
+        <button class="arrow-btn arrow-right" (click)="scrollRightIdPass()">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
+
+
+      <!-- SECTION: Subscription -->
+      <h2 class="mb-3">Subscription</h2>
+
+      <div class="cards-row-wrapper">
+        <button class="arrow-btn arrow-left" (click)="scrollLeftSub()">
+          <span class="arrow-icon">‹</span>
+        </button>
+
+        <!-- แถวสไลด์ subscription -->
+        <div class="cards-row" #subRow>
+  <a
+    class="card-item subscription-card reveal"
+    *ngFor="let s of subItems; trackBy: trackById; let i = index"
+    [attr.data-delay]="(i % 5) + 1"
+    [routerLink]="['/subscription', s.id]"
+  >
+    <div class="thumb">
+      <img [src]="s.image" [alt]="s.name" />
+    </div>
+
+    <div class="meta">
+      <div class="name">{{ s.name }}</div>
+
+      <div class="tag-row">
+        <span class="chip">SUB</span>
+        <span class="small-text">{{ s.subtitle }}</span>
+      </div>
+
+      <button class="btn">สมัครแพ็กเกจ</button>
+    </div>
+  </a>
+</div>
+
+
+        <button class="arrow-btn arrow-right" (click)="scrollRightSub()">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
 
     </div>
   </div>
