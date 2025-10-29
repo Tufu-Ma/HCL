@@ -1,0 +1,46 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="login-wrapper d-flex justify-content-center align-items-center vh-100">
+  <div class="login-box card shadow-lg p-4">
+    <h3 class="text-center mb-3 text-white">เข้าสู่ระบบ</h3>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+  <div class="mb-3">
+    <label class="form-label text-white">ชื่อผู้ใช้หรืออีเมล <span class="text-danger">*</span></label>
+    <input
+      type="text"
+      class="form-control form-control-lg"
+      placeholder="ชื่อผู้ใช้หรืออีเมล"
+      formControlName="username"
+      required
+    >
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label text-white">รหัสผ่าน <span class="text-danger">*</span></label>
+    <input
+      type="password"
+      class="form-control form-control-lg"
+      placeholder="รหัสผ่าน"
+      formControlName="password"
+      required
+    >
+  </div>
+
+  <div class="d-grid mt-4">
+    <button type="submit" class="btn btn-login btn-lg fw-bold">
+      เข้าสู่ระบบ
+    </button>
+  </div>
+</form>
+
+
+    <div class="text-center mt-3">
+      <a href="#" class="text-muted small">ลืมรหัสผ่าน?</a>
+    </div>
+
+    <div class="text-center mt-3 text-white">
+      ยังไม่ได้เป็นสมาชิก? <a href="#" class="text-pink fw-bold">สมัครสมาชิก</a>
+    </div>
+  </div>
+</div>
