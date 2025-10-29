@@ -1,0 +1,244 @@
+/* พื้นหลังหลักของ footer */
+.site-footer {
+  position: relative;
+  background: radial-gradient(circle at 20% 0%, #2b0000 0%, #000 70%);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 3rem 1rem 4rem;
+  color: #eee;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* แสงแดงด้านหลังแบบ glow */
+.footer-bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 60% 10%, rgba(255,0,0,0.28) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* เนื้อใน footer จำกัดความกว้าง */
+.footer-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* layout บนสุด */
+.footer-top {
+  display: grid;
+  gap: 2rem 1.5rem;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+@media (max-width: 992px) {
+  .footer-top {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+@media (max-width: 640px) {
+  .footer-top {
+    grid-template-columns: repeat(1, minmax(0,1fr));
+  }
+}
+
+/* คอลัมน์ทั่วไป */
+.footer-col {
+  min-width: 0;
+}
+
+/* หัวข้อคอลัมน์ */
+.footer-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(255,0,0,.4);
+  margin-bottom: .5rem;
+}
+
+/* จุดเขียวออนไลน์ */
+.icon-dot-online {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background: #00ff57;
+  border-radius: 999px;
+  box-shadow: 0 0 8px #00ff57, 0 0 16px rgba(0,255,87,.4);
+}
+.icon-dot-online::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  animation: pulse-ring 1.8s infinite;
+  box-shadow: 0 0 8px #00ff57, 0 0 16px rgba(0,255,87,.4);
+}
+
+/* คำอธิบายใต้หัวข้อ */
+.footer-desc {
+  font-size: .85rem;
+  color: #aaa;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+}
+
+/* contact list */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  background: rgba(0,0,0,.4);
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 10px 30px rgba(0,0,0,.7);
+  border-radius: .75rem;
+  padding: .75rem 1rem;
+  margin-bottom: .75rem;
+}
+.contact-icon {
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  filter: drop-shadow(0 4px 8px rgba(255,215,0,.3));
+}
+.contact-texts {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.contact-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: #ffeb3b;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+}
+.contact-value {
+  font-size: .85rem;
+  color: #ddd;
+  word-break: break-word;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+}
+
+/* ลิงก์ */
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.link-list li {
+  margin-bottom: .5rem;
+}
+.link-list a {
+  font-size: .9rem;
+  color: #ccc;
+  text-decoration: none;
+  transition: color .15s, text-shadow .15s;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+}
+.link-list a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,0,0,.6), 0 0 16px rgba(255,0,0,.4);
+}
+
+/* เส้นคั่น */
+.footer-divider {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin: 2rem 0;
+}
+.footer-divider.small {
+  margin: 1.5rem 0 1rem;
+}
+
+/* การ์ดติดต่อข้างล่าง (3 กล่อง) */
+.footer-cards-wrapper {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width: 768px) {
+  .footer-cards-wrapper {
+    grid-template-columns: repeat(1, minmax(0,1fr));
+  }
+}
+
+.contact-card {
+  position: relative;
+  text-align: center;
+  background: radial-gradient(100% 120% at 0% 0%, #440000 0%, #000000 80%);
+  border-radius: .75rem;
+  padding: 1rem .75rem 1.25rem;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06),
+              0 20px 40px rgba(0,0,0,.8);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: all .2s ease;
+}
+.contact-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 12px rgba(255,0,0,.5),
+              0 30px 60px rgba(0,0,0,.9);
+}
+
+.pulse-ring {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  width: 8px;
+  height: 8px;
+  background: #00ff57;
+  border-radius: 999px;
+  box-shadow: 0 0 8px #00ff57, 0 0 16px rgba(0,255,87,.4);
+  animation: pulse-ring 2s infinite;
+}
+
+.contact-card-icon {
+  font-size: 1.5rem;
+  margin-bottom: .5rem;
+  filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.3));
+  line-height: 1.5rem;
+}
+.contact-card-label {
+  color: #ffeb3b;
+  font-size: .8rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+}
+.contact-card-value {
+  color: #ccc;
+  font-size: .9rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  word-break: break-word;
+}
+
+/* footer bottom */
+.footer-bottom {
+  text-align: center;
+  font-size: .8rem;
+  color: #888;
+  line-height: 1.4;
+}
+.brand-copy {
+  color: #bbb;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  margin-bottom: .25rem;
+}
+.brand-safe {
+  color: #555;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  font-size: .75rem;
+}
+
+/* เอฟเฟกต์ pulse */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(0,255,87,.5); }
+  70%  { box-shadow: 0 0 12px 8px rgba(0,255,87,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,255,87,0); }
+}

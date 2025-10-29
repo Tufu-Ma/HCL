@@ -43,23 +43,4 @@ export class AboutMeComponent {
       'รับประกันการเติมเงิน หากไม่ได้รับคืนเงิน 100%'
     ]
   };
-
-  // ข้อมูลติดต่อ
-  contactInfo = {
-    email: {
-      icon: '📧',
-      label: 'อีเมล',
-      value: 'contact@termsubwaifailook.com'
-    },
-    phone: {
-      icon: '📞',
-      label: 'โทรศัพท์',
-      value: '099-xxx-xxxx'
-    },
-    line: {
-      icon: '💬',
-      label: 'Line ID',
-      value: '@termsubwaifai'
-    }
-  };
 }
