@@ -12,6 +12,8 @@ import { AddGameComponent } from './shared/add-game/add-game.component';
 import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail.component';
 import { AboutMeComponent } from './shared/about-me/about-me.component';
 import { PromotionComponent } from './shared/promotion/promotion.component';
+import { PromotionDetailComponent } from './shared/promotion-detail/promotion_detail.component';
+import { PaymentComponent } from './shared/payment/payment.component';
 
 
 
@@ -25,6 +27,8 @@ import { PromotionComponent } from './shared/promotion/promotion.component';
     AddGameDetailComponent,
     AboutMeComponent,
     PromotionComponent,
+    PromotionDetailComponent,
+    PaymentComponent,
 
   ],
   imports: [

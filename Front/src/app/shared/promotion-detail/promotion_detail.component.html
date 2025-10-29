@@ -1,0 +1,71 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="container" *ngIf="selectedPromotion">
+  <div class="row">
+    <div class="col-10 offset-1 page-box">
+      
+      <!-- ปุ่มกลับ -->
+      <div class="mb-3">
+        <button class="btn btn-secondary" (click)="goBack()">← กลับไปหน้าโปรโมชั่น</button>
+      </div>
+
+      <!-- รายละเอียดโปรโมชั่น -->
+      <div class="promotion-detail-card">
+        
+        <!-- รูปภาพโปรโมชั่น -->
+        <div class="promotion-image">
+          <img [src]="selectedPromotion.imageUrl || 'assets/testBG.jpg'" [alt]="selectedPromotion.title" class="img-fluid">
+          <div class="discount-badge" *ngIf="selectedPromotion.discount">
+            {{ selectedPromotion.subtitle }}
+          </div>
+          <div class="image-overlay"></div>
+        </div>
+        
+        <!-- ข้อมูลโปรโมชั่น -->
+        <div class="promotion-info">
+          <h2 class="promotion-title">{{ selectedPromotion.title }}</h2>
+          <div class="promotion-subtitle" *ngIf="selectedPromotion.subtitle">{{ selectedPromotion.subtitle }}</div>
+          <div class="promotion-pricing" *ngIf="selectedPromotion.price">
+            <span class="current-price">{{ selectedPromotion.price }}</span>
+            <span class="original-price" *ngIf="selectedPromotion.originalPrice">{{ selectedPromotion.originalPrice }}</span>
+            <span class="discount-percent" *ngIf="selectedPromotion.discount">-{{ selectedPromotion.discount }}%</span>
+          </div>
+
+          <!-- ของแถมพิเศษ -->
+          <div class="bonus-items-detail" *ngIf="selectedPromotion.bonusItems">
+            <h5>🎁 ของแถมพิเศษในชุดนี้</h5>
+            <div class="bonus-list">
+              <div class="bonus-item-detail" *ngFor="let bonus of selectedPromotion.bonusItems">
+                <i class="bonus-icon">✨</i>
+                <span>{{ bonus }}</span>
+              </div>
+            </div>
+          </div>
+          <p class="promotion-description">{{ selectedPromotion.description }}</p>
+          
+          <!-- คุณสมบัติพิเศษ -->
+          <div class="promotion-features" *ngIf="selectedPromotion.features">
+            <h5>คุณสมบัติพิเศษ</h5>
+            <ul class="features-list">
+              <li *ngFor="let feature of selectedPromotion.features" class="feature-item">
+                <i class="feature-icon">✓</i>
+                {{ feature }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- ปุ่มเติมเกม -->
+          <div class="btn-purchase">
+            <button class="btn-topup" (click)="goToPayment()">
+              <span class="btn-text">🎮 ซื้อโปรโมชั่นเลย! 🎮</span>
+              <span class="btn-shine"></span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
