@@ -500,16 +500,18 @@ h2 {
   right: 8px;
   border: none;
   background: transparent;
-  color: #6fb3f2;
-  border-radius: 6px;
+  color: #1e88e5;
+  border-radius: 999px;
   width: 28px;
   height: 28px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
 }
 
-.cart-item .remove:hover {
-  color: #1e88e5;
-}
+.cart-item .remove:hover { color: #1565c0; }
 
 .cart-total {
   display: flex;
@@ -869,4 +871,41 @@ h2 {
   max-height: 260px;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+}
+
+/* --- Proportionate product grid (responsive) --- */
+/* Use more specific selector to override earlier generic rules safely */
+.game-container .product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1280px) {
+  .game-container .product-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 992px) {
+  .game-container .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .game-container .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .game-container .product-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Wider cart column within the two-column layout --- */
+/* Make the right-side cart (.instruction-card.cart-card) wider on desktop */
+.game-container .topup-section {
+  grid-template-columns: 1.7fr 1.3fr; /* wider cart */
+}
+
+@media (max-width: 1280px) {
+  .game-container .topup-section { grid-template-columns: 1.8fr 1.2fr; }
+}
+@media (max-width: 1100px) {
+  .game-container .topup-section { grid-template-columns: 1.9fr 1.1fr; }
+}
+@media (max-width: 768px) {
+  .game-container .topup-section { grid-template-columns: 1fr; } /* stack on mobile */
 }
