@@ -1,0 +1,747 @@
+/* ===========================================
+   พื้นหลังหลักของหน้าเว็บ
+   =========================================== */
+:host {
+  display: block;
+  min-height: 100vh;
+  position: relative;
+  background-image: url("../../../assets/bg3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ===========================================
+   Overlay เบลอทับพื้นหลัง
+   =========================================== */
+:host::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* ===========================================
+   Container หลักของเนื้อหา
+   =========================================== */
+.container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  padding: 80px 20px 60px 20px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* ===========================================
+   กล่องเนื้อหาหลัก
+   =========================================== */
+.page-box {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  animation: slideInUp 0.8s ease-out forwards;
+  position: relative;
+  z-index: 3;
+}
+
+/* ===========================================
+   หัวข้อหน้า
+   =========================================== */
+.header-section {
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeInContent 1s ease-out 0.2s forwards;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #ffd700, #ffeb3b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: title-glow 3s ease-in-out infinite alternate;
+}
+
+.sub-title {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.header-decoration {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.glow-line {
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  animation: line-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes title-glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 2px 2px 4px rgba(0,0,0,0.5);
+  }
+}
+
+@keyframes line-glow {
+  from {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 1);
+  }
+}
+
+/* ===========================================
+   กรอบหลัก
+   =========================================== */
+.payment-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ===========================================
+   สรุปโปรโมชั่น
+   =========================================== */
+.promotion-summary {
+  background: radial-gradient(100% 120% at 0% 0%, #450000, #000000);
+  border-radius: 16px;
+  padding: 25px;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideInLeft 0.8s ease-out 0.3s forwards;
+}
+
+.summary-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.promotion-card-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.promotion-card-summary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: left 3s ease;
+  animation: card-shine 4s infinite;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.promotion-image-small {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.image-glow {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #ffd700, #ffeb3b, #ffd700);
+  border-radius: 15px;
+  opacity: 0.3;
+  animation: image-pulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes card-shine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes image-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.02); }
+}
+
+.promotion-details {
+  flex: 1;
+  text-align: left;
+}
+
+.promotion-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.promotion-subtitle-small {
+  font-size: 0.9rem;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.price-summary {
+  margin-bottom: 15px;
+}
+
+.current-price-large {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4caf50;
+  margin-right: 10px;
+}
+
+.original-price-small {
+  font-size: 1rem;
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.savings-amount {
+  font-size: 0.9rem;
+  color: #ff6b6b;
+  font-weight: bold;
+  display: block;
+  margin-top: 5px;
+  animation: pulse-text 2s ease-in-out infinite alternate;
+}
+
+.bonus-summary {
+  background: rgba(255, 215, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.bonus-title-small {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 8px;
+}
+
+.bonus-list-small {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bonus-list-small li {
+  font-size: 0.85rem;
+  color: #fff;
+  margin: 5px 0;
+  padding-left: 18px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: bonus-fade-in 0.6s ease-out forwards;
+}
+
+.bonus-item-animate:nth-child(1) { animation-delay: 0.1s; }
+.bonus-item-animate:nth-child(2) { animation-delay: 0.2s; }
+.bonus-item-animate:nth-child(3) { animation-delay: 0.3s; }
+
+.bonus-list-small li:before {
+  content: "✨";
+  position: absolute;
+  left: 0;
+  color: #ffd700;
+  animation: sparkle-rotate 2s linear infinite;
+}
+
+.more-items {
+  color: #ffd700 !important;
+  font-style: italic;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.sparkle {
+  animation: sparkle-bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bonus-fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sparkle-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sparkle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ===========================================
+   ฟอร์มชำระเงิน
+   =========================================== */
+.payment-form {
+  background: radial-gradient(100% 120% at 100% 0%, #450000, #000000);
+  border-radius: 16px;
+  padding: 25px;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideInRight 0.8s ease-out 0.3s forwards;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 25px;
+  text-align: center;
+  position: relative;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.form-decoration {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.pulse-ring {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50%;
+  position: relative;
+  animation: pulse-ring-animation 2s infinite;
+}
+
+.pulse-ring::before {
+  content: '👤';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+}
+
+@keyframes pulse-ring-animation {
+  0% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+  }
+  100% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), 0 0 5px rgba(255, 215, 0, 0.6) inset;
+  transform: translateY(-2px);
+}
+
+.form-control::placeholder {
+  color: #bbb;
+  transition: color 0.3s ease;
+}
+
+.form-control:focus::placeholder {
+  color: #ddd;
+}
+
+/* ===========================================
+   วิธีการชำระเงิน
+   =========================================== */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-method-item {
+  display: flex;
+  align-items: center;
+}
+
+.payment-method-item input[type="radio"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.payment-method-item label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 15px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-method-item label::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.payment-method-item label:hover::before {
+  left: 100%;
+}
+
+.payment-method-item label:hover {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+
+.payment-method-item input[type="radio"]:checked + label {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transform: scale(1.02);
+}
+
+.payment-method-item input[type="radio"]:checked + label::after {
+  content: '✓';
+  position: absolute;
+  right: 15px;
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1.2rem;
+  animation: checkmark-appear 0.3s ease-out;
+}
+
+@keyframes checkmark-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.payment-icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+/* ===========================================
+   ปุ่มดำเนินการ
+   =========================================== */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-back {
+  flex: 1;
+  padding: 15px 25px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-back:hover {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-back:hover .btn-icon {
+  transform: translateX(-3px);
+}
+
+.btn-pay {
+  flex: 2;
+  padding: 18px 35px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #ff4444, #cc0000);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.btn-pay:hover .btn-shine {
+  left: 100%;
+}
+
+.btn-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff6666, #ff4444, #ff6666);
+  border-radius: 12px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.btn-pay:hover {
+  background: linear-gradient(45deg, #ff5555, #dd0000);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(255, 68, 68, 0.6);
+  animation: pulse-glow-red 1.5s infinite;
+}
+
+.btn-pay:hover .btn-glow {
+  opacity: 0.7;
+  animation: glow-rotate 2s linear infinite;
+}
+
+.btn-pay:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+}
+
+@keyframes glow-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow-red {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(255, 68, 68, 0.6);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(255, 68, 68, 0.9);
+  }
+}
+
+/* ===========================================
+   Animations
+   =========================================== */
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInContent {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-text {
+  from {
+    color: #ff6b6b;
+    text-shadow: 0 0 3px #ff6b6b;
+  }
+  to {
+    color: #ff9999;
+    text-shadow: 0 0 8px #ff6b6b;
+  }
+}
+
+
+
+/* ===========================================
+   Responsive Design
+   =========================================== */
+@media (max-width: 768px) {
+  .payment-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .promotion-card-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .promotion-image-small {
+    width: 60px;
+    height: 60px;
+    align-self: center;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn-pay {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+}

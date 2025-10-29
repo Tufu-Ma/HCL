@@ -1,0 +1,550 @@
+/* ===========================================
+   พื้นหลังหลักของหน้าเว็บ (เหมือนกับ promotion)
+   =========================================== */
+:host {
+  display: block;
+  min-height: 100vh;
+  position: relative;
+  background-image: url("../../../assets/bg3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ===========================================
+   Overlay เบลอทับพื้นหลัง
+   =========================================== */
+:host::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* ===========================================
+   Container หลักของเนื้อหา
+   =========================================== */
+.container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 60px 20px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* ===========================================
+   กล่องเนื้อหาหลัก
+   =========================================== */
+.page-box {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  animation: slideInUp 0.8s ease-out forwards;
+  position: relative;
+  z-index: 3;
+}
+
+/* ===========================================
+   ปุ่มกลับ
+   =========================================== */
+.mb-3 {
+  margin-bottom: 30px;
+  text-align: left;
+  opacity: 0;
+  animation: fadeInContent 1s ease-out 0.1s forwards;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-secondary {
+  background: linear-gradient(45deg, #6c757d, #8a9199);
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(45deg, #5a6268, #767e85);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+/* ===========================================
+   การ์ดรายละเอียดโปรโมชั่น
+   =========================================== */
+.promotion-detail-card {
+  background: radial-gradient(100% 120% at 0% 0%, #450000, #000000);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 12px 30px rgba(0,0,0,.35);
+  overflow: hidden;
+  color: #eee;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease-out 0.3s forwards;
+}
+
+/* ===========================================
+   รูปภาพโปรโมชั่น
+   =========================================== */
+.promotion-image {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  background: #2b0000;
+}
+
+.promotion-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.promotion-detail-card:hover .promotion-image img {
+  transform: scale(1.05);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(45deg, #ff4444, #cc0000);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 6px 20px rgba(255, 68, 68, 0.5);
+  animation: pulse-badge 2s infinite;
+  z-index: 2;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(255, 215, 0, 0.2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.promotion-detail-card:hover .image-overlay {
+  opacity: 1;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 68, 68, 0.8);
+  }
+}
+
+/* ===========================================
+   ข้อมูลโปรโมชั่น
+   =========================================== */
+.promotion-info {
+  padding: 30px;
+  text-align: center;
+}
+
+.promotion-title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  background: linear-gradient(45deg, #ffd700, #ffeb3b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.promotion-subtitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff4444;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  animation: glow-text 2s ease-in-out infinite alternate;
+}
+
+.promotion-pricing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.current-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4caf50;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.original-price {
+  font-size: 1.2rem;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.discount-percent {
+  background: linear-gradient(45deg, #ff4444, #cc0000);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.promotion-description {
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+@keyframes glow-text {
+  from {
+    text-shadow: 0 0 5px #ff4444, 0 0 10px #ff4444, 0 0 15px #ff4444;
+  }
+  to {
+    text-shadow: 0 0 10px #ff6666, 0 0 20px #ff6666, 0 0 30px #ff6666;
+  }
+}
+
+/* ===========================================
+   ของแถมพิเศษ
+   =========================================== */
+.bonus-items-detail {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.bonus-items-detail h5 {
+  color: #ffd700;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.bonus-list {
+  display: grid;
+  gap: 10px;
+}
+
+.bonus-item-detail {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.bonus-item-detail:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateX(5px);
+}
+
+.bonus-item-detail .bonus-icon {
+  color: #ffd700;
+  font-size: 16px;
+  margin-right: 12px;
+  animation: sparkle 2s ease-in-out infinite alternate;
+}
+
+.bonus-item-detail span {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@keyframes sparkle {
+  from {
+    text-shadow: 0 0 5px #ffd700;
+  }
+  to {
+    text-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700;
+  }
+}
+
+/* ===========================================
+   คุณสมบัติพิเศษ
+   =========================================== */
+.promotion-features {
+  text-align: left;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.promotion-features h5 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 15px;
+  margin: 12px 0;
+  line-height: 1.4;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-icon {
+  color: #4caf50;
+  font-weight: bold;
+  margin-right: 12px;
+  font-size: 16px;
+}
+
+/* ===========================================
+   ปุ่มเติมเกม
+   =========================================== */
+.btn-purchase {
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn-topup {
+  background: linear-gradient(45deg, #cc0000, #ff4444);
+  color: white;
+  padding: 18px 50px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 25px rgba(204, 0, 0, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  animation: pulse-glow-btn 2s infinite;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.btn-topup:hover .btn-shine {
+  left: 100%;
+}
+
+.btn-topup:hover {
+  background: linear-gradient(45deg, #aa0000, #cc3333);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(204, 0, 0, 0.6);
+}
+
+.btn-topup:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(204, 0, 0, 0.4);
+}
+
+.btn-back {
+  background: linear-gradient(45deg, #6c757d, #8a9199);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-back:hover {
+  background: linear-gradient(45deg, #5a6268, #767e85);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+}
+
+@keyframes pulse-glow-btn {
+  0%, 100% {
+    box-shadow: 0 6px 25px rgba(204, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 6px 35px rgba(255, 68, 68, 0.8);
+  }
+}
+
+/* ===========================================
+   ปุ่มหลัก
+   =========================================== */
+.btn-primary {
+  background: linear-gradient(45deg, #cc0000, #ff4444);
+  color: white;
+  box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #aa0000, #cc3333);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
+}
+
+/* ===========================================
+   Keyframes สำหรับ Animation
+   =========================================== */
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInContent {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================================
+   การปรับแต่งสำหรับหน้าจอมือถือ (Responsive Design)
+   =========================================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 15px;
+  }
+  
+  .page-box {
+    padding: 15px;
+  }
+  
+  .promotion-info {
+    padding: 20px;
+  }
+  
+  .promotion-title {
+    font-size: 2rem;
+  }
+  
+  .promotion-description {
+    font-size: 1rem;
+  }
+  
+  .promotion-features {
+    padding: 15px;
+  }
+  
+  .feature-item {
+    font-size: 14px;
+    padding: 8px;
+  }
+  
+  .btn-purchase {
+    padding: 20px;
+  }
+  
+  .discount-value {
+    font-size: 2rem;
+  }
+  
+  .promotion-image img {
+    height: 200px;
+  }
+}

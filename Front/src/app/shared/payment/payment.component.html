@@ -1,0 +1,165 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-10 offset-1 page-box">
+      
+      <!-- หัวข้อหน้าชำระเงิน -->
+      <div class="header-section">
+        <h2 class="main-title">💳 ชำระเงินโปรโมชั่น 💳</h2>
+        <p class="sub-title">🎮 เหลือแค่ขั้นตอนสุดท้าย! กรอกข้อมูลเพื่อรับโปรโมชั่นสุดคุ้ม 🎮</p>
+        <div class="header-decoration">
+          <div class="glow-line"></div>
+        </div>
+      </div>
+
+      <!-- กรอบหลัก -->
+      <div class="payment-container">
+        
+        <!-- ส่วนข้อมูลโปรโมชั่น -->
+        <div class="promotion-summary" *ngIf="selectedPromotion">
+          <h3 class="summary-title">�️ รายการที่เลือกซื้อ</h3>
+          <div class="promotion-card-summary">
+            <div class="image-container">
+              <img [src]="selectedPromotion.imageUrl" [alt]="selectedPromotion.title" class="promotion-image-small">
+              <div class="image-glow"></div>
+            </div>
+            <div class="promotion-details">
+              <h4 class="promotion-name">{{ selectedPromotion.title }}</h4>
+              <p class="promotion-subtitle-small">{{ selectedPromotion.subtitle }}</p>
+              
+              <!-- ราคา -->
+              <div class="price-summary">
+                <span class="current-price-large">{{ selectedPromotion.price }}</span>
+                <span class="original-price-small" *ngIf="selectedPromotion.originalPrice">{{ selectedPromotion.originalPrice }}</span>
+                <span class="savings-amount" *ngIf="selectedPromotion.originalPrice">
+                  ประหยัด {{ calculateSavings(selectedPromotion.originalPrice, selectedPromotion.price) }} บาท!
+                </span>
+              </div>
+
+              <!-- ของแถม -->
+              <div class="bonus-summary" *ngIf="selectedPromotion.bonusItems">
+                <div class="bonus-title-small">🎁 ของแถมพิเศษ:</div>
+                <ul class="bonus-list-small">
+                  <li *ngFor="let bonus of selectedPromotion.bonusItems.slice(0, 3)" class="bonus-item-animate">{{ bonus }}</li>
+                  <li *ngIf="selectedPromotion.bonusItems.length > 3" class="more-items">
+                    <span class="sparkle">✨</span> และอีก {{ selectedPromotion.bonusItems.length - 3 }} รายการพิเศษ...
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ฟอร์มชำระเงิน -->
+        <div class="payment-form">
+          <h3 class="form-title">👤 ข้อมูลสำหรับการสั่งซื้อ</h3>
+          <div class="form-decoration">
+            <div class="pulse-ring"></div>
+          </div>
+          
+          <form (ngSubmit)="onPayment()">
+            <!-- ชื่อ-นามสกุล -->
+            <div class="form-group">
+              <label for="customerName">ชื่อ-นามสกุล *</label>
+              <input 
+                type="text" 
+                id="customerName" 
+                [(ngModel)]="paymentData.customerName"
+                name="customerName"
+                class="form-control" 
+                placeholder="กรุณากรอกชื่อ-นามสกุล"
+                required>
+            </div>
+
+            <!-- อีเมล -->
+            <div class="form-group">
+              <label for="email">อีเมล *</label>
+              <input 
+                type="email" 
+                id="email"
+                [(ngModel)]="paymentData.email"
+                name="email" 
+                class="form-control" 
+                placeholder="example@email.com"
+                required>
+            </div>
+
+            <!-- เบอร์โทรศัพท์ -->
+            <div class="form-group">
+              <label for="phone">เบอร์โทรศัพท์ *</label>
+              <input 
+                type="tel" 
+                id="phone"
+                [(ngModel)]="paymentData.phone"
+                name="phone" 
+                class="form-control" 
+                placeholder="08X-XXX-XXXX"
+                required>
+            </div>
+
+            <!-- วิธีการชำระเงิน -->
+            <div class="form-group">
+              <label>วิธีการชำระเงิน</label>
+              <div class="payment-methods">
+                <div class="payment-method-item">
+                  <input 
+                    type="radio" 
+                    id="credit-card" 
+                    value="credit-card"
+                    [(ngModel)]="paymentData.paymentMethod"
+                    name="paymentMethod">
+                  <label for="credit-card">
+                    <span class="payment-icon">💳</span>
+                    บัตรเครดิต/เดบิต
+                  </label>
+                </div>
+                <div class="payment-method-item">
+                  <input 
+                    type="radio" 
+                    id="bank-transfer" 
+                    value="bank-transfer"
+                    [(ngModel)]="paymentData.paymentMethod"
+                    name="paymentMethod">
+                  <label for="bank-transfer">
+                    <span class="payment-icon">🏦</span>
+                    โอนเงินผ่านธนาคาร
+                  </label>
+                </div>
+                <div class="payment-method-item">
+                  <input 
+                    type="radio" 
+                    id="e-wallet" 
+                    value="e-wallet"
+                    [(ngModel)]="paymentData.paymentMethod"
+                    name="paymentMethod">
+                  <label for="e-wallet">
+                    <span class="payment-icon">📱</span>
+                    E-Wallet (TrueMoney, PromptPay)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- ปุ่มดำเนินการ -->
+            <div class="action-buttons">
+              <button type="button" class="btn-back" (click)="goBack()">
+                <span class="btn-icon">←</span>
+                <span>กลับไปเลือกโปรโมชั่น</span>
+              </button>
+              <button type="submit" class="btn-pay">
+                <span class="btn-text">🎮 ยืนยันการสั่งซื้อ {{ selectedPromotion?.price }} 🎮</span>
+                <span class="btn-shine"></span>
+                <div class="btn-glow"></div>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-footer-navbar></app-footer-navbar>
