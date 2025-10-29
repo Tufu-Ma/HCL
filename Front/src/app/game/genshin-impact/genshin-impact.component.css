@@ -414,23 +414,31 @@ h2 {
   background: #fff;
 }
 
-.cart-items {
+.cart-header {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
+.cart-header h2 { margin: 0; }
+.link-clear { border: none; background: transparent; color: #4a148c; font-weight: 700; cursor: pointer; }
+
+.cart-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
 
 .cart-item {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: auto 1fr auto auto auto;
   align-items: center;
   gap: 12px;
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
   background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.04);
 }
+.cart-item:hover { border-color: #e8d7fb; box-shadow: 0 6px 14px rgba(74,20,140,.08); }
+.cart-item .chip { background:#f5e6ff; color:#4a148c; font-weight:700; font-size:12px; padding:4px 8px; border-radius:999px; }
 
 .cart-item .info .name {
   font-weight: 600;
@@ -441,11 +449,10 @@ h2 {
   font-size: 12px;
 }
 
-.cart-item .qty {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
+.cart-item .qty { display: inline-flex; align-items: center; gap: 8px; }
+.cart-item .qty .step { width:30px; height:30px; border:1px solid #e8d7fb; border-radius:999px; background:#fff; color:#4a148c; font-weight:900; cursor:pointer; }
+.cart-item .qty .step:hover { background:#f5e6ff; }
+.cart-item .qty .count { min-width:20px; text-align:center; font-weight:600; }
 
 .cart-item .qty button {
   width: 28px;
@@ -460,15 +467,15 @@ h2 {
   font-weight: 600;
 }
 
-.cart-item .remove {
-  border: none;
-  background: #f5e6ff;
-  color: #4a148c;
-  border-radius: 6px;
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-}
+.cart-item .line { font-weight: 700; color: #222; }
+.cart-item .remove { position:absolute; top:8px; right:8px; border:none; background:transparent; color:#7c4cb8; border-radius:6px; width:28px; height:28px; cursor:pointer; }
+.cart-item .remove:hover { color:#4a148c; }
+
+.cart-summary { border-top:1px dashed #e8d7fb; padding-top:10px; margin:6px 0 12px; }
+.cart-summary .row { display:flex; justify-content:space-between; font-weight:700; }
+.cart-summary .v { color:#4a148c; font-size:18px; }
+.cart-actions { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.cart-actions .clear-btn, .cart-actions .confirm-button { width:48%; }
 
 .cart-total {
   display: flex;
@@ -486,6 +493,58 @@ h2 {
 .empty {
   color: #777;
 }
+
+/* Pretty primary confirm */
+.confirm-button.pretty { background: linear-gradient(135deg, #4a148c, #7c4cb8); box-shadow: 0 8px 18px rgba(74,20,140,.28); }
+.confirm-button.pretty:hover { background: linear-gradient(135deg, #5c2da3, #8f66c6); }
+
+/* Wizard and summary styles */
+.method-list { display:flex; flex-direction:column; gap:10px; margin:12px 0; }
+.method-item { width:100%; display:flex; align-items:center; justify-content:space-between; padding:12px; border:2px solid #eee; border-radius:10px; background:#fff; cursor:pointer; transition: all .2s; }
+.method-item:hover { border-color:#e8d7fb; box-shadow:0 6px 16px rgba(74,20,140,.08); }
+.method-item.selected { border-color:#4a148c; background:#f5e6ff; }
+.method-item .left { display:flex; align-items:center; gap:10px; }
+.method-item .left img { width:40px; height:40px; border-radius:6px; }
+.method-item .name { font-weight:700; }
+.method-item .right { text-align:right; }
+.method-item .right .amt { font-weight:700; }
+.method-item .right .fee { color:#777; font-size:12px; }
+
+.wizard-actions { display:flex; gap:10px; justify-content:space-between; margin-top:12px; }
+.btn { border:none; border-radius:10px; padding:12px 14px; cursor:pointer; font-weight:700; }
+.btn.primary { background:#4a148c; color:#fff; }
+.btn.primary:hover { background:#5c2da3; }
+.btn.ghost { background:#f3f4f6; color:#111; }
+.btn.ghost:hover { background:#e5e7eb; }
+.btn.wide { width:100%; }
+
+.summary-header { display:flex; align-items:center; justify-content:space-between; }
+.summary-header .method-badge { width:44px; height:44px; border-radius:8px; }
+.summary-items { display:flex; flex-direction:column; gap:8px; margin:10px 0; }
+.summary-item { display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee; }
+.summary-lines { margin:8px 0 12px; }
+.summary-lines .row { display:flex; justify-content:space-between; margin:4px 0; }
+.summary-lines .total .v { color:#4a148c; font-weight:800; }
+.coupon-card { border:1px dashed #e8d7fb; background:#fff; padding:10px; border-radius:12px; margin:8px 0 10px; }
+.coupon-row { display:grid; grid-template-columns: 1fr auto; gap:8px; }
+.coupon-input { width:100%; padding:10px 12px; border:2px solid #eee; border-radius:10px; }
+.coupon-input:focus { border-color:#4a148c; outline:none; }
+.btn.apply { background:#4a148c; color:#fff; }
+.btn.apply:hover { background:#5c2da3; }
+.coupon-state { display:flex; align-items:center; gap:10px; margin-top:6px; }
+.coupon-state .applied { color:#16a34a; font-weight:700; }
+.coupon-state .error { color:#dc2626; font-weight:600; }
+.terms { display:block; margin:8px 0; font-size:14px; color:#333; }
+.terms input { margin-right:8px; }
+
+/* Pay step */
+.pay-block { display:flex; flex-direction:column; align-items:center; gap:12px; }
+.pay-block img { width:200px; height:200px; object-fit:contain; border-radius:12px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.08); }
+.pay-amt { font-weight:800; color:#4a148c; }
+.tm-phone { font-weight:700; color:#111; }
+.slip-upload { display:inline-flex; align-items:center; gap:8px; background:#f5e6ff; color:#4a148c; border:2px dashed #e8d7fb; padding:10px 12px; border-radius:10px; cursor:pointer; }
+.slip-upload input { display:none; }
+.slip-preview { max-width:260px; max-height:260px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.08); }
 
 /* (breakpoints for product-grid are defined in the widen grid block below) */
 /* widen grid */

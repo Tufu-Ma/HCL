@@ -372,13 +372,14 @@ h2 {
 
 .cart-item {
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: auto 1fr auto auto; /* chip | info | qty | line */
   align-items: center;
   gap: 12px;
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 8px;
   background: #fff;
+  position: relative; /* for absolute remove button */
 }
 
 .cart-item .info .name {
@@ -409,15 +410,11 @@ h2 {
   font-weight: 600;
 }
 
-.cart-item .remove {
-  border: none;
-  background: #fff6d8;
-  color: #9c7a1d;
-  border-radius: 6px;
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-}
+/* unit chip styling */
+.cart-item .chip { background:#fff6d8; color:#9c7a1d; font-weight:700; font-size:12px; padding:4px 8px; border-radius:999px; }
+
+.cart-item .remove { position:absolute; top:8px; right:8px; border:none; background:transparent; color:#9c7a1d; border-radius:999px; width:28px; height:28px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; font-size:16px; }
+.cart-item .remove:hover { color:#d4af37; }
 
 .cart-total {
   display: flex;

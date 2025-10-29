@@ -13,18 +13,18 @@ export class HonkaistarrailComponent implements OnInit {
   uid = '';
   isValidUid = false;
   server: 'Asia' | 'America' | 'Europe' | 'HMT' = 'Asia';
-  unit = 'Jades';
+  unit = 'Oneiric';
   selectedPayment: 'promptpay' | 'truemoney' | null = null;
   guideImage = '';
   isLightboxOpen = false;
 
   products = [
-  { id: 'hsr-0060', value: '60O neiric Shard', amount: 26 },
+  { id: 'hsr-0060', value: '60 Oneiric Shard', amount: 26 },
   { id: 'hsr-0300p30', value: '300+30 Oneiric Shard', amount: 116 },
   { id: 'hsr-0980p110', value: '980+110 Oneiric Shard', amount: 349 },
-  { id: 'hsr-1980p260', value: '1980+260 Oneiric Shard ', amount: 709 },
-  { id: 'hsr-3280p600', value: '3280+600 Oneiric Shard ', amount: 1169 },
-  { id: 'hsr-6480p1600', value: '6480+1600Oneiric Shard ', amount: 2179 },
+  { id: 'hsr-1980p260', value: '1980+260 Oneiric Shard', amount: 709 },
+  { id: 'hsr-3280p600', value: '3280+600 Oneiric Shard', amount: 1169 },
+  { id: 'hsr-6480p1600', value: '6480+1600 Oneiric Shard', amount: 2179 },
 
   // แพ็กหลายชุด
   { id: 'hsr-6480p1600-x2', value: '6480+1600 Oneiric Shard x2 แพ็ก', amount: 4358 },
@@ -33,7 +33,7 @@ export class HonkaistarrailComponent implements OnInit {
   { id: 'hsr-6480p1600-x10', value: '6480+1600 Oneiric Shard x10 แพ็ก', amount: 21790 },
 
   // Express Supply Pass
-  { id: 'hsr-pass-1', value: 'Express Supply Pass บัตรรถไฟ ถ้าเกิน 180 วัน จะได้เป็น Oneiric', amount: 116 },
+  { id: 'hsr-pass-1', value: 'Express Supply Pass (หากคงเหลือต่ำกว่า 180 วัน จะได้เป็น Oneiric)', amount: 116 },
 
   // ชุดเหมาทดลองทุกแพ็ก (ไม่รวม Pass)
   { id: 'hsr-pack-all', value: 'เหมาทุกแพ็คอย่างละครั้ง (ไม่รวม Express Supply Pass)', amount: 4548 }
@@ -116,7 +116,8 @@ export class HonkaistarrailComponent implements OnInit {
   checkout(): void {
     if (!this.cart.length || !this.selectedPayment || !this.isValidUid) return;
     const prefix = `UID: ${this.uid} (Server: ${this.server}) | `;
-    const summary = prefix + this.cart.map(i => `${i.value}${this.unit} x${i.qty}`).join(', ');
+    // สำหรับ HSR ค่า value มีหน่วยครบอยู่แล้ว จึงไม่ต่อท้ายด้วย unit
+    const summary = prefix + this.cart.map(i => `${i.value} x${i.qty}`).join(', ');
     this.router.navigate(['/checkout'], { queryParams: { game: 'HONKAI: STAR RAIL', accountType: 'UID/Server', accountValue: summary, amount: this.totalAmount, method: this.selectedPayment, origin: 'termgame' } });
   }
 

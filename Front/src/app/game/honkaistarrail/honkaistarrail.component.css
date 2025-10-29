@@ -208,6 +208,15 @@ h2 {
   cursor: not-allowed;
 }
 
+/* pretty variant like Genshin (keep HSR colors) */
+.confirm-button.pretty {
+  background: linear-gradient(135deg, #1e88e5, #3ea0f5);
+  box-shadow: 0 8px 18px rgba(30, 136, 229, .28);
+}
+.confirm-button.pretty:hover {
+  background: linear-gradient(135deg, #2a92ee, #55abf7);
+}
+
 .instruction-card {
   background: #f8f9fa;
 }
@@ -360,7 +369,7 @@ h2 {
   background: #e9f3fe;
 }
 
-/* ePIN grid + cart */
+/* ePIN grid + cart (match genshin-impact) */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -530,22 +539,10 @@ h2 {
   color: #777;
 }
 
-@media (max-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* widen grid */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
@@ -871,27 +868,6 @@ h2 {
   max-height: 260px;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
-}
-
-/* --- Proportionate product grid (responsive) --- */
-/* Use more specific selector to override earlier generic rules safely */
-.game-container .product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-@media (max-width: 1280px) {
-  .game-container .product-grid { grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 992px) {
-  .game-container .product-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 640px) {
-  .game-container .product-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 420px) {
-  .game-container .product-grid { grid-template-columns: 1fr; }
 }
 
 /* --- Wider cart column within the two-column layout --- */
