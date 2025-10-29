@@ -5,8 +5,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// ✅ standalone components
 import { HeaderNavbarComponent } from './format/header-navbar/header-navbar.component';
 import { FooterNavbarComponent } from './format/footer-navbar/footer-navbar.component';
+
+// ✅ normal (non-standalone) components
 import { HomeComponent } from './shared/home/home.component';
 import { AddGameComponent } from './shared/add-game/add-game.component';
 import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail.component';
@@ -31,6 +34,9 @@ import { ZenlessZeroZoneComponent } from './game/zenless-zero-zone/zenless-zero-
 import { TeamfightTacticComponent } from './game/teamfight-tactic/teamfight-tactic.component';
 import { Lol2xkoComponent } from './game/lol2xko/lol2xko.component';
 
+// ⬇⬇⬇ ใหม่ ต้อง import
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -40,15 +46,10 @@ import { Lol2xkoComponent } from './game/lol2xko/lol2xko.component';
     AddGameDetailComponent,
     AboutMeComponent,
     PromotionComponent,
-
-
     PromotionDetailComponent,
     PaymentComponent,
-
     LoginComponent,
     GameDetailComponent,
-
-
     PokemonuniteComponent,
     SevenknightsrebirthComponent,
     HonkaistarrailComponent,
@@ -62,22 +63,20 @@ import { Lol2xkoComponent } from './game/lol2xko/lol2xko.component';
     ZenlessZeroZoneComponent,
     TeamfightTacticComponent,
     Lol2xkoComponent,
-
-
-
   ],
   imports: [
     BrowserModule,
+    CommonModule,       // ✅ เพิ่ม
+    RouterModule,       // ✅ เพิ่ม
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    // Import standalone components used in templates
-    HeaderNavbarComponent,
-    // Footer can be added when used in templates
-    // FooterNavbarComponent,
+
+    HeaderNavbarComponent, // ✅ standalone
+    FooterNavbarComponent, // ✅ standalone
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

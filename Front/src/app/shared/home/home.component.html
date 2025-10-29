@@ -22,29 +22,24 @@
         </button>
 
         <div class="cards-row" #uidRow>
-  <a
-    #revealCard
-    class="card-item reveal"
-    *ngFor="let g of filteredGames; trackBy: trackById; let i = index"
-    [attr.data-delay]="(i % 5) + 1"
-    [routerLink]="g.path"
-  >
-    <div class="thumb">
-      <img [src]="g.image" [alt]="g.name" />
-    </div>
+          <a #revealCard class="card-item reveal" *ngFor="let g of filteredGames; trackBy: trackById; let i = index"
+            [attr.data-delay]="(i % 5) + 1" [routerLink]="g.path">
+            <div class="thumb">
+              <img [src]="g.image" [alt]="g.name" />
+            </div>
 
-    <div class="meta">
-      <div class="name">{{ g.name }}</div>
+            <div class="meta">
+              <div class="name">{{ g.name }}</div>
 
-      <div class="tag-row">
-        <span class="chip">UID</span>
-        <span class="small-text">UID เติม</span>
-      </div>
+              <div class="tag-row">
+                <span class="chip">UID</span>
+                <span class="small-text">UID เติม</span>
+              </div>
 
-      <button class="btn">เติมเกม</button>
-    </div>
-  </a>
-</div>
+              <button class="btn">เติมเกม</button>
+            </div>
+          </a>
+        </div>
 
 
 
@@ -55,6 +50,7 @@
 
 
       <!-- SECTION: เติม ID-Pass -->
+      <!-- SECTION: เติม ID-Pass -->
       <h2 class="mb-3">เติม ID-Pass</h2>
 
       <div class="cards-row-wrapper">
@@ -63,31 +59,60 @@
         </button>
 
         <div class="cards-row" #idpassRow>
-  <div *ngIf="loading" class="text-light">กำลังโหลด...</div>
-  <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
+          <div *ngIf="loading" class="text-light">กำลังโหลด...</div>
+          <div *ngIf="!loading && error" class="text-danger">{{ error }}</div>
 
-  <a
-    class="card-item reveal"
-    *ngFor="let g of apiGames; trackBy: trackById; let i = index"
-    [attr.data-delay]="(i % 5) + 1"
-    [routerLink]="['/games', g.slug || g.id]"
-  >
-    <div class="thumb">
-      <img [src]="g.coverurl || 'assets/testBG.jpg'" [alt]="g.name" />
-    </div>
-    <div class="meta">
-      <div class="name">{{ g.name }}</div>
-      <div class="tag-row">
-        <span class="chip">ID-Pass</span>
-        <span class="small-text">ล็อกอินด้วยบัญชี</span>
-      </div>
-      <button class="btn">เติมเกม</button>
-    </div>
-  </a>
-</div>
-
+          <a class="card-item reveal" *ngFor="let g of apiGames; trackBy: trackById; let i = index"
+            [attr.data-delay]="(i % 5) + 1" [routerLink]="['/games', g.slug || g.id]">
+            <div class="thumb">
+              <img [src]="g.coverurl || 'assets/testBG.jpg'" [alt]="g.name" />
+            </div>
+            <div class="meta">
+              <div class="name">{{ g.name }}</div>
+              <div class="tag-row">
+                <span class="chip">ID-Pass</span>
+                <span class="small-text">ล็อกอินด้วยบัญชี</span>
+              </div>
+              <button class="btn">เติมเกม</button>
+            </div>
+          </a>
+        </div>
 
         <button class="arrow-btn arrow-right" (click)="scrollRightIdPass()">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
+
+
+      <!-- SECTION: บัตรเติมเกม / Gift Card -->
+      <h2 class="mb-3">บัตรเติมเกม / Gift Card</h2>
+
+      <div class="cards-row-wrapper">
+        <button class="arrow-btn arrow-left" (click)="scrollLeftGift()">
+          <span class="arrow-icon">‹</span>
+        </button>
+
+        <div class="cards-row" #giftRow>
+          <a class="card-item reveal" *ngFor="let c of giftCards; trackBy: trackById; let i = index"
+            [attr.data-delay]="(i % 5) + 1" [routerLink]="['/giftcard', c.id]">
+            <div class="thumb">
+              <img [src]="c.image" [alt]="c.name" />
+            </div>
+
+            <div class="meta">
+              <div class="name">{{ c.name }}</div>
+
+              <div class="tag-row">
+                <span class="chip">GIFT</span>
+                <span class="small-text">{{ c.subtitle }}</span>
+              </div>
+
+              <button class="btn">ซื้อการ์ด</button>
+            </div>
+          </a>
+        </div>
+
+        <button class="arrow-btn arrow-right" (click)="scrollRightGift()">
           <span class="arrow-icon">›</span>
         </button>
       </div>
@@ -103,35 +128,33 @@
 
         <!-- แถวสไลด์ subscription -->
         <div class="cards-row" #subRow>
-  <a
-    class="card-item subscription-card reveal"
-    *ngFor="let s of subItems; trackBy: trackById; let i = index"
-    [attr.data-delay]="(i % 5) + 1"
-    [routerLink]="['/subscription', s.id]"
-  >
-    <div class="thumb">
-      <img [src]="s.image" [alt]="s.name" />
-    </div>
+          <a class="card-item subscription-card reveal" *ngFor="let s of subItems; trackBy: trackById; let i = index"
+            [attr.data-delay]="(i % 5) + 1" [routerLink]="['/subscription', s.id]">
+            <div class="thumb">
+              <img [src]="s.image" [alt]="s.name" />
+            </div>
 
-    <div class="meta">
-      <div class="name">{{ s.name }}</div>
+            <div class="meta">
+              <div class="name">{{ s.name }}</div>
 
-      <div class="tag-row">
-        <span class="chip">SUB</span>
-        <span class="small-text">{{ s.subtitle }}</span>
-      </div>
+              <div class="tag-row">
+                <span class="chip">SUB</span>
+                <span class="small-text">{{ s.subtitle }}</span>
+              </div>
 
-      <button class="btn">สมัครแพ็กเกจ</button>
-    </div>
-  </a>
-</div>
-
+              <button class="btn">สมัครแพ็กเกจ</button>
+            </div>
+          </a>
+        </div>
 
         <button class="arrow-btn arrow-right" (click)="scrollRightSub()">
           <span class="arrow-icon">›</span>
         </button>
       </div>
 
+
     </div>
   </div>
 </div>
+
+<app-footer-navbar></app-footer-navbar>

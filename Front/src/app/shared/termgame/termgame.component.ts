@@ -24,7 +24,8 @@ interface GameItem {
     CommonModule,
     FormsModule,
     RouterModule,
-    HeaderNavbarComponent
+    HeaderNavbarComponent,
+    FooterNavbarComponent,
 ],
   templateUrl: './termgame.component.html',
   styleUrls: ['./termgame.component.css'],

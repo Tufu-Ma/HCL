@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderNavbarComponent } from '../../format/header-navbar/header-navbar.component';
+import { FooterNavbarComponent } from "../../format/footer-navbar/footer-navbar.component";
 
 interface ProductOption {
   id: string;
@@ -21,7 +22,7 @@ interface CartItem {
 @Component({
   selector: 'app-valorant',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderNavbarComponent],
+  imports: [CommonModule, FormsModule, HeaderNavbarComponent, FooterNavbarComponent],
   templateUrl: './valorant.component.html',
   styleUrl: './valorant.component.css'
 })

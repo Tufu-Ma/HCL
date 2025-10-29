@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderNavbarComponent } from '../../format/header-navbar/header-navbar.component';
+import { FooterNavbarComponent } from "../../format/footer-navbar/footer-navbar.component";
 
 interface GiftCardItem {
   id: string;
@@ -13,7 +14,7 @@ interface GiftCardItem {
 @Component({
   selector: 'app-giftcard-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderNavbarComponent],
+  imports: [CommonModule, RouterModule, HeaderNavbarComponent, FooterNavbarComponent],
   templateUrl: './giftcard-list.component.html',
   styleUrl: './giftcard-list.component.css',
 })

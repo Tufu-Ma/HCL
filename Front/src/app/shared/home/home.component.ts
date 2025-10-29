@@ -26,6 +26,13 @@ interface SubItem {
   image: string;
 }
 
+interface GiftCardItem {
+  id: string;
+  name: string;
+  subtitle: string;
+  image: string;
+}
+
 
 @Component({
   selector: 'app-home',
@@ -39,9 +46,13 @@ export class HomeComponent implements OnInit {
   uidRow!: ElementRef<HTMLDivElement>;
 
   @ViewChild('idpassRow', { static: false })
-idpassRow!: ElementRef<HTMLDivElement>;
+  idpassRow!: ElementRef<HTMLDivElement>;
 
-@ViewChild('subRow', { static: false }) subRow!: ElementRef<HTMLDivElement>;
+  @ViewChild('giftRow', { static: false })
+  giftRow!: ElementRef<HTMLDivElement>;
+
+  @ViewChild('subRow', { static: false })
+  subRow!: ElementRef<HTMLDivElement>;
   // --------------------------
   // SECTION 1: เกมแบบ UID (โชว์การ์ดบนสุด / สไลด์ได้)
   // --------------------------
@@ -193,19 +204,84 @@ idpassRow!: ElementRef<HTMLDivElement>;
   // --------------------------
   searchTerm = '';
 
+  
+  
+  giftCards: GiftCardItem[] = [
+    { 
+      id: 'truemoney',
+      name: 'TrueMoney Wallet',
+      subtitle: 'True Money',
+      image: 'https://www.lnwtrue.com/_next/image?url=https%3A%2F%2Fmedia.lnwtrue.com%2Fimages%2Fproducts%2Ftruemoney%2F2pZU0f1lN336hY.webp&w=256&q=75'
+    },
+    { 
+      id: 'razergold',
+      name: 'Razer Gold (TH)',
+      subtitle: 'Razer PIN ไทย',
+      image: 'https://cdn.topuplive.com/cdn-cgi/image/format=webp/uploads/images/goods/v4/c/C-43.webp'
+    },
+    { 
+      id: 'steam',
+      name: 'Steam Wallet (TH)',
+      subtitle: 'Steam wallet THB',
+      image: 'https://www.lnwtrue.com/_next/image?url=https%3A%2F%2Fmedia.lnwtrue.com%2Fimages%2Fproducts%2Fsteam-wallet%2F942Ybfe2Fdoylz.webp&w=256&q=75'
+    },
+    { 
+      id: 'riot',
+      name: 'RIOT Gift Card',
+      subtitle: 'Riot Games',
+      image: 'https://www.lnwtrue.com/_next/image?url=https%3A%2F%2Fmedia.lnwtrue.com%2Fimages%2Fproducts%2Friot-gift-card%2FPUfKnWFUpaOPo2.webp&w=256&q=75'
+    },
+    { 
+      id: 'roblox-th',
+      name: 'Roblox Gift Card (TH)',
+      subtitle: 'เฉพาะสกุล TH',
+      image: 'https://www.lnwtrue.com/_next/image?url=https%3A%2F%2Fmedia.lnwtrue.com%2Fimages%2Fproducts%2Froblox-gift-card%2FDMUXnycNvwmaw5.webp&w=256&q=75'
+    },
+    { 
+      id: 'garena',
+      name: 'Garena Shells',
+      subtitle: 'Garena Card',
+      image: 'https://www.lnwtrue.com/_next/image?url=https%3A%2F%2Fmedia.lnwtrue.com%2Fimages%2Fproducts%2Fgarena%2FXVAgyLqTRooRnB.webp&w=256&q=75'
+    },
+    { 
+      id: 'googleplay',
+      name: 'Google Play Gift Code',
+      subtitle: 'Android/Play Store',
+      image: 'https://www.gstatic.com/marketing-cms/assets/images/54/c1/b36390cd43f9b868208f908bde30/th-th.png=n-w371-h512-fcrop64=1,00000000ffffffff-rw'
+    },
+    { 
+      id: 'itunes',
+      name: 'Apple Gift Card',
+      subtitle: 'iTunes/App Store',
+      image: 'https://psnthailand.in.th/images/backend/product/2/2025-5-7153920.jpg'
+    },
+    { 
+      id: 'psn',
+      name: 'PlayStation Store',
+      subtitle: 'PSN Wallet',
+      image: 'https://imgproxy.eneba.games/EyzNc6VTedA-3jHuUn75uEDw1ulxMMhjMXVTx7x5cMU/rs:fit:350/ar:1/czM6Ly9wcm9kdWN0/cy5lbmViYS5nYW1l/cy9wcm9kdWN0cy82/elJrZHdhclZDV0x2/c0lCd0IxSWdjLXFH/bVpPTDJ1dlRuaVVm/Y0xjeE9nLmpwZw'
+    },
+    { 
+      id: 'line-prepaid',
+      name: 'LINE Prepaid Card',
+      subtitle: 'LINE',
+      image: 'https://www.lnwtrue.com/_next/image?url=https%3A%2F%2Fmedia.lnwtrue.com%2Fimages%2Fproducts%2Fline-prepaid-card%2FTOqwNdr8klDNtK.webp&w=256&q=75'
+    },
+  ];
+  
   subItems: SubItem[] = [
     { id: 'netflix', name: 'Netflix', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
     { id: 'disney', name: 'Disney+ Hotstar', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg' },
-    { id: 'max', name: 'Max', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Max_logo.svg' },
+    { id: 'max', name: 'Max', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/HBO_Max_%282025%29.svg/1280px-HBO_Max_%282025%29.svg.png' },
     { id: 'prime', name: 'Prime Video', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png' },
-    { id: 'appletv', name: 'Apple TV+', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV%2B_Logo.svg' },
-    { id: 'viu', name: 'VIU', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Viu_logo.svg' },
-    { id: 'wetv', name: 'WeTV', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/f/f8/WeTV_logo.svg' },
-    { id: 'iqiyi', name: 'iQIYI', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/6/61/IQIYI_logo.svg' },
-    { id: 'monomax', name: 'MONOMAX', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Mono_Max_logo.png' },
-    { id: 'trueid', name: 'TrueID', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/f/f2/TrueID_logo.png' },
+    { id: 'appletv', name: 'Apple TV+', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Apple_TV_Plus_Logo.svg/1920px-Apple_TV_Plus_Logo.svg.png' },
+    { id: 'viu', name: 'VIU', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Viu_logo.svg/597px-Viu_logo.svg.png?20210908043125' },
+    { id: 'wetv', name: 'WeTV', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/WeTV_logo.svg/1200px-WeTV_logo.svg.png?20220130115800' },
+    { id: 'iqiyi', name: 'iQIYI', subtitle: 'ต่ออายุสมาชิก', image: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Iqiyi_Logo_Baru.png' },
+    { id: 'monomax', name: 'MONOMAX', subtitle: 'ต่ออายุสมาชิก', image: 'https://play-lh.googleusercontent.com/YUNOy-jcb0dhR-r9c1P40BO4zizZwBpK8IoSvTP8Zh4aBTWxtYgaUsZILF8v-6sMehi2=w480-h960-rw' },
+    { id: 'trueid', name: 'TrueID', subtitle: 'ต่ออายุสมาชิก', image: 'https://cms.dmpcdn.com/misc/2022/02/09/af7de880-89ab-11ec-8c0c-590a22d85d91_webp_original.webp' },
   ];
-
+  
   constructor(
     private gameApi: GameService,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -219,7 +295,7 @@ idpassRow!: ElementRef<HTMLDivElement>;
       }
     }
   }
-
+  
   ngOnInit(): void {
     // เริ่มต้น: โชว์ทุกเกม UID ทั้งหมด
     this.filteredGames = [...this.uidGames];
@@ -326,6 +402,24 @@ scrollToContent(): void {
     el.scrollIntoView({ behavior: 'smooth' });
   }
 }
+
+  scrollLeftGift(): void {
+    if (this.giftRow && this.giftRow.nativeElement) {
+      this.giftRow.nativeElement.scrollBy({
+        left: -820,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  scrollRightGift(): void {
+    if (this.giftRow && this.giftRow.nativeElement) {
+      this.giftRow.nativeElement.scrollBy({
+        left: 820,
+        behavior: 'smooth'
+      });
+    }
+  }
 
 // ปุ่มเลื่อนแถว Subscription
   scrollLeftSub(): void {

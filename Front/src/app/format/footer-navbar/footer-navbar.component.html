@@ -1,2 +1,82 @@
-<p>footer-navbar works!</p>
-Hello world
+<footer class="site-footer">
+  <!-- glow background -->
+  <div class="footer-bg-glow"></div>
+
+  <div class="footer-inner">
+
+    <!-- กล่อง contact + เมนูลิงก์ -->
+    <div class="footer-top">
+
+      <!-- คอลัมน์: ติดต่อ -->
+      <div class="footer-col footer-contact">
+        <h3 class="footer-title">
+          <span class="icon-dot-online"></span>
+          ติดต่อเรา
+        </h3>
+        <p class="footer-desc">มีแอดมินดูแลและตอบตลอด 24 ชั่วโมง</p>
+
+        <ul class="contact-list">
+          <li class="contact-row">
+            <div class="contact-icon">{{ contactInfo.email.icon }}</div>
+            <div class="contact-texts">
+              <div class="contact-label">{{ contactInfo.email.label }}</div>
+              <div class="contact-value">{{ contactInfo.email.value }}</div>
+            </div>
+          </li>
+
+          <li class="contact-row">
+            <div class="contact-icon">{{ contactInfo.phone.icon }}</div>
+            <div class="contact-texts">
+              <div class="contact-label">{{ contactInfo.phone.label }}</div>
+              <div class="contact-value">{{ contactInfo.phone.value }}</div>
+            </div>
+          </li>
+
+          <li class="contact-row">
+            <div class="contact-icon">{{ contactInfo.line.icon }}</div>
+            <div class="contact-texts">
+              <div class="contact-label">{{ contactInfo.line.label }}</div>
+              <div class="contact-value">{{ contactInfo.line.value }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- คอลัมน์: หมวดบริการ -->
+      <div class="footer-col footer-links">
+        <h3 class="footer-title">บริการ</h3>
+        <ul class="link-list">
+          <li><a routerLink="/home">เติมเกม UID</a></li>
+          <li><a routerLink="/home">เติมแบบ ID/Pass</a></li>
+          <li><a routerLink="/home">บัตรเติมเกม / Gift Card</a></li>
+          <li><a routerLink="/home">Subscription รายเดือน</a></li>
+        </ul>
+      </div>
+
+      <!-- คอลัมน์: อื่นๆ / ความน่าเชื่อถือ -->
+      <div class="footer-col footer-links">
+        <h3 class="footer-title">ข้อมูลร้าน</h3>
+        <ul class="link-list">
+          <li><a routerLink="/promotion">โปรโมชั่น</a></li>
+          <li><a routerLink="/about-me">เกี่ยวกับเรา</a></li>
+          <li><a routerLink="/about-me">วิธีสั่งซื้อ / แจ้งโอน</a></li>
+          <li><a routerLink="/about-me">เงื่อนไข & ความปลอดภัย</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- เส้นคั่น -->
+    <div class="footer-divider"></div>
+
+    <!-- ลิขสิทธิ์ -->
+    <div class="footer-bottom">
+      <div class="brand-copy">
+        © 2025 termsubwaifailook • All rights reserved
+      </div>
+      <div class="brand-safe">
+        ระบบเติมเกมอัตโนมัติ • ปลอดภัย รวดเร็ว ไม่เก็บรหัสจริงของคุณ
+      </div>
+    </div>
+  </div>
+</footer>

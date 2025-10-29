@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HeaderNavbarComponent } from '../../format/header-navbar/header-navbar.component';
+import { FooterNavbarComponent } from "../../format/footer-navbar/footer-navbar.component";
 
 interface SubPlan { label: string; months: number; amount: number }
 interface SubConfig {
@@ -12,7 +13,7 @@ interface SubConfig {
 @Component({
   selector: 'app-subscription-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, HeaderNavbarComponent],
+  imports: [CommonModule, RouterModule, FormsModule, HeaderNavbarComponent, FooterNavbarComponent],
   templateUrl: './subscription-detail.component.html',
   styleUrl: './subscription-detail.component.css',
 })
@@ -30,7 +31,7 @@ export class SubscriptionDetailComponent implements OnInit {
     },
     {
       id: 'max', name: 'Max',
-      banner: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Max_logo.svg',
+      banner: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/HBO_Max_%282025%29.svg/1280px-HBO_Max_%282025%29.svg.png',
       plans: [{ label: '1 เดือน', months: 1, amount: 199 }, { label: '3 เดือน', months: 3, amount: 579 }, { label: '12 เดือน', months: 12, amount: 1990 }]
     },
     {
@@ -40,30 +41,31 @@ export class SubscriptionDetailComponent implements OnInit {
     },
     {
       id: 'appletv', name: 'Apple TV+',
-      banner: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV%2B_Logo.svg',
+      banner: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Apple_TV_Plus_Logo.svg/1920px-Apple_TV_Plus_Logo.svg.png',
       plans: [{ label: '1 เดือน', months: 1, amount: 129 }, { label: '3 เดือน', months: 3, amount: 369 }, { label: '12 เดือน', months: 12, amount: 1290 }]
     },
     {
       id: 'viu', name: 'VIU',
-      banner: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Viu_logo.svg',
+      banner: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Viu_logo.svg/597px-Viu_logo.svg.png?20210908043125',
       plans: [{ label: '1 เดือน', months: 1, amount: 119 }, { label: '3 เดือน', months: 3, amount: 339 }, { label: '12 เดือน', months: 12, amount: 1190 }]
     },
     {
       id: 'wetv', name: 'WeTV',
-      banner: 'https://upload.wikimedia.org/wikipedia/commons/f/f8/WeTV_logo.svg',
+      banner: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/WeTV_logo.svg/1200px-WeTV_logo.svg.png?20220130115800',
       plans: [{ label: '1 เดือน', months: 1, amount: 129 }, { label: '3 เดือน', months: 3, amount: 359 }, { label: '12 เดือน', months: 12, amount: 1290 }]
     },
     {
-      id: 'iqiyi', name: 'iQIYI', banner: 'https://upload.wikimedia.org/wikipedia/commons/6/61/IQIYI_logo.svg', plans: [{ label: '1 เดือน', months: 1, amount: 119 }, { label: '3 เดือน', months: 3, amount: 339 }, { label: '12 เดือน', months: 12, amount: 1190 }]
+      id: 'iqiyi', name: 'iQIYI', banner: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Iqiyi_Logo_Baru.png', 
+      plans: [{ label: '1 เดือน', months: 1, amount: 119 }, { label: '3 เดือน', months: 3, amount: 339 }, { label: '12 เดือน', months: 12, amount: 1190 }]
     },
     {
       id: 'monomax', name: 'MONOMAX',
-      banner: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Mono_Max_logo.png',
+      banner: 'https://scontent.fbkk30-1.fna.fbcdn.net/v/t1.15752-9/552197742_1148676740773243_7764047517347308499_n.png?_nc_cat=111&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeGK0_oRV7U3K3mQDbbKMXBicfCZTrC753Jx8JlOsLvncgP3lZ6oxVKeyDEkV2srM4TMhlETvG2nBN3g0zrmWicM&_nc_ohc=tW-vaC2ZNJAQ7kNvwG5_vI-&_nc_oc=AdlvKP1As2s9GIkIrnkldeWb5s-ETquKsz3dRtzqHd3KbGjP1D89QP_LHQ4BbxfygZhBEGpj_QJhQ6LRzQLv9nhr&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fbkk30-1.fna&oh=03_Q7cD3gEsGxa5gkCBtNTf6yzQ6RXWuRIufioJDkZ5LLJydCpykw&oe=69298C8C',
       plans: [{ label: '1 เดือน', months: 1, amount: 129 }, { label: '3 เดือน', months: 3, amount: 359 }, { label: '12 เดือน', months: 12, amount: 1290 }]
     },
     {
       id: 'trueid', name: 'TrueID',
-      banner: 'https://upload.wikimedia.org/wikipedia/commons/f/f2/TrueID_logo.png',
+      banner: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMAKQK0KUFJ_o456NtTGhYr4H47I-hRh4rkA&s',
       plans: [{ label: '1 เดือน', months: 1, amount: 99 }, { label: '3 เดือน', months: 3, amount: 279 }, { label: '12 เดือน', months: 12, amount: 990 }]
     },
   ];
