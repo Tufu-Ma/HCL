@@ -2,7 +2,10 @@
 <div class="container">
   <div class="row">
     <div class="col-10 offset-1 page-box">
-      <h2 class="mb-3">โปรโมชั่นพิเศษ</h2>
+      <div class="header-section">
+        <h2 class="main-title">🎮 โปรโมชั่นพิเศษ 🎮</h2>
+        <p class="sub-title">⚡ เซ็ตเติมเกมสุดคุ้ม จนกว่าจะหมดเขต! ⚡</p>
+      </div>
 
       <!-- กรอบแสดงโปรโมชั่นทั้งหมด -->
       <div class="promotion-cards">
@@ -13,31 +16,52 @@
           <!-- รูปภาพโปรโมชั่น -->
           <div class="promotion-thumb">
             <img [src]="promotion.imageUrl || 'assets/testBG.jpg'" [alt]="promotion.title">
-            <!-- แสดงส่วนลดด้านบน -->
-            <div class="discount-badge">
+            <!-- Badge ส่วนลด -->
+            <div class="discount-badge" *ngIf="promotion.discount">
               {{ promotion.discount }}
             </div>
+            <!-- Overlay เอฟเฟกต์ -->
+            <div class="image-overlay"></div>
           </div>
           
           <!-- ข้อมูลโปรโมชั่น -->
           <div class="promotion-content">
             <div class="promotion-title">{{ promotion.title }}</div>
-            <div class="promotion-subtitle">{{ promotion.subtitle }}</div>
-            <div class="promotion-description">{{ promotion.description }}</div>
+            <div class="promotion-subtitle" *ngIf="promotion.subtitle">{{ promotion.subtitle }}</div>
             
-            <!-- คุณสมบัติพิเศษ (แสดงแค่ 2 อันแรก) -->
-            <div class="promotion-features">
-              <div class="feature-item" *ngFor="let feature of promotion.features.slice(0, 2)">
-                <i class="feature-icon">✓</i>
-                {{ feature }}
+            <!-- ราคาและส่วนลด -->
+            <div class="promotion-pricing" *ngIf="promotion.price">
+              <div class="price-section">
+                <span class="current-price">{{ promotion.price }}</span>
+                <span class="original-price" *ngIf="promotion.originalPrice">{{ promotion.originalPrice }}</span>
+              </div>
+              <div class="savings" *ngIf="promotion.originalPrice && promotion.price">
+                ประหยัด {{ calculateSavings(promotion.originalPrice, promotion.price) }} บาท!
+              </div>
+            </div>
+
+            <!-- ของแถมพิเศษ (แสดงแค่ 2 อันแรก) -->
+            <div class="bonus-items" *ngIf="promotion.bonusItems">
+              <div class="bonus-title">🎁 ของแถมฟรี:</div>
+              <div class="bonus-item" *ngFor="let bonus of promotion.bonusItems.slice(0, 2)">
+                <i class="bonus-icon">+</i>
+                {{ bonus }}
+              </div>
+              <div class="bonus-more" *ngIf="promotion.bonusItems.length > 2">
+                และอีก {{ promotion.bonusItems.length - 2 }} รายการ...
               </div>
             </div>
 
             <!-- ปุ่มดูรายละเอียด -->
             <div class="promotion-action">
-              <button class="btn-select">เลือกโปรโมชั่นนี้</button>
+              <button class="btn-select">
+                <span>ดูรายละเอียด</span>
+              </button>
             </div>
           </div>
+          
+          <!-- Pulse Animation -->
+          <div class="pulse-ring"></div>
         </div>
       </div>
 

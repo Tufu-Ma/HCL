@@ -1,20 +1,75 @@
 <app-header-navbar></app-header-navbar>
 <div class="container">
-  <div class="page-box">
-    
-    <!-- ข้อมูลส่วนตัว -->
-    <div class="profile-section">
-      <!-- รูปโปรไฟล์ -->
-      <div class="profile-image">
-        <img src="assets/testprofile.jpg" alt="Profile" class="rounded-circle">
-      </div>
+  <div class="row">
+    <div class="col-10 offset-1 page-box">
       
-      <!-- ข้อมูลโปรไฟล์ -->
-      <h3>{{ profile.name }}</h3>
-      <p class="bio">{{ profile.bio }}</p>
+      <!-- Header Section -->
+      <div class="header-section">
+        <div class="logo-container">
+          <img src="assets/logo.png" alt="Term Sub Wai Fai Look Logo" class="company-logo">
+        </div>
+        <h2 class="main-title">{{ aboutUs.companyName }}</h2>
+        <p class="sub-title">{{ aboutUs.tagline }}</p>
+        <p class="subtitle-desc">{{ aboutUs.subtitle }}</p>
+      </div>
 
-      <!-- ข้อมูลติดต่อ -->
-      <p class="contact">{{ profile.email }}</p>
+      <!-- About Us Section -->
+      <div class="about-section">
+        <h3 class="section-title">🏢 เกี่ยวกับเรา</h3>
+        <div class="about-content">
+          <p class="about-description">{{ aboutUs.description }}</p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+          <div class="feature-card" *ngFor="let feature of aboutUs.features; let i = index">
+            <div class="pulse-ring"></div>
+            <div class="feature-icon">{{ feature.icon }}</div>
+            <h4 class="feature-title">{{ feature.title }}</h4>
+            <p class="feature-description">{{ feature.description }}</p>
+          </div>
+        </div>
+
+        <!-- Why Choose Us Section -->
+        <div class="why-choose-section">
+          <h4 class="why-title">🌟 ทำไมต้องเลือกเรา?</h4>
+          <div class="why-list">
+            <div class="why-item" *ngFor="let reason of aboutUs.whyChooseUs; let i = index">
+              <span class="why-number">{{ i + 1 }}</span>
+              <span class="why-text">{{ reason }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="contact-section">
+        <h3 class="section-title">📞 ติดต่อเรา</h3>
+        <p class="contact-subtitle">พร้อมให้บริการและตอบข้อสงสัยตลอด 24 ชั่วโมง</p>
+        
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="pulse-ring"></div>
+            <div class="contact-icon">{{ contactInfo.email.icon }}</div>
+            <h4 class="contact-label">{{ contactInfo.email.label }}</h4>
+            <p class="contact-value">{{ contactInfo.email.value }}</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="pulse-ring"></div>
+            <div class="contact-icon">{{ contactInfo.phone.icon }}</div>
+            <h4 class="contact-label">{{ contactInfo.phone.label }}</h4>
+            <p class="contact-value">{{ contactInfo.phone.value }}</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="pulse-ring"></div>
+            <div class="contact-icon">{{ contactInfo.line.icon }}</div>
+            <h4 class="contact-label">{{ contactInfo.line.label }}</h4>
+            <p class="contact-value">{{ contactInfo.line.value }}</p>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
