@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-promotion',
@@ -9,11 +10,16 @@ import { Router } from '@angular/router';
 })
 export class PromotionComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-    // เลื่อนไปบนสุดเมื่อโหลดหน้า
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // เลื่อนไปบนสุดเมื่อโหลดหน้า (เฉพาะใน browser)
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
   // ข้อมูลโปรโมชั่นเกมยอดฮิตตามที่เลือก
   promotions = [

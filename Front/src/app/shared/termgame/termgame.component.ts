@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -35,12 +35,14 @@ export class TermgameComponent implements OnInit {
   server: ServerCode = 'th';
   searchTerm = '';
 
-  constructor() {
-    // รับค่า searchTerm จาก URL query parameters ถ้ามี
-    const urlParams = new URLSearchParams(window.location.search);
-    const search = urlParams.get('search');
-    if (search) {
-      this.searchTerm = search;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // รับค่า searchTerm จาก URL query parameters ถ้ามี (เฉพาะใน browser)
+    if (isPlatformBrowser(this.platformId)) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const search = urlParams.get('search');
+      if (search) {
+        this.searchTerm = search;
+      }
     }
   }
 

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment',
@@ -11,7 +13,8 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   // ข้อมูลโปรโมชั่นที่เลือกซื้อ
@@ -19,8 +22,17 @@ export class PaymentComponent implements OnInit {
   
   // ข้อมูลการชำระเงิน
   paymentData = {
-    paymentMethod: 'credit-card'
+    paymentMethod: 'promptpay'
   };
+
+  // State variables
+  isPaying = false;
+  isPaid = false;
+  orderId = '';
+
+  // QR Code images
+  promptpayImage = 'https://scontent.fbkk29-1.fna.fbcdn.net/v/t1.15752-9/566538890_1130417712554071_1302665028930504060_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=XnLa62aA9CAQ7kNvwEEBiS3&_nc_oc=AdlxmdjWQ7W7K5CMMYEWZ-f2lmEXrAS10zf-FtDQC4IZXKD0FKNQ58QSZflA99nYq3nXHQXSQvPLk-fGOrYa-GTr&_nc_zt=23&_nc_ht=scontent.fbkk29-1.fna&oh=03_Q7cD3gGV2vRpYvj95bVNxOcobSumAzguJxVgAqNqtQzQUBsYyw&oe=69273DAE';
+  truemoneyImage = 'https://scontent.fbkk29-8.fna.fbcdn.net/v/t1.15752-9/566515137_1563838434983163_8875283447229797207_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=9f807c&_nc_ohc=5SFjdmTHZY4Q7kNvwEqLW9X&_nc_oc=AdkWxZ9BbQnxUEpGz_i7907obibAOb_cyvCAEnC0Qae6AumSLNkTz727gjcgmRKkqKGubUjdm22HjMnbOfmyGaGo&_nc_zt=23&_nc_ht=scontent.fbkk29-8.fna&oh=03_Q7cD3gGEfb9vQ9iwNZ9DzzkoR5V7aTT_kaG15uVBCEQTLyoXsw&oe=69274826';
 
   // ข้อมูลโปรโมชั่นทั้งหมด (เหมือนกับ promotion.component.ts)
   promotions = [
@@ -267,8 +279,10 @@ export class PaymentComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    // เลื่อนไปบนสุดเมื่อโหลดหน้า
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // เลื่อนไปบนสุดเมื่อโหลดหน้า (เฉพาะใน browser)
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     
     // รับ promotion id จาก URL parameter ถ้ามี
     const promotionId = this.route.snapshot.queryParams['promotionId'];
@@ -279,33 +293,48 @@ export class PaymentComponent implements OnInit {
 
   // เมธอดสำหรับการชำระเงิน
   onPayment(): void {
-    if (this.validateForm()) {
-      console.log('ข้อมูลการชำระเงิน:', this.paymentData);
-      console.log('โปรโมชั่นที่ซื้อ:', this.selectedPromotion);
+    if (!this.selectedPromotion || this.isPaid || this.isPaying) return;
+    
+    this.isPaying = true;
+    
+    // Mock async payment
+    setTimeout(() => {
+      this.isPaying = false;
+      this.isPaid = true;
+      this.orderId = 'GM-' + Math.random().toString(36).substring(2, 8).toUpperCase();
       
-      // แสดง alert ว่าชำระเงินสำเร็จ
-      alert(`🎉 การสั่งซื้อสำเร็จแล้ว!
-
-📦 โปรโมชั่นที่สั่งซื้อ: ${this.selectedPromotion?.title}
-💰 จำนวนเงินที่ชำระ: ${this.selectedPromotion?.price}
-
-✅ รหัสการสั่งซื้อ: GM${Date.now().toString().slice(-6)}
-💵 วิธีการชำระเงิน: ${this.getPaymentMethodName()}
-
-🙏🏻 ขอบคุณที่ใช้บริการ!`);
-      
-      // กลับไปหน้าโปรโมชั่น (Router จะเลื่อนไปบนสุดเองแล้ว)
-      this.router.navigate(['/promotion']);
-    }
-  }
-
-  // ตรวจสอบความถูกต้องของฟอร์ม
-  validateForm(): boolean {
-    if (!this.paymentData.paymentMethod) {
-      alert('กรุณาเลือกวิธีการชำระเงิน');
-      return false;
-    }
-    return true;
+      // SweetAlert2 success popup
+      Swal.fire({
+        icon: 'success',
+        title: 'ชำระเงินสำเร็จ',
+        html: `<div style="text-align: center;">
+                 <div style="margin-bottom: 15px;">
+                   <strong style="font-size: 18px; color: #2563eb;">${this.selectedPromotion.title}</strong>
+                 </div>
+                 <div style="margin-bottom: 10px;">
+                   รหัสคำสั่งซื้อ: <strong>${this.orderId}</strong>
+                 </div>
+                 <div style="margin-bottom: 10px;">
+                   ช่องทาง: <strong>${this.methodLabel}</strong>
+                 </div>
+                 <div style="margin-bottom: 15px;">
+                   ยอดชำระ: <strong style="color: #dc2626;">${this.selectedPromotion.price}</strong>
+                 </div>
+                 <div style="font-size: 14px; color: #64748b;">
+                   ขอบคุณที่ใช้บริการ! 🙏🏻
+                 </div>
+               </div>`,
+        confirmButtonText: 'เสร็จสิ้น',
+        confirmButtonColor: this.getAccentColor(),
+        showClass: { popup: 'swal2-show' },
+        hideClass: { popup: 'swal2-hide' },
+        backdrop: `rgba(0,0,0,0.45)`,
+        allowOutsideClick: true
+      }).then(() => {
+        // กลับไปหน้าโปรโมชั่น
+        this.router.navigate(['/promotion']);
+      });
+    }, 1200);
   }
 
   // กลับไปหน้าก่อนหน้า
@@ -320,13 +349,18 @@ export class PaymentComponent implements OnInit {
     return original - current;
   }
 
-  // แปลงชื่อวิธีการชำระเงิน
-  getPaymentMethodName(): string {
-    switch(this.paymentData.paymentMethod) {
-      case 'credit-card': return 'บัตรเครดิต/เดบิต';
-      case 'bank-transfer': return 'โอนเงินผ่านธนาคาร';
-      case 'e-wallet': return 'E-Wallet (TrueMoney, PromptPay)';
-      default: return 'ไม่ระบุ';
-    }
+  // Get payment image based on selected method
+  get paymentImage(): string {
+    return this.paymentData.paymentMethod === 'promptpay' ? this.promptpayImage : this.truemoneyImage;
+  }
+
+  // Get accent color based on payment method
+  getAccentColor(): string {
+    return this.paymentData.paymentMethod === 'promptpay' ? '#0b6ccf' : '#ff6f00';
+  }
+
+  // Get method label
+  get methodLabel(): string {
+    return this.paymentData.paymentMethod === 'promptpay' ? 'PromptPay' : 'TrueMoney';
   }
 }
