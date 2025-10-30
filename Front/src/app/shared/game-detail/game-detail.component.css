@@ -2,7 +2,7 @@
   display: block;
   min-height: 100vh;               /* ความสูงขั้นต่ำเต็มหน้าจอ */
   position: relative;              /* เพิ่ม position relative */
-  background-image: url("../../../assets/bg3.png");
+  background-image: url("../../../assets/bg5.png");
   background-size: cover;           /* ขยายภาพให้เต็มพื้นที่ */
   background-position: center;      /* จัดภาพให้อยู่กึ่งกลาง */
   background-repeat: no-repeat;     /* ไม่ให้ภาพซ้ำ */

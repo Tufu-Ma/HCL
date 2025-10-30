@@ -20,8 +20,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 1,
       title: 'โปรโมชั่น Valorant',
-      subtitle: '🎯 ลดราคา 55% + Premium Skins 🎯',
-      description: 'เซ็ตเอเจ้นท์! เติม 1,200 บาท ได้ 4,000 VP + Premium Weapon Skins + Battle Pass! ดีลสุดพิเศษสำหรับนักยิงมืออาชีพที่ต้องการความเท่ห์และประสิทธิภาพสูงสุด',
+      subtitle: '🔥 ลดราคา 55% 🔥',
       imageUrl: 'assets/valo.jpg',
       discount: '-55%',
       price: '540 บาท',
@@ -37,8 +36,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 2,
       title: 'โปรโมชั่น League of Legends PC',
-      subtitle: '⚔️ ลดราคา 45% + RP โบนัส ⚔️',
-      description: 'เซ็ต PC Master Race! เติม 1,000 บาท ได้ 3,500 RP + Ultimate Skin + Championship Bundle! สำหรับนักรบ Summoner\'s Rift ตัวจริงที่พร้อมพิสูจน์ตัวเองในระดับโลก',
+      subtitle: '🔥 ลดราคา 45% 🔥',
       imageUrl: 'assets/lol pc.jpg',
       discount: '-45%',
       price: '550 บาท',
@@ -54,8 +52,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 3,
       title: 'โปรโมชั่น League of Legends: Wild Rift',
-      subtitle: '📱 ลดราคา 40% + Wild Cores โบนัส 📱',
-      description: 'เซ็ตมือถือ! เติม 800 บาท ได้ 2,500 Wild Cores + Legendary Skin ฟรี! พร้อมของแถมมากมายสำหรับนักรบ Rift บนมือถือ ลิมิเต็ดไทม์เท่านั้น!',
+      subtitle: '🔥 ลดราคา 40% 🔥',
       imageUrl: 'assets/lol.jpg',
       discount: '-40%',
       price: '480 บาท',
@@ -71,8 +68,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 4,
       title: 'โปรโมชั่น Teamfight Tactics',
-      subtitle: '🎲 ลดราคา 35% + Little Legends โบนัส 🎲',
-      description: 'เซ็ต Auto Battler! เติม 700 บาท ได้ 2,200 RP + Little Legends Bundle + Arena ฟรี! สำหรับนักเล่น TFT ที่ต้องการ Luck และ Strategy ระดับโปร',
+      subtitle: '🔥 ลดราคา 35% 🔥',
       imageUrl: 'assets/teamfight.jpg',
       discount: '-35%',
       price: '455 บาท',
@@ -88,8 +84,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 5,
       title: 'โปรโมชั่น 2XKO',
-      subtitle: '🥊 ลดราคา 50% + Fighter Pass 🥊',
-      description: 'เซ็ต Fighting Game! เติม 800 บาท ได้ 2,400 Riot Points + Fighter Pass Complete + Premium Skins! สำหรับนักสู้ตัวจริงที่พร้อมพิสูจน์ตัวเองในสังเวียนการต่อสู้',
+      subtitle: '🔥 ลดราคา 50% 🔥',
       imageUrl: 'assets/2xko.png',
       discount: '-50%',
       price: '400 บาท',
@@ -105,8 +100,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 6,
       title: 'โปรโมชั่น Seven Knights: Rebirth',
-      subtitle: '⚔️ ลดราคา 55% + Rebirth Package ⚔️',
-      description: 'เซ็ต Rebirth! เติม 1,200 บาท ได้ 4,500 Rubies + Legendary Heroes + Equipment Set! ดีลพิเศษสำหรับนักรบที่ต้องการเริ่มต้นใหม่ด้วยพลังที่แกร่งกว่าเดิม',
+      subtitle: '🔥 ลดราคา 55% 🔥',
       imageUrl: 'assets/7k.jpg',
       discount: '-55%',
       price: '540 บาท',
@@ -122,8 +116,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 7,
       title: 'โปรโมชั่น Path of Exile 2',
-      subtitle: '🔮 ลดราคา 40% + Supporter Pack ',
-      description: 'เซ็ต Exile! เติม 1,500 บาท ได้ 5,000 Points + Supporter Pack + MTX Bundle! สำหรับ Exile ตัวจริงที่พร้อมสำรวจโลกที่มืดมนและอันตรายที่สุด',
+      subtitle: '🔥 ลดราคา 40% 🔥',
       imageUrl: 'assets/path of ex.jpg',
       discount: '-40%',
       price: '900 บาท',
@@ -139,8 +132,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 8,
       title: 'โปรโมชั่น Marvel Rivals',
-      subtitle: '🦸 ลดราคา 45% + Hero Pack 🦸',
-      description: 'เซ็ต Superhero! เติม 1,000 บาท ได้ 3,200 Units + Hero Unlock Pack + Premium Skins! สำหรับคนที่อยากเป็นฮีโร่แต่จบลงด้วยการเป็นตัวร้าย',
+      subtitle: '🔥 ลดราคา 45% 🔥',
       imageUrl: 'assets/marvel.jpg',
       discount: '-45%',
       price: '550 บาท',
@@ -156,8 +148,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 9,
       title: 'โปรโมชั่น Pokémon Unite',
-      subtitle: '⚡ ลดราคา 35% + Holowear Set ⚡',
-      description: 'เซ็ตโปเกม่อน! เติม 650 บาท ได้ 1,800 Aeos Gems + Holowear Set สุดน่ารัก! พร้อม Battle Pass Premium และ License ฟรี เหมาะสำหรับทรนเนอร์มือใหม่และเก่า',
+      subtitle: '🔥 ลดราคา 35% 🔥',
       imageUrl: 'assets/pokemon.jpeg',
       discount: '-35%',
       price: '420 บาท',
@@ -173,8 +164,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 10,
       title: 'โปรโมชั่น Arena Breakout',
-      subtitle: '🔫 ลดราคา 50% + Tactical Pack 🔫',
-      description: 'เซ็ต Tactical! เติม 900 บาท ได้ 2,800 Koen + Weapon Pack + Premium Account! สำหรับนักรบที่พร้อมเข้าสู่สนามรบที่โหดร้ายที่สุด',
+      subtitle: '🔥 ลดราคา 50% 🔥',
       imageUrl: 'assets/breakout.jpg',
       discount: '-50%',
       price: '450 บาท',
@@ -190,8 +180,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 11,
       title: 'โปรโมชั่น Delta Force Steam PC',
-      subtitle: '🚁 ลดราคา 60% + Military Pack 🚁',
-      description: 'เซ็ต Military! เติม 800 บาท ได้ 3,000 Credits + Weapon Skins + Battle Pass! ดีลสุดพิเศษสำหรับนักรบที่ต้องการความสมจริงและแอ็คชั่นระดับสูง',
+      subtitle: '🔥 ลดราคา 60% 🔥',
       imageUrl: 'assets/delta.png',
       discount: '-60%',
       price: '320 บาท',
@@ -207,8 +196,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 12,
       title: 'โปรโมชั่น Honkai: Star Rail',
-      subtitle: '🚂 ลดราคา 40% + Stellar Jade 🚂',
-      description: 'เซ็ต Trailblazer! เติม 1,100 บาท ได้ 4,200 Stellar Jade + Character Pack + Light Cone! ดีลพิเศษสำหรับนักผจญภัยที่พร้อมสำรวจจักรวาล',
+      subtitle: '🔥 ลดราคา 40% 🔥',
       imageUrl: 'assets/star rail.jpg',
       discount: '-40%',
       price: '660 บาท',
@@ -224,8 +212,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 13,
       title: 'โปรโมชั่น Genshin Impact',
-      subtitle: '🌟 ลดราคา 45% + Primogems 🌟',
-      description: 'เซ็ต Traveler! เติม 1,600 บาท ได้ 6,480 Primogems + Character Ascension Pack + Weapon Materials! สำหรับ Traveler ที่พร้อมสำรวจโลก Teyvat',
+      subtitle: '🔥 ลดราคา 45% 🔥',
       imageUrl: 'assets/genshin.jpeg',
       discount: '-45%',
       price: '880 บาท',
@@ -241,8 +228,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 14,
       title: 'โปรโมชั่น Zenless Zone Zero',
-      subtitle: '🔥 ลดราคา 50% + Polychrome 🔥',
-      description: 'เซ็ต Proxy! เติม 1,200 บาท ได้ 4,800 Polychrome + Agent Pack + W-Engine Bundle! สำหรับ Proxy ที่พร้อมเข้าสู่ Hollow และต่อสู้กับ Ethereal',
+      subtitle: '🔥 ลดราคา 50% 🔥',
       imageUrl: 'assets/zenless.jpg',
       discount: '-50%',
       price: '600 บาท',
@@ -258,8 +244,7 @@ export class PromotionComponent implements OnInit {
     {
       id: 15,
       title: 'โปรโมชั่น Wuthering Waves',
-      subtitle: '🌊 ลดราคา 40% + Astrite Pack 🌊',
-      description: 'เซ็ต Resonator! เติม 1,000 บาท ได้ 3,600 Astrite + Echo Pack + Weapon Materials! สำหรับ Resonator ที่พร้อมต่อสู้กับ Tacet Discord และปกป้อง Solaris',
+      subtitle: '🔥 ลดราคา 40% 🔥',
       imageUrl: 'assets/Wuthering Waves.jpg',
       discount: '-40%',
       price: '600 บาท',

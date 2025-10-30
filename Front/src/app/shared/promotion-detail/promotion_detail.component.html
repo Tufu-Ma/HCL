@@ -41,7 +41,6 @@
               </div>
             </div>
           </div>
-          <p class="promotion-description">{{ selectedPromotion.description }}</p>
           
           <!-- คุณสมบัติพิเศษ -->
           <div class="promotion-features" *ngIf="selectedPromotion.features">
@@ -57,7 +56,7 @@
           <!-- ปุ่มเติมเกม -->
           <div class="btn-purchase">
             <button class="btn-topup" (click)="goToPayment()">
-              <span class="btn-text">🎮 ซื้อโปรโมชั่นเลย! 🎮</span>
+              <span class="btn-text">ซื้อโปรโมชั่น</span>
               <span class="btn-shine"></span>
             </button>
           </div>
