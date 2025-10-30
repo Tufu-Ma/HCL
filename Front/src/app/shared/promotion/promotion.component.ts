@@ -277,4 +277,4 @@ export class PromotionComponent implements OnInit {
     const current = parseInt(currentPrice.replace(/[^0-9]/g, ''));
     return original - current;
   }
-}
+} 

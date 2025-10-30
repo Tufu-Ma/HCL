@@ -1,78 +1,74 @@
+/* ========== Topbar Base ========== */
 .topbar { 
-  background:#6e6e6ea9; 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  background: #6e6e6ea9;
   backdrop-filter: blur(10px);
+  z-index: 2000;
 }
-.topbar__inner{
-  display:flex;
-  align-items:center;
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: clamp(8px,1.6vw,24px);
   padding: 10px clamp(12px,4vw,48px);
-  max-width: 1280px;    /* เลือก 1200/1280/1360/1440 ตามชอบ */
+  max-width: 1280px;
   margin: 0 auto;
+  min-height: 56px;
+}
+.brand img {
+  height: clamp(28px,2.8vw,40px);
 }
 
-.brand img{ height: clamp(28px,2.8vw,40px); }
-
-.menu{
-  display:flex;
+.menu {
+  display: flex;
   gap: clamp(16px,2vw,32px);
-  list-style:none;
-  padding:0; margin:0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
   white-space: nowrap;
   flex: 3;
   justify-content: center;
   min-width: 0;
 }
-.menu a{
-  display:block;
+.menu a {
+  display: block;
   padding: 6px clamp(6px,1vw,16px);
   font-size: clamp(10px,1.05vw,14px);
-  color:#ddd; text-decoration:none;
+  color: #ddd;
+  text-decoration: none;
 }
 
-.right{
-  display:flex;
-  align-items:center;
+.right {
+  display: flex;
+  align-items: center;
   gap: clamp(8px,1.2vw,16px);
-  margin-left:auto;
+  margin-left: auto;
   flex: 2;
   min-width: 0;
 }
-.search{ flex: 1 1 300px; min-width: 240px; }
-.search input{
-  width:100%;
+
+.search { flex: 1 1 360px; min-width: 260px; }
+.search input {
+  width: 100%;
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid #444;
-  background:#22171c; color:#ddd;
-  flex: 1 1 auto;
+  background: #22171c;
+  color: #ddd;
 }
-.btn-login{
-  flex:0 0 auto;
-  white-space:nowrap;
+
+.btn-login {
+  flex: 0 0 auto;
+  white-space: nowrap;
   padding: 8px 14px;
   border-radius: 10px;
   background: #ffd562;
-  color:#000000; text-decoration:none;
-  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.3);
-}
-
-
-@media (max-width: 1400px){
-  .menu{ gap: clamp(6px,1vw,16px); }
-}
-@media (max-width: 1100px){
-  .menu a{ padding: 6px 8px; }
-  .right{ gap: 8px; }
-}
-
-@media (max-width: 900px){
-  .menu li:nth-last-child(-n+2){ display:none; }
+  color: #000;
+  text-decoration: none;
+  box-shadow: 0 0 0 3px rgba(255,102,0,.3);
 }
 
 .btn-profile {
@@ -80,30 +76,240 @@
   align-items: center;
   gap: 8px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255,255,255,.3);
   border-radius: 30px;
   padding: 4px 10px;
   color: #fff;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all .25s ease;
 }
-
 .btn-profile:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,.1);
   border-color: #ff4dcf;
-  box-shadow: 0 0 10px rgba(255, 77, 207, 0.5);
+  box-shadow: 0 0 10px rgba(255,77,207,.5);
 }
-
 .profile-pic {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255,255,255,.2);
+}
+.username { font-size: .95rem; color: #fff; }
+
+/* ========== Drawer (Mobile Navigation) ========== */
+.drawer-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  opacity: 0; visibility: hidden;
+  transition: all .25s ease;
+  z-index: 1900;
+}
+.drawer-backdrop.show {
+  opacity: 1; visibility: visible;
+}
+.drawer {
+  position: fixed;
+  top: 0; left: 0;
+  width: min(84vw, 360px);
+  height: 100dvh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(20,14,16,.96), rgba(20,14,16,.94));
+  transform: translateX(-100%);
+  transition: transform .25s ease;
+  z-index: 1950;
+  box-shadow: 2px 0 24px rgba(0,0,0,.35);
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer__header {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: inherit;
+}
+.drawer__header .brand img { height: 32px; }
+
+.drawer-close {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.04);
+  color: #fff;
+  cursor: pointer;
 }
 
-.username {
-  font-size: 0.95rem;
+.drawer-menu { padding: 8px 8px 16px; }
+.drawer-menu a {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: #eee;
+  text-decoration: none;
+  transition: background .2s;
+}
+.drawer-menu a:hover {
+  background: rgba(255,255,255,.08);
+}
+
+/* ปุ่มออกจากระบบใน Drawer */
+.btn-logout {
+  width: 100%;
+  background: #d33;
   color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 0;
+  text-align: center;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+.btn-logout:hover {
+  background: #ff4d4d;
+  box-shadow: 0 0 10px rgba(255,77,77,.6);
+}
+
+/* ========== Mobile (≤768px) ========== */
+.hamburger {
+  display: none;
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px;
+  transition: all .25s ease;
+  background: transparent;
+  font-size: 0; line-height: 0; /* กัน “...” */
+}
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* ==== MOBILE (≤768px): burger | logo | search | profile ==== */
+@media (max-width: 768px){
+  .topbar__inner {
+    display: grid;
+    grid-template-columns: auto auto minmax(80px, 1fr) auto; /* search จะยืดได้ระหว่าง 80px–เต็ม */
+    align-items: center;
+    column-gap: 8px;
+    padding: 8px 10px;
+    overflow: visible;
+  }
+
+  /* ซ่อนเมนูหลัก ใช้ Drawer แทน */
+  .menu { display: none !important; }
+
+  /* burger */
+  .hamburger {
+    grid-column: 1;
+    grid-row: 1;
+    display: inline-flex;
+    width: 32px; height: 32px; padding: 6px;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 8px;
+    align-items: center; justify-content: center;
+    background: transparent;
+  }
+  .hamburger span {
+    width: 16px; height: 2px;
+    background: #fff; border-radius: 2px;
+  }
+
+  /* logo */
+  .brand {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+  }
+  .brand img { height: 32px; }
+
+  /* search (คอลัมน์ 3) */
+  .search {
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;  /* ป้องกันเบียด logo/burger */
+    flex: 1 1 auto;
+  }
+  .search input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: clamp(.8rem, 2vw, .95rem);
+    background: #2a2226;
+    border: 1px solid #3a2f34;
+    border-radius: 10px;
+  }
+
+  /* profile/login (คอลัมน์ 4) */
+  .right {
+    grid-column: 4;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .btn-profile {
+    padding: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.35);
+  }
+  .profile-pic {
+    width: 28px; height: 28px;
+    border-width: 1px;
+    object-fit: cover;
+  }
+  .username { display: none; }
+
+  .btn-login {
+    padding: 6px 10px;
+    border-radius: 10px;
+    box-shadow: none;
+  }
+}
+
+/* Small mobile (≤480px): search แคบลงอีกเล็กน้อย */
+@media (max-width: 480px) {
+  .topbar__inner {
+    grid-template-columns: auto auto minmax(60px, 1fr) auto;
+    column-gap: 6px;
+    padding: 6px 8px;
+  }
+  .search input {
+    padding: 6px 8px;
+    font-size: .85rem;
+  }
+  .brand img { height: 28px; }
+  .hamburger { width: 28px; height: 28px; }
+  .profile-pic { width: 26px; height: 26px; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .search input { font-size: .9rem; }
+  .btn-login { padding: 5px 8px; font-size: .85rem; }
+}
+
+/* ปิด scroll body เมื่อ Drawer เปิด */
+.body--locked { overflow: hidden; }
+
+/* Hover สวยนุ่ม */
+@media (hover: hover) {
+  .btn-profile:hover {
+    background: rgba(255,255,255,.08);
+    box-shadow: 0 0 10px rgba(255,77,207,.35);
+    border-color: rgba(255,255,255,.45);
+  }
 }

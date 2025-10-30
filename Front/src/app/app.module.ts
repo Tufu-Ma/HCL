@@ -38,6 +38,7 @@ import { Lol2xkoComponent } from './game/lol2xko/lol2xko.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HistoryComponent } from './shared/history/history.component';
+import { DashboardComponent } from './shared/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { HistoryComponent } from './shared/history/history.component';
     TeamfightTacticComponent,
     Lol2xkoComponent,
     HistoryComponent,
+    DashboardComponent,
 
   ],
   imports: [

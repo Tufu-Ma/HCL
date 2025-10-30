@@ -1,69 +1,108 @@
-<nav class="topbar fixed-top p-0">
+<nav class="topbar">
   <div class="topbar__inner">
-    <a class="brand" routerLink="/home">
+    <!-- Burger (mobile) -->
+    <button class="hamburger" (click)="toggleDrawer()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Logo -->
+    <a class="brand" routerLink="/home" aria-label="Home">
       <img src="/assets/logo.png" alt="logo" />
     </a>
 
+    <!-- เมนูหลัก (desktop/tablet) -->
     <ul class="menu">
       <li><a routerLink="/termgame" class="text-nowrap">เติมเกม UID</a></li>
       <li><a routerLink="/giftcard" class="text-nowrap">บัตรกำนัล/บัตรเติมเกม</a></li>
       <li><a routerLink="/subscription" class="text-nowrap">ต่อสมาชิกแอพ</a></li>
       <li><a routerLink="/promotion" class="text-nowrap">โปรโมชั่น</a></li>
       <li><a routerLink="/about-me" class="text-nowrap">เกี่ยวกับเรา</a></li>
-
-      <!-- ✅ เฉพาะ admin -->
-      
     </ul>
 
-    <div class="right d-flex align-items-center gap-3">
-      <form class="search" role="search">
-        <input type="search" placeholder="ค้นหา..." [(ngModel)]="searchTerm" (input)="onSearch($event)" name="search" />
+    <!-- ขวา: search + profile/login (desktop/tablet) -->
+    <div class="right">
+      <form class="search" role="search" (submit)="$event.preventDefault()">
+        <input
+          type="search"
+          placeholder="ค้นหา..."
+          name="search"
+          autocomplete="off"
+          [(ngModel)]="searchTerm"
+          (input)="onSearch($event)"
+        />
       </form>
 
-      <!-- ✅ ถ้ายังไม่ได้ login -->
-      <a *ngIf="!isLoggedIn" class="btn-login" routerLink="/login">
-        เข้าสู่ระบบ
-      </a>
+      <!-- ยังไม่ login -->
+      <a *ngIf="!isLoggedIn" class="btn-login" routerLink="/login">เข้าสู่ระบบ</a>
 
-      <!-- ✅ ถ้า login แล้ว -->
+      <!-- login แล้ว -->
       <div *ngIf="isLoggedIn" class="position-relative">
-        <button class="btn-profile" (click)="toggleMenu()">
-  <img
-    src="assets/default-profile.png"
-    alt="profile"
-    class="profile-pic"
-  />
-  <span class="username ms-2">{{ username || 'ผู้ใช้ทั่วไป' }}</span>
-</button>
-
-
-        <!-- เมนู dropdown -->
-        <!-- เมนู dropdown -->
-<ul
-  *ngIf="menuOpen"
-  class="dropdown-menu show position-absolute end-0 mt-2"
-  style="display: block; z-index: 1050;"
+<button
+  class="btn-profile"
+  (click)="toggleMenu()"
+  aria-haspopup="menu"
+  [attr.aria-expanded]="menuOpen"
 >
-  <!-- โปรไฟล์ -->
-  <li><a class="dropdown-item" routerLink="/profile">โปรไฟล์</a></li>
 
-  <!-- เฉพาะ user เท่านั้นที่เห็น History -->
-  <li *ngIf="!isAdmin">
-    <a class="dropdown-item" routerLink="/history">ประวัติการทำรายการ</a>
-  </li>
+          <img
+            [src]="userProfileImage || 'assets/default-profile.png'"
+            alt="profile"
+            class="profile-pic"
+            (error)="onImgError($event)"
+          />
+          <span class="username ms-2">{{ username || 'ผู้ใช้ทั่วไป' }}</span>
+        </button>
 
-  <!-- เฉพาะ admin -->
-  <li *ngIf="isAdmin">
-    <a class="dropdown-item text-warning" routerLink="/addgame">จัดการเกม</a>
-  </li>
+        <!-- dropdown เมนูโปรไฟล์ (desktop/tablet) -->
+        <ul
+          *ngIf="menuOpen"
+          class="dropdown-menu show position-absolute end-0 mt-2"
+          style="display:block; z-index:1050;"
+          role="menu"
+        >
+          <li><a class="dropdown-item" routerLink="/profile">โปรไฟล์</a></li>
 
-  <li><hr class="dropdown-divider" /></li>
-  <li>
-    <button class="dropdown-item text-danger" (click)="logout()">ออกจากระบบ</button>
-  </li>
-</ul>
+          <!-- เฉพาะ user -->
+          <li *ngIf="!isAdmin"><a class="dropdown-item" routerLink="/history">ประวัติการทำรายการ</a></li>
 
+          <!-- เฉพาะ admin -->
+          <li *ngIf="isAdmin"><a class="dropdown-item text-warning" routerLink="/dashboard">แดชบอร์ด</a></li>
+          <li *ngIf="isAdmin"><a class="dropdown-item text-warning" routerLink="/addgame">จัดการเกม</a></li>
+
+          <li><hr class="dropdown-divider" /></li>
+          <li><button class="dropdown-item text-danger" (click)="logout()">ออกจากระบบ</button></li>
+        </ul>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Drawer Backdrop (mobile) -->
+<div class="drawer-backdrop" [class.show]="drawerOpen" (click)="closeDrawer()"></div>
+
+<!-- Drawer (mobile) -->
+<aside class="drawer" [class.open]="drawerOpen" [attr.aria-hidden]="!drawerOpen">
+  <div class="drawer__header">
+    <a class="brand" routerLink="/home" aria-label="Home">
+      <img src="/assets/logo.png" alt="logo" />
+    </a>
+    <button class="drawer-close" (click)="closeDrawer()" aria-label="Close menu">✕</button>
+  </div>
+
+  <nav class="drawer-menu">
+    <a (click)="navigateAndClose('/termgame')">เติมเกม UID</a>
+    <a (click)="navigateAndClose('/giftcard')">บัตรกำนัล/บัตรเติมเกม</a>
+    <a (click)="navigateAndClose('/subscription')">ต่อสมาชิกแอพ</a>
+    <a (click)="navigateAndClose('/promotion')">โปรโมชั่น</a>
+    <a (click)="navigateAndClose('/about-me')">เกี่ยวกับเรา</a>
+
+    <ng-container *ngIf="isLoggedIn; else drawerLogin">
+      <button class="btn-logout" (click)="logout()">🚪 ออกจากระบบ</button>
+    </ng-container>
+
+    <ng-template #drawerLogin>
+      <hr />
+      <a (click)="navigateAndClose('/login')">เข้าสู่ระบบ</a>
+    </ng-template>
+  </nav>
+</aside>

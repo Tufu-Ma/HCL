@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './format/login/login.component';
 import { HistoryComponent } from './shared/history/history.component';
+import { DashboardComponent } from './shared/dashboard/dashboard.component';
 
 import { ValorantComponent } from './game/valorant/valorant.component';
 
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'games/:id', component: GameDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'history', component: HistoryComponent },
+  { path: 'dashboard', component: DashboardComponent },
 
   { path: 'termgame', component: TermgameComponent },
   { path: 'game/valorant', component: ValorantComponent },

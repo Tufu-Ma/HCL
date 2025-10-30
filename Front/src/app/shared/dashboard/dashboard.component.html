@@ -1,0 +1,179 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="container dash py-4">
+  <!-- Header -->
+  <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3">
+    <div>
+      <h2 class="mb-1">แดชบอร์ด</h2>
+      <div class="text-subtle">ภาพรวมร้านของคุณแบบย่อ ๆ สำหรับติดตามยอดวันนี้และสัปดาห์นี้</div>
+    </div>
+    <div class="d-flex gap-2 mt-3 mt-md-0">
+      <select class="form-select form-select-sm w-auto" [(ngModel)]="period">
+        <option value="today">วันนี้</option>
+        <option value="7d">7 วัน</option>
+        <option value="30d">30 วัน</option>
+      </select>
+      <a class="btn btn-sm btn-outline-light" routerLink="/history">ดูประวัติทั้งหมด</a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-sm-6 col-lg-3" *ngFor="let s of stats">
+      <div class="card stat shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="label">{{ s.label }}</div>
+            <span class="pill" [class.up]="s.diff>=0" [class.down]="s.diff<0">
+              <i class="bi" [ngClass]="s.diff>=0 ? 'bi-arrow-up-right' : 'bi-arrow-down-right'"></i>
+              {{ s.diff>=0 ? '+' : ''}}{{ s.diff }}%
+            </span>
+          </div>
+          <div class="value">{{ s.value }}</div>
+          <div class="spark">
+            <svg viewBox="0 0 220 60" preserveAspectRatio="none">
+              <path [attr.d]="sparkPath(s.key==='orders' ? ordersSeries : revenueSeries)" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts row (mock) -->
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-lg-8">
+      <div class="card shadow-sm h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="title">ยอดขายรายวัน</div>
+          <span class="badge bg-dark-subtle text-dark-emphasis">mock chart</span>
+        </div>
+        <div class="card-body chart-area">
+          <!-- เส้นกริดง่าย ๆ + แท่ง -->
+          <div class="bars">
+            <div class="bar" style="--h: 40%"></div>
+            <div class="bar" style="--h: 55%"></div>
+            <div class="bar" style="--h: 35%"></div>
+            <div class="bar" style="--h: 70%"></div>
+            <div class="bar" style="--h: 62%"></div>
+            <div class="bar" style="--h: 85%"></div>
+            <div class="bar" style="--h: 65%"></div>
+            <div class="bar" style="--h: 90%"></div>
+            <div class="bar" style="--h: 72%"></div>
+            <div class="bar" style="--h: 60%"></div>
+            <div class="bar" style="--h: 78%"></div>
+            <div class="bar" style="--h: 50%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header">
+          <div class="title">ช่องทางรายได้</div>
+        </div>
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="legend"><span class="dot dot-1"></span> PromptPay</div>
+            <div class="pct">42%</div>
+          </div>
+          <div class="progress progress-soft mb-3">
+            <div class="progress-bar bar-1" style="width:42%"></div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="legend"><span class="dot dot-2"></span> TrueMoney</div>
+            <div class="pct">33%</div>
+          </div>
+          <div class="progress progress-soft mb-3">
+            <div class="progress-bar bar-2" style="width:33%"></div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="legend"><span class="dot dot-3"></span> โอนธนาคาร</div>
+            <div class="pct">25%</div>
+          </div>
+          <div class="progress progress-soft">
+            <div class="progress-bar bar-3" style="width:25%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent table + Quick actions -->
+  <div class="row g-3">
+    <div class="col-12 col-xl-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="title">รายการล่าสุด</div>
+          <a class="btn btn-sm btn-outline-light" routerLink="/history">ดูทั้งหมด</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>เวลา</th>
+                <th>ลูกค้า</th>
+                <th>รายการ</th>
+                <th class="text-end">ยอด</th>
+                <th>สถานะ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let it of recent">
+                <td class="text-nowrap">
+                  <div class="fw-medium">{{ it.createdAt | date:'dd MMM' }}</div>
+                  <div class="text-subtle small">{{ it.createdAt | date:'HH:mm' }}</div>
+                </td>
+                <td>{{ it.customer }}</td>
+                <td class="text-truncate" style="max-width: 220px">{{ it.item }}</td>
+                <td class="text-end fw-semibold">฿ {{ it.amount }}</td>
+                <td>
+                  <span class="badge rounded-pill px-3 py-2" [ngClass]="badgeClass(it.status)">
+                    <ng-container [ngSwitch]="it.status">
+                      <span *ngSwitchCase="'success'">สำเร็จ</span>
+                      <span *ngSwitchCase="'pending'">รอดำเนินการ</span>
+                      <span *ngSwitchCase="'failed'">ล้มเหลว</span>
+                    </ng-container>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-5">
+      <div class="card shadow-sm h-100">
+        <div class="card-header">
+          <div class="title">การทำงานด่วน</div>
+        </div>
+        <div class="card-body">
+          <div class="quick-grid">
+            <a class="quick" routerLink="/addgame">
+              <i class="bi bi-plus-square"></i>
+              <span>เพิ่มสินค้า/เกม</span>
+            </a>
+            <a class="quick" routerLink="/promotion">
+              <i class="bi bi-megaphone"></i>
+              <span>โปรโมชัน</span>
+            </a>
+            <a class="quick" routerLink="/history">
+              <i class="bi bi-clock-history"></i>
+              <span>ดูประวัติ</span>
+            </a>
+            <a class="quick" routerLink="/about-me">
+              <i class="bi bi-gear"></i>
+              <span>เกี่ยวกับร้าน</span>
+            </a>
+          </div>
+          <div class="hint text-subtle mt-3">* ปุ่มทั้งหมดเป็น mockup สามารถเปลี่ยนปลายทางได้</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

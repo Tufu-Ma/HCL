@@ -1,3 +1,95 @@
-.container {
-  margin-top: 50px;
+/* === Layout & Background === */
+.game-detail-page {
+  max-width: 1000px;
+  margin: 100px auto 80px;
+  background: transparent;
+  position: relative;
+}
+
+/* === Card Styling === */
+.card {
+  border: none;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* === Preview Cover === */
+.cover-preview {
+  width: 240px;
+  height: 180px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-left: auto;
+}
+
+@media (max-width: 992px) {
+  .cover-preview {
+    margin: 0 auto;
+  }
+}
+
+/* === Table Styling === */
+.table-soft {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.table-soft thead th {
+  background: #f8f9fa;
+  font-weight: 700;
+}
+
+.table-soft tbody tr:hover {
+  background: rgba(0, 0, 0, 0.03);
+  transition: background 0.2s ease;
+}
+
+.thead-sticky th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f8f9fa;
+}
+
+/* === Form Enhancements === */
+.form-control:focus {
+  border-color: rgba(13, 110, 253, 0.45);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+/* === Buttons === */
+.btn {
+  border-radius: 0.65rem;
+}
+
+.btn-success {
+  background: linear-gradient(45deg, #28a745, #1e7e34);
+  border: none;
+}
+
+.btn-success:hover {
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+}
+
+/* === Table Buttons === */
+.btn-group-sm > .btn, .btn-sm {
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+}
+
+/* === Utility === */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-muted {
+  color: #6c757d !important;
 }

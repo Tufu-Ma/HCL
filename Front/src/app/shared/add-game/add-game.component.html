@@ -1,134 +1,99 @@
 <app-header-navbar></app-header-navbar>
-<div class="container py-4">
 
-  <!-- Title -->
-  <div class="d-flex align-items-center justify-content-between mb-3">
-    <div>
-      <h2 class="h4 mb-0">เพิ่มเกมใหม่</h2>
-      <small class="text-muted">กรอกข้อมูลเกม แล้วกด “บันทึกเกม” เพื่อสร้างการ์ดด้านล่าง</small>
+<div class="page-wrapper">
+  <div class="page-box">
+    <!-- Title -->
+    <div class="header mb-4 text-center">
+      <h2 class="main-title">เพิ่มเกมใหม่</h2>
+      <p class="sub-title">กรอกข้อมูลเกม แล้วกด “บันทึกเกม” เพื่อสร้างการ์ดด้านล่าง</p>
     </div>
-  </div>
 
-  <!-- Add Game Card -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
+    <!-- Add Game Form -->
+    <div class="card shadow-sm mb-5 p-4">
       <form [formGroup]="form" (ngSubmit)="submit()">
-        <div class="row g-3">
-          <div class="col-md-6">
+        <div class="form-grid">
+          <div class="form-section">
             <label class="form-label">ชื่อเกม <span class="text-danger">*</span></label>
-            <input type="text" formControlName="name" class="form-control" placeholder="เช่น PUBG">
+            <input type="text" formControlName="name" class="form-control" placeholder="เช่น PUBG" />
             <div class="form-text">ชื่อเกมจะแสดงบนการ์ด</div>
-          </div>
 
-          <div class="col-md-6">
-            <label class="form-label">Slug</label>
-            <input type="text" formControlName="slug" class="form-control" placeholder="เช่น pubg">
+            <label class="form-label mt-3">Slug</label>
+            <input type="text" formControlName="slug" class="form-control" placeholder="เช่น pubg" />
             <div class="form-text">สำหรับลิงก์สั้น (ไม่บังคับ)</div>
-          </div>
 
-          <div class="col-md-8">
-            <label class="form-label">Cover URL</label>
-            <input type="url" formControlName="coverurl" class="form-control" placeholder="https://...">
+            <label class="form-label mt-3">Cover URL</label>
+            <input type="url" formControlName="coverurl" class="form-control" placeholder="https://..." />
             <div class="form-text">แนะนำรูปสี่เหลี่ยมจัตุรัส</div>
-          </div>
 
-          <div class="col-md-4">
-            <label class="form-label">ตัวอย่างภาพปก</label>
-            <div class="ratio ratio-1x1 rounded border d-flex align-items-center justify-content-center bg-light overflow-hidden">
-              <img
-              [src]="form.value.coverurl || 'assets/testBG.jpg'"
-              alt="preview"
-              class="w-100 h-100 object-fit-cover"
-              (error)="onImgError($event, 'assets/testBG.jpg')">
+            <label class="form-label mt-3">Description</label>
+            <textarea formControlName="description" class="form-control" rows="3" placeholder="คำอธิบายสั้น ๆ"></textarea>
+
+            <div class="d-flex gap-2 mt-4">
+              <button class="btn btn-primary" type="submit" [disabled]="form.invalid || submitting">
+                💾 บันทึกเกม
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="form.reset()">ล้างฟอร์ม</button>
             </div>
           </div>
 
-          <div class="col-12">
-            <label class="form-label">Description</label>
-            <textarea formControlName="description" class="form-control" rows="3" placeholder="คำอธิบายสั้น ๆ"></textarea>
+          <div class="preview-section text-center">
+            <label class="form-label">ตัวอย่างภาพปก</label>
+            <div class="preview-box">
+              <img
+                [src]="form.value.coverurl || 'assets/testBG.jpg'"
+                (error)="onImgError($event, 'assets/testBG.jpg')"
+                alt="preview"
+              />
+            </div>
           </div>
-        </div>
-
-        <div class="d-flex gap-2 mt-3">
-          <button class="btn btn-primary" type="submit" [disabled]="form.invalid || submitting">
-            💾 บันทึกเกม
-          </button>
-          <button type="button" class="btn btn-outline-secondary" (click)="form.reset()">ล้างฟอร์ม</button>
         </div>
       </form>
     </div>
-  </div>
 
-  <!-- List Header -->
-  <div class="d-flex align-items-center justify-content-between mb-2">
-    <h2 class="h5 mb-0">รายการเกมทั้งหมด</h2>
-    <span class="text-muted">{{ games.length || 0 }} รายการ</span>
-  </div>
+    <!-- Game List -->
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <h3 class="sub-title text-light mb-0">รายการเกมทั้งหมด</h3>
+      <span class="text-light small">{{ games.length || 0 }} รายการ</span>
+    </div>
 
-  <!-- Empty State -->
-  <div *ngIf="!games.length" class="card shadow-sm">
-    <div class="card-body text-center py-5">
+    <div *ngIf="!games.length" class="card shadow-sm text-center py-5">
       <h5 class="mb-1">ยังไม่มีเกม</h5>
       <p class="text-muted mb-0">เพิ่มเกมแรกของคุณจากฟอร์มด้านบนได้เลย</p>
     </div>
-  </div>
 
-  <!-- Grid of Cards -->
-  <div class="row g-3 mt-1">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let g of games; trackBy: trackById">
-      <div class="card game-card h-100 shadow-sm" style="cursor:pointer;" (click)="goDetail(g)">
+    <!-- Grid of Cards -->
+<div class="row g-3 mt-2 cards-grid">
+  <div class="col-6 col-md-4 col-lg-3" *ngFor="let g of games; trackBy: trackById">
+    <div class="card game-card compact h-100" (click)="goDetail(g)" style="cursor:pointer;">
+      <div class="thumb">
+        <img [src]="g.coverurl || 'assets/testBG.jpg'"
+             (error)="onImgError($event, 'assets/testBG.jpg')" alt="cover">
+        <span class="badge soft state" [class.bg-success]="g.active" [class.bg-secondary]="!g.active">
+          {{ g.active ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
 
-        <!-- Cover -->
-        <div class="position-relative">
-          <img
-          [src]="g.coverurl || 'assets/testBG.jpg'"
-          class="card-img-top"
-          alt="cover"
-          style="height: 160px; object-fit: cover;"
-          (error)="onImgError($event, 'assets/testBG.jpg')">
+      <div class="card-body p-3">
+        <h6 class="title text-truncate mb-1">{{ g.name }}</h6>
+        <div class="meta small text-truncate"><strong>Slug:</strong> {{ g.slug || '-' }}</div>
+        <div class="desc small text-truncate-2 mt-2">{{ g.description || '—' }}</div>
+      </div>
 
-
-          <span class="badge position-absolute top-0 end-0 m-2"
-                [class.bg-success]="g.active"
-                [class.bg-secondary]="!g.active">
-            {{ g.active ? 'Active' : 'Inactive' }}
-          </span>
+      <div class="card-footer bg-transparent pt-0 pb-3 border-0">
+        <div class="d-flex justify-content-between gap-2">
+          <button type="button" class="btn btn-xxs btn-outline-warning"
+                  (click)="toggleActive(g); $event.stopPropagation()">
+            {{ g.active ? 'ปิดการทำงาน' : 'เปิดการทำงาน' }}
+          </button>
+          <button type="button" class="btn btn-xxs btn-outline-danger"
+                  (click)="deleteGame(g); $event.stopPropagation()">
+            ลบ
+          </button>
         </div>
-
-        <!-- Body -->
-        <div class="card-body py-3">
-          <h6 class="card-title text-truncate mb-1">{{ g.name }}</h6>
-          <div class="text-muted small text-truncate">
-            <strong>Slug:</strong> {{ g.slug || '-' }}
-          </div>
-          <div class="small mt-2 text-truncate-2">
-            {{ g.description || '—' }}
-          </div>
-        </div>
-
-        <!-- Footer controls -->
-        <div class="card-footer bg-white border-0 pt-0 pb-3">
-          <div class="d-flex justify-content-between gap-2">
-            <button
-              type="button"
-              class="btn btn-sm btn-outline-warning"
-              (click)="toggleActive(g); $event.stopPropagation()"
-              [disabled]="togglingId === g.id">
-              {{ g.active ? 'ปิดการใช้งาน' : 'เปิดการใช้งาน' }}
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-sm btn-outline-danger"
-              (click)="deleteGame(g); $event.stopPropagation()"
-              [disabled]="deletingId === g.id">
-              ลบ
-            </button>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
+</div>
 
+  </div>
 </div>

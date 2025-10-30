@@ -1,73 +1,193 @@
-/* ทำให้ข้อความคำอธิบายตัดบรรทัดแบบสวย ๆ 2 บรรทัด */
-.text-truncate-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-          line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* เพิ่ม hover ให้การ์ดรู้สึกคลิกได้ */
-.game-card {
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.game-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.12)!important;
-}
-
-/* เปลี่ยนสีข้อความหัวข้อและคำอธิบายเป็นสีขาว */
-h2.h4, h2.h5 {
-  color: #ffffff !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  font-weight: bold;
-}
-
-/* คำอธิบายใต้หัวข้อ */
-.text-muted {
-  color: #000000 !important;
-  opacity: 0.9;
-}
-
-/* สำหรับ small text */
-small.text-muted {
-  color: #ffffff !important;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-  opacity: 0.8;
-}
-
-/* เพิ่มพื้นหลังและ styling สำหรับ component */
 :host {
   display: block;
   min-height: 100vh;
   background-image: url("../../../assets/bg5.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
 }
 
-/* เพิ่ม overlay เพื่อให้อ่านง่าย */
 :host::before {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
   z-index: 0;
 }
 
-/* ให้เนื้อหาอยู่เหนือ overlay */
-.container {
+/* ===== Container ให้อยู่ตรงกลางจอ ===== */
+.page-wrapper {
   position: relative;
   z-index: 2;
-  padding-top: 100px; /* เว้นที่สำหรับ navbar */
+  padding: 100px 20px 80px;
+  display: flex;
+  justify-content: center;
 }
 
-.container {
-  margin: 50px;
+.page-box {
+  width: min(95vw, 1000px);
+}
+
+/* ===== หัวข้อ ===== */
+.main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.sub-title {
+  color: #ddd;
+  font-size: 1rem;
+}
+
+/* ===== ฟอร์ม ===== */
+.card {
+  border: none;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+}
+
+/* layout 2 ฝั่ง */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px;
+}
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ปรับขนาดภาพปกให้พอดี */
+.preview-box {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+}
+.preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ปุ่ม */
+.btn-primary {
+  background: linear-gradient(45deg, #ff4d4d, #b30000);
+  border: none;
+  font-weight: 600;
+  border-radius: 0.8rem;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 77, 77, 0.4);
+}
+
+/* --- ทำการ์ดให้เล็กลง + มีมิติ --- */
+.cards-grid .col-6,
+.cards-grid .col-md-4,
+.cards-grid .col-lg-3 {
+  /* เว้นหายใจนิดนึง */
+}
+
+/* ปุ่มไซซ์เล็กพิเศษ */
+.btn-xxs {
+  --bs-btn-padding-y: .2rem;
+  --bs-btn-padding-x: .45rem;
+  --bs-btn-font-size: .75rem;
+  border-radius: .5rem;
+}
+
+/* การ์ดโหมด compact */
+.game-card.compact {
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,.9);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.10),
+    0 2px 6px rgba(0,0,0,.06);
+  transform: translateZ(0);              /* เปิด GPU */
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+/* Hover: ยกการ์ด + เงาลึก + คมขึ้นเล็กน้อย */
+.game-card.compact:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.16),
+    0 6px 12px rgba(0,0,0,.10);
+  filter: saturate(1.03);
+}
+
+/* รูปปกเล็กลง + มี overlay ไล่สี */
+.game-card.compact .thumb {
+  position: relative;
+  height: 130px;                /* เดิม ~160px → เล็กลง */
+  background: #f4f5f7;
+  overflow: hidden;
+}
+.game-card.compact .thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(1.02);
+  transition: transform .25s ease;
+}
+.game-card.compact:hover .thumb img { transform: scale(1.06); }
+
+.game-card.compact .thumb::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.0) 55%, rgba(0,0,0,.12) 100%);
+  pointer-events: none;
+}
+
+/* Badge สถานะแบบ soft */
+.badge.soft.state {
+  position: absolute; top: 8px; right: 8px;
+  border-radius: 999px; padding: .25rem .55rem;
+  font-size: .7rem; font-weight: 700;
+  border: 1px solid rgba(255,255,255,.45);
+  backdrop-filter: blur(4px);
+  color: #fff;
+}
+.badge.soft.state.bg-success { background: rgba(25,135,84,.65); }
+.badge.soft.state.bg-secondary { background: rgba(108,117,125,.55); }
+
+/* ตัวอักษรในการ์ด */
+.game-card.compact .title { font-weight: 700; }
+.game-card.compact .meta { color: #6b7280; }   /* เทาอ่อนอ่านง่าย */
+.game-card.compact .desc { color: #4b5563; }
+
+/* ตัดบรรทัด 2 บรรทัด */
+.text-truncate-2{
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* ขอบล่างโปร่ง เพิ่มความนุ่ม */
+.game-card.compact .card-footer { background: transparent; }
+
+/* เอฟเฟกต์กด (active) */
+.game-card.compact:active { transform: translateY(-2px) scale(1.005); }
+
+/* Responsive: ลดรูป cover ลงอีกเล็กน้อยบนจอเล็ก */
+@media (max-width: 576px) {
+  .game-card.compact .thumb { height: 120px; }
+}
+
+/* สไตล์ปุ่มเสริมให้เข้าการ์ดเล็ก */
+.btn-outline-warning.btn-xxs,
+.btn-outline-danger.btn-xxs {
+  border-width: 1px;
 }
