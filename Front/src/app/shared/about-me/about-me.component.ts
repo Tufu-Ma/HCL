@@ -44,22 +44,4 @@ export class AboutMeComponent {
     ]
   };
 
-  // ข้อมูลติดต่อ
-  contactInfo = {
-    email: {
-      icon: '📧',
-      label: 'อีเมล',
-      value: 'contact@termsubwaifailook.com'
-    },
-    phone: {
-      icon: '📞',
-      label: 'โทรศัพท์',
-      value: '02-xxx-xxxx'
-    },
-    line: {
-      icon: '💬',
-      label: 'Line',
-      value: '@termsubwaifai'
-    }
-  };
 }
