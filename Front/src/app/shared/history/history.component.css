@@ -1,0 +1,122 @@
+/* ===== Layout & container width ===== */
+.container.history {
+  /* ไม่ให้กว้างเกินไปบนจอใหญ่ */
+  max-width: 1100px !important;         /* ปรับได้ 1000–1200 ตามชอบ */
+  width: min(92vw, 1100px);
+  margin-inline: auto;
+  margin-top: 60px;
+}
+
+/* Heading */
+.history h2 {
+  letter-spacing: .2px;
+  font-weight: 700;
+  margin-bottom: .25rem;
+  color: #fff;
+}
+.history .text-muted {
+  opacity: .9;
+  color: #fff;
+}
+.history .text-h2 {
+  font-size: 1rem;
+  color: #eee;
+}
+
+/* ===== Card look (นุ่ม/เงาเบา/มุมโค้งใหญ่) ===== */
+.history .card {
+  border: 0;
+  border-radius: 1.25rem;               /* มุมโค้งใหญ่ */
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  overflow: hidden;
+  background: rgba(255,255,255,.92);    /* ดูใสๆ ทับพื้นหลังเข้มได้ดี */
+  backdrop-filter: blur(6px);
+}
+
+.history .card .card-body {
+  padding: 1.1rem 1.1rem;
+}
+
+.history .bg-body-tertiary {
+  background: rgba(248,249,250,.85) !important;
+}
+
+/* ===== Inputs / Selects ===== */
+.history .form-control,
+.history .form-select {
+  border-radius: .8rem;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #f6f7f9;
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+.history .form-control:focus,
+.history .form-select:focus {
+  border-color: rgba(13,110,253,.35);
+  box-shadow: 0 0 0 .2rem rgba(13,110,253,.12);
+  background: #fff;
+}
+
+/* ===== Table ===== */
+.table-card .table { margin: 0; }
+
+.thead-sticky th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.table > :not(caption) > * > * {
+  padding: .9rem .85rem;
+}
+
+.history .table tbody tr {
+  transition: background-color .15s ease, transform .05s ease;
+}
+.history .table tbody tr:hover {
+  background: rgba(0,0,0,.025);
+}
+
+/* ปุ่ม sort */
+th[role="button"] { user-select: none; }
+.sort-caret { opacity: .35; margin-left: .25rem; }
+.sort-caret.active { opacity: 1; }
+
+/* ===== Badges (soft) ===== */
+.badge-soft-success {
+  background: rgba(25,135,84,.12);
+  color: #198754;
+  border: 1px solid rgba(25,135,84,.22);
+}
+.badge-soft-warning {
+  background: rgba(255,193,7,.12);
+  color: #b58100;
+  border: 1px solid rgba(255,193,7,.25);
+}
+.badge-soft-danger {
+  background: rgba(220,53,69,.12);
+  color: #dc3545;
+  border: 1px solid rgba(220,53,69,.22);
+}
+
+/* Footer / Pagination */
+.card-footer {
+  border-top: 1px solid rgba(0,0,0,.06);
+  background: rgba(255,255,255,.9);
+}
+.history .btn.btn-outline-secondary {
+  border-radius: .75rem;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 992px) {
+  .container.history { width: min(95vw, 1000px); }
+  .history .card .card-body { padding: 1rem; }
+}
+@media (max-width: 576px) {
+  .thead-sticky th { position: static; }
+  .table td, .table th { white-space: nowrap; }
+  .container.history { width: 94vw; }
+}

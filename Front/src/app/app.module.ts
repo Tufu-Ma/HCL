@@ -37,6 +37,7 @@ import { Lol2xkoComponent } from './game/lol2xko/lol2xko.component';
 // ⬇⬇⬇ ใหม่ ต้อง import
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HistoryComponent } from './shared/history/history.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,8 @@ import { RouterModule } from '@angular/router';
     ZenlessZeroZoneComponent,
     TeamfightTacticComponent,
     Lol2xkoComponent,
+    HistoryComponent,
+
   ],
   imports: [
     BrowserModule,

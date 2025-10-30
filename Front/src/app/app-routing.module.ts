@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './format/login/login.component';
-
+import { HistoryComponent } from './shared/history/history.component';
 
 import { ValorantComponent } from './game/valorant/valorant.component';
 
@@ -48,6 +48,7 @@ const routes: Routes = [
   { path: 'addgame-detail/:id', component: AddGameDetailComponent },
   { path: 'games/:id', component: GameDetailComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'history', component: HistoryComponent },
 
   { path: 'termgame', component: TermgameComponent },
   { path: 'game/valorant', component: ValorantComponent },
@@ -75,7 +76,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'top'  // เลื่อนไปบนสุดเมื่อเปลี่ยนหน้า
+    scrollPositionRestoration: 'top',
+    anchorScrolling: 'enabled'  // เลื่อนไปบนสุดเมื่อเปลี่ยนหน้า
   })],
   exports: [RouterModule]
 })

@@ -1,0 +1,131 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="container py-4 history">
+  <div class="d-flex align-items-start align-items-md-center gap-3 flex-column flex-md-row mb-4">
+    <div class="flex-grow-1">
+      <h2 class="mb-1">ประวัติรายการ</h2>
+      <div class="text-h2">ดูประวัติการทำรายการทั้งหมดของคุณ เรียงและกรองได้ตามต้องการ</div>
+    </div>
+    <div class="text-md-end w-100 w-md-auto">
+      <span class="badge bg-dark-subtle text-dark-emphasis rounded-pill px-3 py-2">
+        ทั้งหมด {{ filtered.length }} รายการ
+      </span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="card shadow-sm mb-3 border-0 overflow-hidden">
+    <div class="card-body bg-body-tertiary">
+      <div class="row g-2 align-items-end">
+        <div class="col-12 col-md-4">
+          <label class="form-label small text-muted">ค้นหา</label>
+          <input type="text" class="form-control" placeholder="ค้นหาจากเลขอ้างอิง / รายการ / หมายเหตุ"
+                 [(ngModel)]="searchText" (ngModelChange)="page = 1" />
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label small text-muted">วันที่เริ่ม</label>
+          <input type="date" class="form-control" [(ngModel)]="dateFrom" (change)="page = 1" />
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label small text-muted">ถึงวันที่</label>
+          <input type="date" class="form-control" [(ngModel)]="dateTo" (change)="page = 1" />
+        </div>
+        <div class="col-6 col-md-2">
+          <label class="form-label small text-muted">สถานะ</label>
+          <select class="form-select" [(ngModel)]="statusFilter" (change)="page = 1">
+            <option value="">ทั้งหมด</option>
+            <option value="success">สำเร็จ</option>
+            <option value="pending">รอดำเนินการ</option>
+            <option value="failed">ล้มเหลว</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-2 d-grid">
+          <button class="btn btn-outline-secondary" (click)="clearFilters()">ล้างตัวกรอง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card table-card shadow-sm border-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead class="thead-sticky">
+          <tr>
+            <th class="text-nowrap" (click)="setSort('createdAt')" role="button">
+              วันที่ทำรายการ
+            </th>
+            <th class="text-nowrap" (click)="setSort('id')" role="button">เลขอ้างอิง</th>
+            <th class="text-nowrap" (click)="setSort('item')" role="button">รายการ</th>
+            <th class="text-end text-nowrap" (click)="setSort('amount')" role="button">จำนวนเงิน</th>
+            <th class="text-nowrap" (click)="setSort('status')" role="button">สถานะ</th>
+            <th class="text-nowrap">หมายเหตุ</th>
+            <th class="text-end text-nowrap">การทำงาน</th>
+          </tr>
+        </thead>
+
+        <!-- มีข้อมูล -->
+        <tbody *ngIf="paged.length > 0; else noData">
+          <tr *ngFor="let it of paged; trackBy: trackById">
+            <td class="text-nowrap">
+              <div class="fw-medium">{{ it.createdAt | date:'dd MMM yyyy' }}</div>
+              <div class="text-muted small">{{ it.createdAt | date:'HH:mm' }}</div>
+            </td>
+            <td class="text-nowrap fw-medium">{{ it.id }}</td>
+            <td><div class="fw-medium">{{ it.item }}</div></td>
+            <td class="text-end fw-semibold">{{ formatTHB(it.amount) }}</td>
+            <td>
+              <span class="badge rounded-pill px-3 py-2" [ngClass]="badgeClass(it.status)">
+                <ng-container [ngSwitch]="it.status">
+                  <span *ngSwitchCase="'success'">สำเร็จ</span>
+                  <span *ngSwitchCase="'pending'">รอดำเนินการ</span>
+                  <span *ngSwitchCase="'failed'">ล้มเหลว</span>
+                </ng-container>
+              </span>
+            </td>
+            <td class="text-muted small">{{ it.note || '-' }}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary" disabled>ดูรายละเอียด</button>
+            </td>
+          </tr>
+        </tbody>
+
+        <!-- ว่าง -->
+        <ng-template #noData>
+          <tbody>
+            <tr>
+              <td colspan="7" class="p-5 text-center text-muted">
+                ไม่พบข้อมูลที่ตรงกับเงื่อนไข
+                <button class="btn btn-sm btn-outline-secondary ms-2" (click)="clearFilters()">รีเซ็ตตัวกรอง</button>
+              </td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+    </div>
+
+    <!-- Footer / Pagination -->
+    <div class="card-footer d-flex flex-column flex-md-row gap-2 align-items-center justify-content-between bg-white">
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small">แสดง</span>
+        <select class="form-select form-select-sm w-auto" [(ngModel)]="pageSize" (change)="page=1">
+          <option [ngValue]="5">5</option>
+          <option [ngValue]="10">10</option>
+          <option [ngValue]="20">20</option>
+          <option [ngValue]="50">50</option>
+        </select>
+        <span class="text-muted small">รายการ/หน้า</span>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary" (click)="goFirst()" [disabled]="page===1">หน้าแรก</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="prev()" [disabled]="page===1">ก่อนหน้า</button>
+        <span class="small text-muted">หน้า {{ page }} / {{ totalPages }}</span>
+        <button class="btn btn-sm btn-outline-secondary" (click)="next()" [disabled]="page===totalPages">ถัดไป</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="goLast()" [disabled]="page===totalPages">หน้าสุดท้าย</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer-navbar></app-footer-navbar>

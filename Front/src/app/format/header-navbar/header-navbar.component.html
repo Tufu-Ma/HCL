@@ -38,16 +38,31 @@
 
 
         <!-- เมนู dropdown -->
-        <ul
-          *ngIf="menuOpen"
-          class="dropdown-menu show position-absolute end-0 mt-2"
-          style="display: block; z-index: 1050;"
-        >
-          <li><a class="dropdown-item" routerLink="/profile">โปรไฟล์</a></li>
-          <li *ngIf="isAdmin"><a class="dropdown-item text-warning" routerLink="/addgame">จัดการเกม</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><button class="dropdown-item text-danger" (click)="logout()">ออกจากระบบ</button></li>
-        </ul>
+        <!-- เมนู dropdown -->
+<ul
+  *ngIf="menuOpen"
+  class="dropdown-menu show position-absolute end-0 mt-2"
+  style="display: block; z-index: 1050;"
+>
+  <!-- โปรไฟล์ -->
+  <li><a class="dropdown-item" routerLink="/profile">โปรไฟล์</a></li>
+
+  <!-- เฉพาะ user เท่านั้นที่เห็น History -->
+  <li *ngIf="!isAdmin">
+    <a class="dropdown-item" routerLink="/history">ประวัติการทำรายการ</a>
+  </li>
+
+  <!-- เฉพาะ admin -->
+  <li *ngIf="isAdmin">
+    <a class="dropdown-item text-warning" routerLink="/addgame">จัดการเกม</a>
+  </li>
+
+  <li><hr class="dropdown-divider" /></li>
+  <li>
+    <button class="dropdown-item text-danger" (click)="logout()">ออกจากระบบ</button>
+  </li>
+</ul>
+
       </div>
     </div>
   </div>
