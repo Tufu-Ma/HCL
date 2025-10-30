@@ -5,7 +5,7 @@
   display: block;
   min-height: 100vh;               /* ความสูงขั้นต่ำเต็มหน้าจอ */
   position: relative;              /* เพิ่ม position relative */
-  background-image: url("../../../assets/bg3.png");
+  background-image: url("../../../assets/bg5.png");
   background-size: cover;           /* ขยายภาพให้เต็มพื้นที่ */
   background-position: center;      /* จัดภาพให้อยู่กึ่งกลาง */
   background-repeat: no-repeat;     /* ไม่ให้ภาพซ้ำ */
@@ -267,14 +267,20 @@
   color: #fff; 
   font-size: 18px;
   margin-bottom: 2px;
+  text-align: center;
 }
 
-.promotion-description {
-  color: #ccc;
+.promotion-subtitle {
   font-size: 14px;
-  line-height: 1.4;
+  color: #ffd700;
+  font-weight: bold;
+  text-align: center;
   margin-bottom: 8px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  animation: pulse-text 2s ease-in-out infinite alternate;
 }
+
+
 
 .promotion-pricing {
   margin-bottom: 12px;
@@ -322,7 +328,6 @@
   font-weight: bold;
   color: #ffd700;
   margin-bottom: 6px;
-  text-align: center;
 }
 
 .bonus-item {
@@ -345,7 +350,6 @@
   font-size: 10px;
   color: #ffd700;
   font-style: italic;
-  text-align: center;
   margin-top: 4px;
 }
 
@@ -505,10 +509,6 @@
   
   .promotion-title {
     font-size: 16px;
-  }
-  
-  .promotion-description {
-    font-size: 13px;
   }
   
   .feature-item {
