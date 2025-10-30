@@ -125,7 +125,7 @@
               <tr *ngFor="let it of recent">
                 <td class="text-nowrap">
                   <div class="fw-medium">{{ it.createdAt | date:'dd MMM' }}</div>
-                  <div class="text-subtle small">{{ it.createdAt | date:'HH:mm' }}</div>
+                  <div class="text-subtle-time small">{{ it.createdAt | date:'HH:mm' }}</div>
                 </td>
                 <td>{{ it.customer }}</td>
                 <td class="text-truncate" style="max-width: 220px">{{ it.item }}</td>

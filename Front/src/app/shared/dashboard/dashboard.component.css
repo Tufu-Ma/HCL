@@ -8,8 +8,8 @@
 
 /* Heading + sub */
 .dash h2 { font-weight: 700; margin-bottom: .25rem; color: #fff;}
-.text-subtle { color: #000000; opacity: .85; }
-
+.text-subtle { color: #ffffff; opacity: .85; }
+.text-subtle-time { color: #000000; opacity: .85; }
 /* Card look */
 .dash .card {
   border: 0;
