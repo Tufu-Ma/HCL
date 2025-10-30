@@ -1,0 +1,29 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="wrap">
+  <header class="header">
+    <div class="brand">
+      <div>
+        <h1>ต่อสมาชิกแอปสตรีมมิ่ง</h1>
+        <div class="small">เลือกบริการที่ต้องการต่ออายุ</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="grid">
+    <article class="card" *ngFor="let s of items; trackBy: trackById">
+      <a [routerLink]="['/subscription', s.id]" class="game-link">
+        <div class="thumb">
+          <img [src]="s.image" [alt]="s.name" class="game-image" />
+        </div>
+        <div class="title">{{ s.name }}</div>
+        <div class="meta">
+          <span class="small">{{ s.subtitle }}</span>
+        </div>
+      </a>
+      <button class="btn" [routerLink]="['/subscription', s.id]">ต่อสมาชิก</button>
+    </article>
+  </section>
+</div>
+
+<app-footer-navbar></app-footer-navbar>

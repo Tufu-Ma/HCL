@@ -1,12 +1,21 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+
+import { Component, OnInit, Inject, PLATFORM_ID , Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import Swal from 'sweetalert2';
 
+
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+
 @Component({
   selector: 'app-header-navbar',
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './header-navbar.component.html',
+
   styleUrls: ['./header-navbar.component.css']
 })
 export class HeaderNavbarComponent implements OnInit {
@@ -66,4 +75,15 @@ export class HeaderNavbarComponent implements OnInit {
       }
     });
   }
+
+
+  searchTerm: string = '';
+  @Output() searchChange = new EventEmitter<string>();
+
+  onSearch(event: any) {
+    if (location.pathname === '/termgame') {
+      this.searchChange.emit(this.searchTerm);
+    }
+  }
+
 }

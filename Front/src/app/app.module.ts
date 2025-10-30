@@ -5,8 +5,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// ✅ standalone components
 import { HeaderNavbarComponent } from './format/header-navbar/header-navbar.component';
 import { FooterNavbarComponent } from './format/footer-navbar/footer-navbar.component';
+
+// ✅ normal (non-standalone) components
 import { HomeComponent } from './shared/home/home.component';
 import { AddGameComponent } from './shared/add-game/add-game.component';
 import { AddGameDetailComponent } from './shared/add-game-detail/add-game-detail.component';
@@ -17,13 +20,27 @@ import { PaymentComponent } from './shared/payment/payment.component';
 import { LoginComponent } from './format/login/login.component';
 import { GameDetailComponent } from './shared/game-detail/game-detail.component';
 
+import { PokemonuniteComponent } from './game/pokemonunite/pokemonunite.component';
+import { SevenknightsrebirthComponent } from './game/sevenknightsrebirth/sevenknightsrebirth.component';
+import { HonkaistarrailComponent } from './game/honkaistarrail/honkaistarrail.component';
+import { MarvelrivalsComponent } from './game/marvelrivals/marvelrivals.component';
+import { Pathofexile2Component } from './game/pathofexile2/pathofexile2.component';
+import { DeltaforcesteampcComponent } from './game/deltaforcesteampc/deltaforcesteampc.component';
+import { WildriftComponent } from './game/wildrift/wildrift.component';
+import { ArenaBreakoutComponent } from './game/arena-breakout/arena-breakout.component';
+import { WutheringwaveComponent } from './game/wutheringwave/wutheringwave.component';
+import { GenshinImpactComponent } from './game/genshin-impact/genshin-impact.component';
+import { ZenlessZeroZoneComponent } from './game/zenless-zero-zone/zenless-zero-zone.component';
+import { TeamfightTacticComponent } from './game/teamfight-tactic/teamfight-tactic.component';
+import { Lol2xkoComponent } from './game/lol2xko/lol2xko.component';
 
+// ⬇⬇⬇ ใหม่ ต้อง import
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderNavbarComponent,
-    FooterNavbarComponent,
     HomeComponent,
     AddGameComponent,
     AddGameDetailComponent,
@@ -33,18 +50,33 @@ import { GameDetailComponent } from './shared/game-detail/game-detail.component'
     PaymentComponent,
     LoginComponent,
     GameDetailComponent,
-
+    PokemonuniteComponent,
+    SevenknightsrebirthComponent,
+    HonkaistarrailComponent,
+    MarvelrivalsComponent,
+    Pathofexile2Component,
+    DeltaforcesteampcComponent,
+    WildriftComponent,
+    ArenaBreakoutComponent,
+    WutheringwaveComponent,
+    GenshinImpactComponent,
+    ZenlessZeroZoneComponent,
+    TeamfightTacticComponent,
+    Lol2xkoComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,       // ✅ เพิ่ม
+    RouterModule,       // ✅ เพิ่ม
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
+
+    HeaderNavbarComponent, // ✅ standalone
+    FooterNavbarComponent, // ✅ standalone
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}

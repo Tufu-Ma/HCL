@@ -1,0 +1,185 @@
+<app-header-navbar></app-header-navbar>
+
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-banner">
+      <img src="https://scontent.fbkk29-1.fna.fbcdn.net/v/t39.30808-6/337101723_1894062257625073_7666937357227559213_n.png?stp=dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=5ZRTaNkI1CsQ7kNvwEi6rkW&_nc_oc=AdnWe-gxiBVsIbLsM4fIGCEizNRq-b9iUslwuUhTZFvSeW4waaf1GfoI_keB0a4Z1pNoCjNKygeA937Q0eQCCd-k&_nc_zt=23&_nc_ht=scontent.fbkk29-1.fna&_nc_gid=37zp54hG5nGvbUDxGon-MQ&oh=00_AfcWVZWl910oFu-BqLQBtFp23Q3g1OASL14Xb63qu12FHA&oe=69063E03" alt="Wuthering Waves Banner">
+    </div>
+    <div class="game-info">
+      <h1>WUTHERING WAVES</h1>
+      <p class="game-description">เติมเกม Wuthering Waves ด้วย UID ผู้เล่น เพื่อซื้อเพชรและไอเทม</p>
+    </div>
+  </div>
+
+  <div class="topup-section">
+    <div class="topup-card">
+      <h2>เติมเกม Wuthering Waves</h2>
+
+      <div class="input-group">
+        <label for="uid">UID ผู้เล่น</label>
+        <input id="uid" type="text" [(ngModel)]="uid" (input)="validateUid()" placeholder="กรอก UID (ตัวเลข 6–20 หลัก)">
+        <span class="error-message" *ngIf="!isValidUid && uid">รูปแบบ UID ไม่ถูกต้อง (ต้องเป็นตัวเลข 6–20 หลัก)</span>
+        <button class="clear-btn" type="button" (click)="saveUid()" [disabled]="!isValidUid" style="margin-top:8px">บันทึกไว้ใช้ครั้งหน้า</button>
+      </div>
+
+      <div class="input-group">
+        <label for="server">Wuthering Waves Server</label>
+        <select id="server" [(ngModel)]="server">
+          <option value="Sea">Sea</option>
+          <option value="Asia">Asia</option>
+          <option value="America">America</option>
+          <option value="Europe">Europe</option>
+          <option value="HMT">HMT (HK,MO,TW)</option>
+        </select>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card" *ngFor="let p of products">
+          <div class="vp">{{ p.value }}</div>
+          <div class="price">{{ p.amount | number }} บาท</div>
+          <button class="add-btn" (click)="addToCart(p)">เพิ่มลงตะกร้า</button>
+        </div>
+      </div>
+
+      <div class="instruction-card" style="margin-top:16px">
+        <h2>วิธีการเติมเกม</h2>
+        <div class="guide-media" *ngIf="guideImage">
+          <img class="guide-image" [src]="guideImage" alt="Wuthering Guide" (click)="openLightbox()" title="คลิกเพื่อขยาย" />
+        </div>
+        <ol>
+          <li>กรอก UID และเลือก Server ให้ถูกต้อง</li>
+          <li>เลือกแพ็คที่ต้องการแล้วกดเพิ่มลงตะกร้า</li>
+          <li>ไปที่ตะกร้าด้านขวา เลือกช่องทางชำระเงิน</li>
+          <li>กดยืนยันการสั่งซื้อและชำระเงิน</li>
+        </ol>
+        <div class="note">แนะนำ: ตรวจสอบ UID/Server จากโปรไฟล์ในเกมก่อนทำรายการ</div>
+      </div>
+    </div>
+
+    <div class="instruction-card cart-card" [ngSwitch]="step">
+      <!-- Step: Cart -->
+      <ng-container *ngSwitchCase="'cart'">
+        <div class="cart-header">
+          <h2>ตะกร้าสินค้า</h2>
+          <button class="link-clear" *ngIf="cart.length" (click)="clearCart()">ล้าง</button>
+        </div>
+        <ng-container *ngIf="cart.length; else emptyCart">
+          <div class="cart-items">
+            <div class="cart-item" *ngFor="let it of cart">
+              <div class="chip">{{ unit }}</div>
+              <div class="info">
+                <div class="name">{{ it.value }}</div>
+                <div class="unit">{{ it.amount | number }} บาท</div>
+              </div>
+              <div class="qty">
+                <button class="step" (click)="dec(it)">−</button>
+                <span class="count">{{ it.qty }}</span>
+                <button class="step" (click)="inc(it)">＋</button>
+              </div>
+              <div class="line">{{ (it.qty * it.amount) | number }} บาท</div>
+              <button class="remove" (click)="remove(it)">×</button>
+            </div>
+          </div>
+          <div class="cart-summary">
+            <div class="row"><div class="k">รวม ({{ totalQty }} รายการ)</div><div class="v">{{ totalAmount | number }} บาท</div></div>
+          </div>
+          <div class="cart-actions">
+            <button class="clear-btn" (click)="clearCart()">ล้างตะกร้า</button>
+            <button class="confirm-button pretty" [disabled]="!cart.length || !isValidUid" (click)="goToMethod()">ชำระเงิน</button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- Step: Method selection -->
+      <ng-container *ngSwitchCase="'method'">
+        <h2>เลือกวิธีการชำระเงิน</h2>
+        <div class="method-list">
+          <button class="method-item" [class.selected]="selectedPayment==='promptpay'" (click)="choosePayment('promptpay')">
+            <div class="left"><img src="https://download-th.com/wp-content/uploads/2023/02/ThaiQR.jpg" alt="PromptPay"><div class="name">พร้อมเพย์</div></div>
+            <div class="right"><div class="amt">{{ baseAfterDiscount | number:'1.2-2' }} ฿</div><div class="fee">ไม่มีค่าธรรมเนียม</div></div>
+          </button>
+          <button class="method-item" [class.selected]="selectedPayment==='truemoney'" (click)="choosePayment('truemoney')">
+            <div class="left"><img src="https://download-th.com/wp-content/uploads/2021/02/True-money.jpg" alt="TrueMoney"><div class="name">ทรูมันนี่ วอลเลต</div></div>
+            <div class="right"><div class="amt">{{ (baseAfterDiscount + (baseAfterDiscount*0.025)) | number:'1.2-2' }} ฿</div><div class="fee">ค่าธรรมเนียม {{ (baseAfterDiscount*0.025) | number:'1.2-2' }} ฿</div></div>
+          </button>
+        </div>
+        <div class="wizard-actions">
+          <button class="btn ghost" (click)="backToCart()">ย้อนกลับ</button>
+          <button class="btn primary" [disabled]="!selectedPayment" (click)="proceedFromMethod()">ดำเนินการต่อ</button>
+        </div>
+      </ng-container>
+
+      <!-- Step: Summary -->
+      <ng-container *ngSwitchCase="'summary'">
+        <div class="summary-header">
+          <h2>สรุปคำสั่งซื้อ</h2>
+          <img class="method-badge" [src]="selectedPayment==='truemoney' ? 'https://download-th.com/wp-content/uploads/2021/02/True-money.jpg' : 'https://download-th.com/wp-content/uploads/2023/02/ThaiQR.jpg'" alt="method" />
+        </div>
+        <div class="summary-items">
+          <div class="summary-item" *ngFor="let it of cart">
+            <div class="left">WW {{ it.value }} × {{ it.qty }}</div>
+            <div class="right">{{ (it.qty * it.amount) | number:'1.0-0' }} ฿</div>
+          </div>
+        </div>
+
+        <div class="coupon-card">
+          <div class="coupon-row">
+            <input class="coupon-input" type="text" [(ngModel)]="couponCode" placeholder="กรอกโค้ดส่วนลด เช่น HCI400" (keyup.enter)="applyCoupon()">
+            <button class="btn apply" (click)="applyCoupon()">ใช้โค้ด</button>
+          </div>
+          <div class="coupon-state">
+            <span class="applied" *ngIf="couponApplied">ใช้แล้ว: HCI400 (ลด 10%)</span>
+            <span class="error" *ngIf="!couponApplied && couponError">{{ couponError }}</span>
+            <button *ngIf="couponApplied" class="link-clear" (click)="clearCoupon()">ลบโค้ด</button>
+          </div>
+        </div>
+
+        <div class="summary-lines">
+          <div class="row"><div class="k">รวม</div><div class="v">{{ totalAmount | number:'1.0-0' }} ฿</div></div>
+          <div class="row" *ngIf="discountAmount > 0"><div class="k">ส่วนลด</div><div class="v" style="color:#16a34a;">-{{ discountAmount | number:'1.2-2' }} ฿</div></div>
+          <div class="row"><div class="k">ค่าธรรมเนียม</div><div class="v">{{ fee | number:'1.2-2' }} ฿</div></div>
+          <div class="row total"><div class="k">ยอดชำระ</div><div class="v">{{ grandTotal | number:'1.2-2' }} ฿</div></div>
+        </div>
+        <label class="terms"><input type="checkbox" [(ngModel)]="acceptTerms"> ยืนยันรายการในตะกร้าและยอมรับเงื่อนไข</label>
+        <div class="wizard-actions">
+          <button class="btn ghost" (click)="backToMethod()">ย้อนกลับ</button>
+          <button class="btn primary" [disabled]="!acceptTerms" (click)="proceedToPay()">ดำเนินการต่อ</button>
+        </div>
+      </ng-container>
+
+      <!-- Step: Pay -->
+      <ng-container *ngSwitchCase="'pay'">
+        <h2>ชำระเงิน</h2>
+        <div class="pay-block" *ngIf="selectedPayment==='promptpay'">
+          <img class="zoomable" (click)="openLightbox()" src="https://scontent.fbkk29-1.fna.fbcdn.net/v/t1.15752-9/566538890_1130417712554071_1302665028930504060_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=XnLa62aA9CAQ7kNvwEEBiS3&_nc_oc=AdlxmdjWQ7W7K5CMMYEWZ-f2lmEXrAS10zf-FtDQC4IZXKD0FKNQ58QSZflA99nYq3nXHQXSQvPLk-fGOrYa-GTr&_nc_zt=23&_nc_ht=scontent.fbkk29-1.fna&oh=03_Q7cD3gGz-UDa2joAwcyiTBLY-9ivZAuNOsSMeKFzjE8-NK8bQg&oe=692856EE" alt="PromptPay QR">
+          <div class="pay-amt">ยอดชำระ {{ grandTotal | number:'1.2-2' }} ฿</div>
+          <button class="btn primary wide" [disabled]="isPaying || isPaid" (click)="confirmPay()">{{ isPaid ? 'ชำระเงินแล้ว' : (isPaying ? 'กำลังยืนยัน...' : 'ยืนยันการชำระเงิน') }}</button>
+          <button class="btn ghost" (click)="backToMethod()">ย้อนกลับ</button>
+        </div>
+        <div class="pay-block" *ngIf="selectedPayment==='truemoney'">
+          <div class="tm-phone">โอน TrueMoney Wallet ไปที่ <strong>{{ truemoneyPhone }}</strong></div>
+          <label class="slip-upload"><input type="file" accept="image/*" (change)="onSlipSelected($event)"> อัปโหลดรูปสลิปทรูมันนี่</label>
+          <img *ngIf="truemoneySlipData" [src]="truemoneySlipData" class="slip-preview zoomable" alt="สลิปทรูมันนี่">
+          <div class="pay-amt">ยอดชำระ {{ grandTotal | number:'1.2-2' }} ฿</div>
+          <button class="btn primary wide" [disabled]="isPaying || isPaid || !truemoneySlipData" (click)="confirmPay()">{{ isPaid ? 'ชำระเงินแล้ว' : (isPaying ? 'กำลังยืนยัน...' : 'ยืนยันการชำระเงิน') }}</button>
+          <button class="btn ghost" (click)="backToMethod()">ย้อนกลับ</button>
+        </div>
+      </ng-container>
+
+      <ng-template #emptyCart>
+        <div class="empty">ยังไม่มีสินค้าในตะกร้า</div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox for guide image -->
+<div class="lightbox" *ngIf="isLightboxOpen" (click)="closeLightbox()">
+  <div class="lightbox-content" (click)="$event.stopPropagation()">
+    <button class="lightbox-close" (click)="closeLightbox()" aria-label="ปิดภาพ">×</button>
+    <img [src]="guideImage" alt="Wuthering Guide" />
+  </div>
+  <div class="lightbox-backdrop" (click)="closeLightbox()"></div>
+</div>
+
+<app-footer-navbar></app-footer-navbar>
