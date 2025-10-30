@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-zenless-zero-zone',
@@ -9,7 +9,11 @@ import { Location } from '@angular/common';
   styleUrl: './zenless-zero-zone.component.css'
 })
 export class ZenlessZeroZoneComponent implements OnInit {
-  constructor(private router: Router, private location: Location) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
   uid = '';
   isValidUid = false;
   server: 'Asia' | 'America' | 'Europe' | 'HMT' = 'Asia';
@@ -122,7 +126,7 @@ export class ZenlessZeroZoneComponent implements OnInit {
   }
 
   goBack(): void {
-    if (window.history.length > 1) {
+    if (isPlatformBrowser(this.platformId) && window.history.length > 1) {
       this.location.back();
     } else {
       this.router.navigate(['/termgame']);

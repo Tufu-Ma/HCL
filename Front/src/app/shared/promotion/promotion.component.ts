@@ -1,48 +1,22 @@
-import { Component, OnInit, Inject, PLATFORM_ID, afterNextRender } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface Promotion {
-  id: number;
-  title: string;
-  subtitle: string;
-  imageUrl: string;
-  discount: string;
-  price: string;
-  originalPrice: string;
-  bonusItems: string[];
-  features: string[];
-}
 
 @Component({
   selector: 'app-promotion',
   standalone: false,
   templateUrl: './promotion.component.html',
-  styleUrls: ['./promotion.component.css'] // <- แก้จาก styleUrl เป็น styleUrls
+  styleUrl: './promotion.component.css'
 })
 export class PromotionComponent implements OnInit {
 
-  constructor(
-    private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    // ถ้าต้องการเลื่อนหลัง DOM render เสร็จ (ปลอดภัยกว่า)
-    afterNextRender(() => {
-      if (isPlatformBrowser(this.platformId)) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // กันไว้กรณีคุณอยากเลื่อนตอน init (ไม่จำเป็นถ้ามี afterNextRender ข้างบนแล้ว)
-    if (isPlatformBrowser(this.platformId)) {
-      // window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // เลื่อนไปบนสุดเมื่อโหลดหน้า
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
   // ข้อมูลโปรโมชั่นเกมยอดฮิตตามที่เลือก
-  promotions: Promotion[] = [
+  promotions = [
     {
       id: 1,
       title: 'โปรโมชั่น Valorant',
@@ -286,20 +260,21 @@ export class PromotionComponent implements OnInit {
   ];
 
   // เมธอดสำหรับ trackBy ใน ngFor
-  trackById(index: number, promotion: Promotion): number {
+  trackById(index: number, promotion: any): number {
     return promotion.id;
   }
 
   // เมธอดสำหรับการเลือกโปรโมชั่น
-  selectPromotion(promotion: Promotion): void {
+  selectPromotion(promotion: any): void {
     console.log('เลือกโปรโมชั่น:', promotion.title);
+    // Navigate ไปยังหน้า promotion-detail พร้อมส่ง id (Router จะเลื่อนไปบนสุดเองแล้ว)
     this.router.navigate(['/promotion-detail', promotion.id]);
   }
 
   // เมธอดสำหรับคำนวณเงินที่ประหยัดได้
   calculateSavings(originalPrice: string, currentPrice: string): number {
-    const original = parseInt(originalPrice.replace(/[^0-9]/g, ''), 10);
-    const current = parseInt(currentPrice.replace(/[^0-9]/g, ''), 10);
+    const original = parseInt(originalPrice.replace(/[^0-9]/g, ''));
+    const current = parseInt(currentPrice.replace(/[^0-9]/g, ''));
     return original - current;
   }
 }

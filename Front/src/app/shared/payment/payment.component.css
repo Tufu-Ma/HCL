@@ -710,6 +710,211 @@
   }
 }
 
+/* ===========================================
+   QR Code Section
+   =========================================== */
+.qr-section {
+  margin: 30px 0;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.9));
+  border-radius: 20px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.qr-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.qr-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  border: 3px solid #e5e7eb;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+.qr-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.payment-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #dc2626;
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(220, 38, 38, 0.2);
+  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.1);
+}
+
+.payment-note {
+  margin-top: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 12px;
+  border-left: 4px solid #f59e0b;
+}
+
+.payment-note p {
+  margin: 0;
+  color: #92400e;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.payment-note i {
+  margin-right: 8px;
+  color: #f59e0b;
+}
+
+/* ===========================================
+   Success Message
+   =========================================== */
+.success-message {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border-radius: 20px;
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  margin: 30px 0;
+  animation: fadeInSuccess 0.6s ease-out;
+  box-shadow: 
+    0 10px 40px rgba(34, 197, 94, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 0.8s ease-out;
+}
+
+.success-message h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #15803d;
+  margin-bottom: 15px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.order-id {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  display: inline-block;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.success-message p {
+  font-size: 1rem;
+  color: #374151;
+  margin: 0;
+}
+
+/* ===========================================
+   Button States
+   =========================================== */
+.btn-pay:disabled {
+  background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+  color: #e5e7eb !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.btn-pay:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-pay.loading {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+  cursor: wait;
+}
+
+.btn-pay.loading .btn-text {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.btn-pay.success {
+  background: linear-gradient(135deg, #10b981, #047857) !important;
+  cursor: default;
+}
+
+/* ===========================================
+   Animations
+   =========================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSuccess {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -15px, 0);
+  }
+  70% {
+    transform: translate3d(0, -7px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 
 
 /* ===========================================
@@ -743,5 +948,39 @@
   .btn-pay {
     font-size: 1rem;
     padding: 12px 20px;
+  }
+
+  /* QR Section Mobile */
+  .qr-section {
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .qr-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .qr-title {
+    font-size: 1.1rem;
+  }
+
+  .payment-amount {
+    font-size: 1.3rem;
+    padding: 8px 16px;
+  }
+
+  /* Success Message Mobile */
+  .success-message {
+    padding: 30px 15px;
+    margin: 20px 0;
+  }
+
+  .success-icon {
+    font-size: 3rem;
+  }
+
+  .success-message h3 {
+    font-size: 1.5rem;
   }
 }

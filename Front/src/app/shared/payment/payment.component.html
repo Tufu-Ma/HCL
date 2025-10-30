@@ -63,40 +63,48 @@
                 <div class="payment-method-item">
                   <input 
                     type="radio" 
-                    id="credit-card" 
-                    value="credit-card"
+                    id="promptpay" 
+                    value="promptpay"
                     [(ngModel)]="paymentData.paymentMethod"
                     name="paymentMethod">
-                  <label for="credit-card">
+                  <label for="promptpay">
                     <span class="payment-icon">💳</span>
-                    บัตรเครดิต/เดบิต
+                    PromptPay
                   </label>
                 </div>
                 <div class="payment-method-item">
                   <input 
                     type="radio" 
-                    id="bank-transfer" 
-                    value="bank-transfer"
+                    id="truemoney" 
+                    value="truemoney"
                     [(ngModel)]="paymentData.paymentMethod"
                     name="paymentMethod">
-                  <label for="bank-transfer">
-                    <span class="payment-icon">🏦</span>
-                    โอนเงินผ่านธนาคาร
-                  </label>
-                </div>
-                <div class="payment-method-item">
-                  <input 
-                    type="radio" 
-                    id="e-wallet" 
-                    value="e-wallet"
-                    [(ngModel)]="paymentData.paymentMethod"
-                    name="paymentMethod">
-                  <label for="e-wallet">
+                  <label for="truemoney">
                     <span class="payment-icon">📱</span>
-                    E-Wallet (TrueMoney, PromptPay)
+                    TrueMoney
                   </label>
                 </div>
               </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="qr-section" *ngIf="paymentData.paymentMethod && !isPaid">
+              <h4 class="qr-title">สแกน QR Code เพื่อชำระเงิน</h4>
+              <div class="qr-container">
+                <img [src]="paymentImage" [alt]="methodLabel + ' QR Code'" class="qr-image">
+                <div class="payment-amount">{{ selectedPromotion?.price }}</div>
+              </div>
+              <div class="payment-note">
+                <p><i class="fas fa-info-circle"></i> การประมวลผลการชำระเงินจะใช้เวลาประมาณ 1-2 นาที</p>
+              </div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" *ngIf="isPaid">
+              <div class="success-icon">✅</div>
+              <h3>ชำระเงินสำเร็จ!</h3>
+              <div class="order-id">รหัสคำสั่งซื้อ: {{ orderId }}</div>
+              <p>ขอบคุณที่ใช้บริการ 🙏🏻</p>
             </div>
 
             <!-- ปุ่มดำเนินการ -->
@@ -105,8 +113,16 @@
                 <span class="btn-icon">←</span>
                 <span>กลับไปเลือกโปรโมชั่น</span>
               </button>
-              <button type="submit" class="btn-pay">
-                <span class="btn-text">ยืนยันการสั่งซื้อ</span>
+              <button 
+                type="button" 
+                class="btn-pay" 
+                (click)="onPayment()"
+                [disabled]="!paymentData.paymentMethod || isPaying || isPaid"
+                [class.loading]="isPaying"
+                [class.success]="isPaid">
+                <span class="btn-text" *ngIf="!isPaying && !isPaid">ยืนยันการสั่งซื้อ</span>
+                <span class="btn-text" *ngIf="isPaying">กำลังประมวลผล...</span>
+                <span class="btn-text" *ngIf="isPaid">ชำระเงินสำเร็จ</span>
                 <span class="btn-shine"></span>
                 <div class="btn-glow"></div>
               </button>
